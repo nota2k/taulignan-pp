@@ -299,49 +299,63 @@
     }
 
     .grid-wedding{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 3em;
+
         .flower{
-            grid-column: 1 / span 4;
-            grid-row: 1 / span 2;
+            grid-column: 2/span 1;
+            grid-row: 1/span 1;
             justify-self: flex-end;
-            width: fit-content;
+            width: -moz-fit-content;
+            width: 100%;
         }
 
         .block-title{
-            grid-column: 5 / span 3;
-            grid-row: 1 / span 1;
+            grid-column: 3/span 3;
+            grid-row: 1/span 1;
+            height: -moz-fit-content;
             height: fit-content;
-            align-self: center;
+            align-self: flex-end;
         }
 
         .bloc-txt{
-            grid-column: 5 / span 3;
-            grid-row: 3 / span 1;
+            grid-column: 4/span 2;
+            grid-row: 2/span 1;
         }
 
         .img{
-            grid-column: 1 / span 4;
-            grid-row: 2 / span 3;
+            grid-row: 2/span 2;
+            grid-column: 2 / span 2;
+            grid-row: 2 / span 1;
+
         }
 
         @include max-width('md') {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+
+            
             .flower{
                 grid-column: 1 / span 1;
-                grid-row: 1 / span 1;
+                grid-row-start: 1;     
+                max-width: 50%;
+                justify-self: center;      
             }
 
             .block-title{
                 grid-column: 1 / -1;
-                grid-row: 1 / span 1;
-            }
+                grid-row-start: 1;             
+                }
 
             .bloc-txt{
-                grid-column: 3 / span 3;
-                grid-row: 2 / span 1;
-            }
+                grid-column: 1 / span 1;
+                grid-row: inherit;            
+                }
 
             .img{
-                grid-column: 1 / span 2;
-                grid-row: 2 / span 2;
+                grid-column: 1 / span 1;
+                grid-row: inherit;            
             }
         }
 
@@ -359,9 +373,10 @@
         mix-blend-mode: exclusion;
 
         img{
-            min-width: 350px;
-            max-width: 585px;
-            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            width: 100%!important;
+            height: auto!important;
         }
         
     }
