@@ -3,6 +3,9 @@
 /**
  * Script pour créer automatiquement des attributs WooCommerce par mois
  * Version corrigée avec gestion d'erreurs améliorée
+ * 
+ * Format des dates : Les variations enregistrent uniquement la date du SAMEDI
+ * au format dd/MM/YYYY (ex: 14/10/2025) pour faciliter les comparaisons
  */
 
 // Configuration
@@ -179,36 +182,39 @@ function generate_weekends_by_month($end_month, $year)
         $date->modify('+1 day');
     }
 
-    while ($date <= $end_date) {
-        $friday = clone $date;
-        $sunday = clone $date;
-        $sunday->modify('+2 days');
+	while ($date <= $end_date) {
+		$friday = clone $date;
+		$saturday = clone $date;
+		$saturday->modify('+1 day'); // Samedi = Vendredi + 1 jour
+		$sunday = clone $date;
+		$sunday->modify('+2 days');
 
-        // Récupérer le mois du vendredi
-        $month_num = (int)$friday->format('n');
-        $month_name = $mois[$month_num];
-        $month_year = $friday->format('Y');
-        $month_key = strtolower($month_name) . '-' . $month_year;
+		// Récupérer le mois du samedi pour le groupement
+		$month_num = (int)$saturday->format('n');
+		$month_name = $mois[$month_num];
+		$month_year = $saturday->format('Y');
+		$month_key = strtolower($month_name) . '-' . $month_year;
 
-        // Initialiser le tableau pour ce mois si nécessaire
-        if (!isset($weekends_by_month[$month_key])) {
-            $weekends_by_month[$month_key] = array(
-                'month_name' => $month_name,
-                'month_year' => $month_year,
-                'weekends' => array()
-            );
-        }
+		// Initialiser le tableau pour ce mois si nécessaire
+		if (!isset($weekends_by_month[$month_key])) {
+			$weekends_by_month[$month_key] = array(
+				'month_name' => $month_name,
+				'month_year' => $month_year,
+				'weekends' => array()
+			);
+		}
 
-        // Ajouter le weekend
-        $weekends_by_month[$month_key]['weekends'][] = array(
-            'start' => $friday->format('Y-m-d'),
-            'end' => $sunday->format('Y-m-d'),
-            'label' => $friday->format('d') . ' - ' . $sunday->format('d') . ' ' . $month_name
-        );
+		// Ajouter le weekend avec uniquement la date du SAMEDI au format dd/MM/YYYY
+		$weekends_by_month[$month_key]['weekends'][] = array(
+			'start' => $friday->format('Y-m-d'),
+			'saturday' => $saturday->format('Y-m-d'),
+			'end' => $sunday->format('Y-m-d'),
+			'label' => $saturday->format('d/m/Y') // Format: 14/10/2025 (samedi)
+		);
 
-        // Passer au vendredi suivant
-        $date->modify('+7 days');
-    }
+		// Passer au vendredi suivant
+		$date->modify('+7 days');
+	}
 
     return $weekends_by_month;
 }

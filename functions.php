@@ -34,6 +34,7 @@ function app_init()
     require_once APP_THEME_DIR . '/inc/template-functions.php';
     require_once APP_THEME_DIR . '/inc/template-tags.php';
     // require_once APP_THEME_DIR . '/inc/automatic-dates.php';
+    // require_once APP_THEME_DIR . '/inc/add-june-2025-dates.php';
 }
 
 
