@@ -206,7 +206,7 @@
 				},
 				{
 					"name": "Moyen",
-					"size": "clamp(30px, 5vw, 80px)",
+					"size": "clamp(10px, 4vw, 80px)",
 					"slug": "medium"
 				},
 				{
@@ -240,37 +240,37 @@
 							"fontFamily": "\"Bellota Text\"",
 							"fontStyle": "normal",
 							"fontWeight": "300",
-							"src": "https://chateaudetaulignan.local/wp-content/uploads/fonts/0FlMVP2VnlWS4f3-UE9hHXM5VfsqeAXwQy6yxg.woff2"
+							"src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlMVP2VnlWS4f3-UE9hHXM5VfsqeAXwQy6yxg.woff2"
 						},
 						{
 							"fontFamily": "\"Bellota Text\"",
 							"fontStyle": "normal",
 							"fontWeight": "400",
-							"src": "https://chateaudetaulignan.local/wp-content/uploads/fonts/0FlTVP2VnlWS4f3-UE9hHXMB_NMOdS7sSg.woff2"
+							"src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlTVP2VnlWS4f3-UE9hHXMB_NMOdS7sSg.woff2"
 						},
 						{
 							"fontFamily": "\"Bellota Text\"",
 							"fontStyle": "normal",
 							"fontWeight": "700",
-							"src": "https://chateaudetaulignan.local/wp-content/uploads/fonts/0FlMVP2VnlWS4f3-UE9hHXM5RfwqeAXwQy6yxg.woff2"
+							"src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlMVP2VnlWS4f3-UE9hHXM5RfwqeAXwQy6yxg.woff2"
 						},
 						{
 							"fontFamily": "\"Bellota Text\"",
 							"fontStyle": "italic",
 							"fontWeight": "300",
-							"src": "https://chateaudetaulignan.local/wp-content/uploads/fonts/0FlOVP2VnlWS4f3-UE9hHXMx-Gmfw_xYSuixmYK.woff2"
+							"src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlOVP2VnlWS4f3-UE9hHXMx-Gmfw_xYSuixmYK.woff2"
 						},
 						{
 							"fontFamily": "\"Bellota Text\"",
 							"fontStyle": "italic",
 							"fontWeight": "400",
-							"src": "https://chateaudetaulignan.local/wp-content/uploads/fonts/0FlNVP2VnlWS4f3-UE9hHXMx-9kPVyv8Sjer.woff2"
+							"src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlNVP2VnlWS4f3-UE9hHXMx-9kPVyv8Sjer.woff2"
 						},
 						{
 							"fontFamily": "\"Bellota Text\"",
 							"fontStyle": "italic",
 							"fontWeight": "700",
-							"src": "https://chateaudetaulignan.local/wp-content/uploads/fonts/0FlOVP2VnlWS4f3-UE9hHXMx-G2eA_xYSuixmYK.woff2"
+							"src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlOVP2VnlWS4f3-UE9hHXMx-G2eA_xYSuixmYK.woff2"
 						}
 					],
 					"fontFamily": "\"Bellota Text\", system-ui",

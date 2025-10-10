@@ -5,6 +5,11 @@
    ============================================================================ */
 
 // Template de la page d'accueil
+.content-block{
+    position: relative;
+    z-index: 10;
+}
+
 .home {
     section {
         height: 100%;
@@ -19,9 +24,16 @@
             padding: 4em 1em;
         }
 
+        .title-block{
+                z-index: 10;
+
+            }
+
         .title-block-wrapper {
             overflow-y: hidden;
             box-sizing: border-box;
+
+            
 
             h1 {
                 display: block;
@@ -284,6 +296,74 @@
         width: 30%;
         background-color: var(--beige);
         margin: 0 0 2em;
+    }
+
+    .grid-wedding{
+        .flower{
+            grid-column: 1 / span 4;
+            grid-row: 1 / span 2;
+            justify-self: flex-end;
+            width: fit-content;
+        }
+
+        .block-title{
+            grid-column: 5 / span 3;
+            grid-row: 1 / span 1;
+            height: fit-content;
+            align-self: center;
+        }
+
+        .bloc-txt{
+            grid-column: 5 / span 3;
+            grid-row: 3 / span 1;
+        }
+
+        .img{
+            grid-column: 1 / span 4;
+            grid-row: 2 / span 3;
+        }
+
+        @include max-width('md') {
+            .flower{
+                grid-column: 1 / span 1;
+                grid-row: 1 / span 1;
+            }
+
+            .block-title{
+                grid-column: 1 / -1;
+                grid-row: 1 / span 1;
+            }
+
+            .bloc-txt{
+                grid-column: 3 / span 3;
+                grid-row: 2 / span 1;
+            }
+
+            .img{
+                grid-column: 1 / span 2;
+                grid-row: 2 / span 2;
+            }
+        }
+
+        @include max-width('sm') {
+            grid-template-columns: 1fr;
+
+            > *{
+                grid-column: 1 / -1;
+            }
+        }
+    }
+
+    .flower{
+        transform:rotate(16deg);
+        mix-blend-mode: exclusion;
+
+        img{
+            min-width: 350px;
+            max-width: 585px;
+            width: 100%;
+        }
+        
     }
 }
 

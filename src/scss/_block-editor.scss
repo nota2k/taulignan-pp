@@ -1,18 +1,43 @@
 @use 'generic/variables' as *;
 @use 'generic/mixins' as *;
 @use 'breakpoints' as *;
-@use 'fonts' as *;
-@use 'layout' as *;
-@use 'header' as *;
-@use 'footer' as *;
-@use 'carousel' as *;
-@use 'gallery' as *;
-@use 'medias' as *;
-@use 'nav' as *;
-@use 'loading' as *;
-@use 'pages/home' as *;
-@use 'buttons' as *;
+@use 'fonts';
+@use 'layout';
+@use 'header';
+@use 'footer';
+@use 'carousel';
+@use 'gallery';
+@use 'medias';
+@use 'buttons';
+@use 'nav';
+@use 'loading';
+@use 'components/card-event';
+@use 'pages/home';
 
 /* ============================================================================
    STYLES POUR L'ÉDITEUR DE BLOCS WORDPRESS
    ============================================================================ */
+
+// Ajustements spécifiques à l'éditeur
+.editor-styles-wrapper {
+  .title-block-wrapper h1 {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+  }
+  
+  .absolute {
+    position: absolute;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+  }
+  
+  // Responsive dans l'éditeur
+  @media (max-width: 768px) {
+    .wp-block-columns {
+      flex-direction: column;
+      gap: 1em;
+    }
+  }
+}
