@@ -1,0 +1,340 @@
+/* ============================================================================
+   RESPONSIVITÉ NATIVE WORDPRESS FSE
+   ============================================================================ */
+
+/* 
+   Breakpoints WordPress FSE natifs :
+   - Mobile : < 600px
+   - Tablet : 600px - 960px  
+   - Desktop : > 960px
+   
+   Variables CSS natives disponibles :
+   - --wp--preset--spacing--30, --wp--preset--spacing--40, etc.
+   - --wp--preset--font-size--small, --wp--preset--font-size--medium, etc.
+   - --wp--custom--layout--content-size
+   - --wp--custom--layout--wide-size
+*/
+
+/* ============================================================================
+   MOBILE FIRST - STYLES DE BASE (jusqu'à 600px)
+   ============================================================================ */
+
+/* Conteneur principal */
+/* .wp-block-template-part,
+.wp-block-group,
+.wp-block-columns {
+    padding: var(--wp--preset--spacing--30, 1rem);
+    margin: 0;
+} */
+
+/* Typographie responsive */
+.wp-block-heading h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.1;
+}
+
+.wp-block-heading h2 {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    line-height: 1.2;
+}
+
+.wp-block-heading h3 {
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    line-height: 1.3;
+}
+
+/* Images responsive */
+.wp-block-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Colonnes - Stack sur mobile */
+.wp-block-columns {
+    flex-direction: column;
+    /* gap: var(--wp--preset--spacing--40, 1.5rem); */
+}
+
+.wp-block-column {
+    flex: 1;
+    min-width: 100%;
+}
+
+/* .wp-block-buttons{
+    width: 100%;
+    max-width: 300px;
+}
+
+.wp-block-button a.wp-block-button__link,
+.wp-block-buttons .wp-block-button a,
+.wp-block-buttons .wp-block-button a.wp-block-button__link{
+    width: 100%;
+    max-width: 300px;
+    padding: var(--wp--preset--spacing--30, 1rem) var(--wp--preset--spacing--40, 1.5rem);
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+}
+
+.wp-block-buttons.alignwide{
+    max-width: 100%;
+}
+
+.wp-block-buttons.alignwide .wp-block-button{
+    width: 100%;
+} */
+
+/* Boutons responsive */
+
+@media screen and (max-width: 600px) {
+    .wp-block-buttons,
+    .wp-block-buttons .wp-block-button a.wp-block-button__link,
+    .wp-block-buttons .wp-block-button a,
+    .wp-block-buttons .wp-block-button a.wp-block-button__link{
+        max-width: 100%;
+    }
+}
+
+/* ============================================================================
+   TABLET (600px - 960px)
+   ============================================================================ */
+
+@media (min-width: 600px) {
+    /* Conteneur principal */
+    /* .wp-block-template-part,
+    .wp-block-group {
+        padding: var(--wp--preset--spacing--40, 1.5rem);
+    } */
+    
+    /* Colonnes - 2 colonnes sur tablet */
+    .wp-block-columns {
+        flex-direction: row;
+        /* gap: var(--wp--preset--spacing--50, 2rem); */
+    }
+    
+    .wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column {
+        flex-basis: 50%;
+        min-width: 0;
+    }
+    
+    /* Boutons - Largeur auto sur tablet */
+    .wp-block-button a.wp-block-button__link {
+        width: auto;
+    }
+    
+    /* Grilles d'images */
+    .wp-block-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--wp--preset--spacing--40, 1.5rem);
+    }
+
+    /* .wp-block-buttons.alignwide{
+        max-width: inherit;
+    }
+
+    .wp-block-buttons.alignwide .wp-block-button{
+        width: inherit;
+    } */
+}
+
+/* ============================================================================
+   DESKTOP (960px et plus)
+   ============================================================================ */
+
+@media (min-width: 960px) {
+    /* Conteneur principal */
+    /* .wp-block-template-part,
+    .wp-block-group {
+        padding: var(--wp--preset--spacing--50, 2rem);
+    } */
+    
+    /* Colonnes - 3+ colonnes sur desktop */
+    .wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column {
+        flex-basis: 0;
+        min-width: 0;
+    }
+    
+    /* Grilles d'images */
+    .wp-block-gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--wp--preset--spacing--50, 2rem);
+    }
+    
+    /* Navigation */
+    .wp-block-navigation {
+        flex-direction: row;
+    }
+    
+    .wp-block-navigation .wp-block-navigation-item {
+        margin: 0 var(--wp--preset--spacing--30, 1rem);
+    }
+}
+
+/* ============================================================================
+   LARGE DESKTOP (1200px et plus)
+   ============================================================================ */
+
+@media (min-width: 1200px) {
+    /* Utilisation de la largeur de contenu définie dans theme.json */
+    /* .wp-block-template-part,
+    .wp-block-group:not(.alignfull, main) {
+        max-width: var(--wp--custom--layout--content-size, 1200px);
+        margin: 0 auto;
+    } */
+
+    .wp-block-group.alignfull {
+        max-width: 100%;
+        margin: 0;
+    }
+    
+    /* Largeur étendue pour certains blocs */
+    /* .wp-block-group.alignwide {
+        max-width: var(--wp--custom--layout--wide-size, 1400px);
+    } */
+}
+
+/* ============================================================================
+   STYLES SPÉCIFIQUES AU THÈME TAULIGNAN
+   ============================================================================ */
+
+/* Section séminaires responsive */
+@media (max-width: 768px) {
+    #seminaires .tiles-wrapper {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+    
+    #seminaires .tiles-wrapper .img-wrapper {
+        height: 50vh;
+    }
+    
+    #seminaires .banner {
+        padding: 1em;
+    }
+
+    .absolute{
+        position: relative
+    }
+
+    .floating{
+        display: none;
+    }
+
+    #mariages .img-wrapper{
+        min-height: 90vh;
+        top: 0;
+        left: 0;
+        max-width: 100%;
+    }
+
+    .is-style-left-pos{
+        left: 0;
+    }
+
+    .chambre > div{
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 480px) {
+    #seminaires .tiles-wrapper .img-wrapper {
+        height: 40vh;
+    }
+
+    .wp-block-cover{
+        padding:var(--spacing-md);
+        min-height: 80vh;
+    }
+
+    .is-layout-flex{
+        flex-wrap: wrap;
+    }
+
+    .wp-block-group.is-layout-flex{
+        flex-wrap: wrap;
+    }
+}
+
+/* Navigation responsive */
+@media (max-width: 768px) {
+    .wp-block-navigation {
+        flex-direction: column;
+    }
+    
+    .wp-block-navigation .wp-block-navigation-item {
+        margin: var(--wp--preset--spacing--20, 0.5rem) 0;
+    }
+
+    .wp-block-spacer{
+        display: none;
+    }
+
+    .wp-block-group.is-layout-grid{
+        grid-template-columns: 1fr;
+        grid-auto-rows: min-content;
+        gap: 45px;
+        justify-items: center;
+        padding-left: 25px;
+        padding-right: 25px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    .wp-block-group.is-layout-grid > .wp-block-group{
+        grid-column: span 1;
+    }
+
+    .is-style-2-columns{
+        column-count: 1;
+    }
+
+    .is-style-2-columns::after{
+        display: none;
+    }
+}
+
+/* ============================================================================
+   UTILITAIRES RESPONSIVES
+   ============================================================================ */
+
+/* Masquer/Afficher selon la taille d'écran */
+.hide-mobile {
+    display: none;
+}
+
+@media (min-width: 600px) {
+    .hide-mobile {
+        display: block;
+    }
+    
+    .hide-tablet {
+        display: none;
+    }
+}
+
+@media (min-width: 960px) {
+    .hide-tablet {
+        display: block;
+    }
+    
+    .hide-desktop {
+        display: none;
+    }
+}
+
+/* Espacement responsive */
+.responsive-padding {
+    padding: var(--wp--preset--spacing--30, 1rem);
+}
+
+@media (min-width: 600px) {
+    .responsive-padding {
+        padding: var(--wp--preset--spacing--40, 1.5rem);
+    }
+}
+
+@media (min-width: 960px) {
+    .responsive-padding {
+        padding: var(--wp--preset--spacing--50, 2rem);
+    }
+}

@@ -1,0 +1,27 @@
+@use 'generic/variables' as *;
+@use 'generic/mixins' as *;
+@use 'breakpoints' as *;
+@use 'layout' as *;
+@use 'fonts' as *;
+@use 'header' as *;
+@use 'footer' as *;
+@use 'carousel' as *;
+@use 'gallery' as *;
+@use 'medias' as *;
+@use 'buttons' as *;
+@use 'nav' as *;
+@use 'swiper' as *;
+@use 'block-editor' as *;
+@use 'loading' as *;
+@use 'components/card-event' as *;
+@use 'pages/home' as *;
+@use 'woocommerce/single-product' as *;
+
+
+body {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}

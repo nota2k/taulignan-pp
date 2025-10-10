@@ -1,0 +1,178 @@
+/* ============================================================================
+   VARIABLES CSS PERSONNALISÉES - THÈME TAULIGNAN
+   ============================================================================ */
+
+:root {
+    /* ============================================================================
+       BREAKPOINTS PERSONNALISÉS
+       ============================================================================ */
+    --breakpoint-mobile: 600px;
+    --breakpoint-tablet: 960px;
+    --breakpoint-desktop: 1200px;
+    --breakpoint-large: 1400px;
+    
+    /* ============================================================================
+       ESPACEMENTS RESPONSIVES
+       ============================================================================ */
+    --spacing-xs: clamp(0.5rem, 2vw, 0.75rem);
+    --spacing-sm: clamp(1rem, 3vw, 1.5rem);
+    --spacing-md: clamp(1.5rem, 4vw, 2rem);
+    --spacing-lg: clamp(2rem, 5vw, 3rem);
+    --spacing-xl: clamp(3rem, 6vw, 4rem);
+    --wp--preset--spacing--large: clamp(1rem, 4vw, 6rem);
+    
+    /* ============================================================================
+       TAILLES DE POLICE RESPONSIVES
+       ============================================================================ */
+    --font-size-xs: clamp(0.75rem, 2vw, 0.875rem);
+    --font-size-sm: clamp(0.875rem, 2.5vw, 1rem);
+    --font-size-base: clamp(1rem, 3vw, 1.125rem);
+    --font-size-lg: clamp(1.125rem, 3.5vw, 1.25rem);
+    --font-size-xl: clamp(1.25rem, 4vw, 1.5rem);
+    --font-size-2xl: clamp(1.5rem, 5vw, 2rem);
+    --font-size-3xl: clamp(2rem, 6vw, 3rem);
+    --font-size-4xl: clamp(2.5rem, 8vw, 4rem);
+    --font-size-5xl: clamp(3rem, 10vw, 5rem);
+    
+    /* ============================================================================
+       HAUTEURS RESPONSIVES
+       ============================================================================ */
+    --section-height-mobile: 50vh;
+    --section-height-tablet: 60vh;
+    --section-height-desktop: 70vh;
+    --section-height-large: 80vh;
+    
+    /* ============================================================================
+       LARGEURS RESPONSIVES
+       ============================================================================ */
+    --container-width-mobile: 95%;
+    --container-width-tablet: 90%;
+    --container-width-desktop: 1200px;
+    --container-width-large: 1400px;
+    
+    /* ============================================================================
+       MARGES ET PADDINGS RESPONSIVES
+       ============================================================================ */
+    --margin-mobile: var(--spacing-sm);
+    --margin-tablet: var(--spacing-md);
+    --margin-desktop: var(--spacing-lg);
+    
+    --padding-mobile: var(--spacing-sm);
+    --padding-tablet: var(--spacing-md);
+    --padding-desktop: var(--spacing-lg);
+    
+    /* ============================================================================
+       GAPS RESPONSIVES
+       ============================================================================ */
+    --gap-mobile: var(--spacing-sm);
+    --gap-tablet: var(--spacing-md);
+    --gap-desktop: var(--spacing-lg);
+    
+    /* ============================================================================
+       BORDER-RADIUS RESPONSIFS
+       ============================================================================ */
+    --radius-sm: clamp(4px, 1vw, 6px);
+    --radius-md: clamp(8px, 2vw, 12px);
+    --radius-lg: clamp(12px, 3vw, 20px);
+    --radius-xl: clamp(16px, 4vw, 32px);
+}
+
+/* ============================================================================
+   UTILITAIRES RESPONSIVES AVEC VARIABLES
+   ============================================================================ */
+
+/* Conteneurs responsifs */
+.container-responsive {
+    width: var(--container-width-mobile);
+    margin: 0 auto;
+    padding: var(--padding-mobile);
+}
+
+@media (min-width: 600px) {
+    .container-responsive {
+        width: var(--container-width-tablet);
+        padding: var(--padding-tablet);
+    }
+}
+
+@media (min-width: 960px) {
+    .container-responsive {
+        width: var(--container-width-desktop);
+        padding: var(--padding-desktop);
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-responsive {
+        width: var(--container-width-large);
+    }
+}
+
+/* Sections responsives */
+.section-responsive {
+    min-height: var(--section-height-mobile);
+    padding: var(--padding-mobile);
+    margin: var(--margin-mobile) 0;
+}
+
+@media (min-width: 600px) {
+    .section-responsive {
+        min-height: var(--section-height-tablet);
+        padding: var(--padding-tablet);
+        margin: var(--margin-tablet) 0;
+    }
+}
+
+@media (min-width: 960px) {
+    .section-responsive {
+        min-height: var(--section-height-desktop);
+        padding: var(--padding-desktop);
+        margin: var(--margin-desktop) 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .section-responsive {
+        min-height: var(--section-height-large);
+    }
+}
+
+/* Grilles responsives */
+.grid-responsive {
+    display: grid;
+    gap: var(--gap-mobile);
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+    .grid-responsive {
+        gap: var(--gap-tablet);
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 960px) {
+    .grid-responsive {
+        gap: var(--gap-desktop);
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Typographie responsive */
+.text-responsive-xs { font-size: var(--font-size-xs); }
+.text-responsive-sm { font-size: var(--font-size-sm); }
+.text-responsive-base { font-size: var(--font-size-base); }
+.text-responsive-lg { font-size: var(--font-size-lg); }
+.text-responsive-xl { font-size: var(--font-size-xl); }
+.text-responsive-2xl { font-size: var(--font-size-2xl); }
+.text-responsive-3xl { font-size: var(--font-size-3xl); }
+.text-responsive-4xl { font-size: var(--font-size-4xl); }
+.text-responsive-5xl { font-size: var(--font-size-5xl); }
+
+/* Espacement responsive */
+.spacing-responsive-xs { padding: var(--spacing-xs); margin: var(--spacing-xs); }
+.spacing-responsive-sm { padding: var(--spacing-sm); margin: var(--spacing-sm); }
+.spacing-responsive-md { padding: var(--spacing-md); margin: var(--spacing-md); }
+.spacing-responsive-lg { padding: var(--spacing-lg); margin: var(--spacing-lg); }
+.spacing-responsive-xl { padding: var(--spacing-xl); margin: var(--spacing-xl); }
+.spacing-responsive-xxl { padding: var(--spacing-xxl); margin: var(--spacing-xxl); }

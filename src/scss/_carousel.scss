@@ -1,0 +1,58 @@
+/* ============================================================================
+   CAROUSEL & CHAMBRES
+   ============================================================================ */
+
+// Chambres
+.chambre {
+    padding: 2em 0;
+    margin: 2em auto;
+    justify-content: center;
+    gap: 2em;
+
+    &:nth-child(odd) {
+        flex-direction: row-reverse;
+    }
+
+    > div {
+        min-width: 250px;
+    }
+}
+
+// Wrapper du carousel
+.carousel-wrapper {
+    width: 50%;
+    flex-grow: 2;
+}
+
+// Slides Slick
+.slick-slide {
+    position: relative;
+
+    &::after {
+        content: "";
+        display: block;
+        top: 5%;
+        left: 5%;
+        width: 90%;
+        height: 85%;
+        position: absolute;
+        border: 1px solid var(--beige);
+    }
+}
+
+// Contrôles de navigation Slick
+.slick-prev {
+    left: 25px !important;
+    z-index: 20;
+}
+
+.slick-next {
+    right: 25px !important;
+    z-index: 20;
+}
+
+// Informations des chambres
+.info-chambre {
+    padding: 2em;
+    height: fit-content;
+}

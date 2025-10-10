@@ -1,0 +1,219 @@
+/* Styles pour la composition BlockChambre */
+
+.block-chambre {
+    margin: 3rem 0;
+    padding: 2rem;
+}
+
+.comfort-item .icon{
+    width: auto;
+}
+
+/* Layout principal de la chambre */
+.chambre.flex.gap-2 {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* Wrapper de la galerie */
+.gallery-wrapper {
+    flex: 2;
+    min-width: 0;
+}
+
+/* Grille de la galerie */
+.grid-gallery {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    width: 100%;
+}
+
+/* Items de la galerie */
+.minigallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.minigallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.minigallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Taille des items selon leur position */
+.minigallery-item.item-1 {
+    grid-column: span 3;
+    grid-row: span 2;
+}
+
+.minigallery-item.item-2 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.minigallery-item.item-3 {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.minigallery-item.item-4 {
+    grid-column: span 3;
+    grid-row: span 2;
+}
+
+/* Informations de la chambre */
+.info-chambre {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Superficie */
+.superficie {
+    font-size: 1.1rem;
+    color: #495057;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Items de confort */
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .chambre.flex.gap-2 {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .gallery-wrapper {
+        order: 2;
+    }
+    
+    .info-chambre {
+        order: 1;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .block-chambre {
+        margin: 2rem 0;
+        padding: 1rem;
+    }
+    
+    .grid-gallery {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .minigallery-item.item-1 {
+        grid-column: span 4;
+        grid-row: span 1;
+    }
+    
+    .minigallery-item.item-2 {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+    
+    .minigallery-item.item-3 {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+    
+    .minigallery-item.item-4 {
+        grid-column: span 4;
+        grid-row: span 1;
+    }
+    
+    .chambre-title {
+        font-size: 1.5rem;
+    }
+    
+    .comfort-item {
+        padding: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-gallery {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .minigallery-item.item-1,
+    .minigallery-item.item-2,
+    .minigallery-item.item-3,
+    .minigallery-item.item-4 {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+    
+    .info-chambre {
+        padding: 1rem;
+    }
+}
+
+/* Animations d'entrée */
+.block-chambre {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Effet de focus pour l'accessibilité */
+.comfort-item:focus-within {
+    outline: 2px solid #8B7355;
+    outline-offset: 2px;
+}
+
+/* Mode sombre optionnel */
+@media (prefers-color-scheme: dark) {
+    .block-chambre {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .info-chambre {
+        background: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    .comfort-item {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .comfort-item span {
+        color: #e2e8f0;
+    }
+    
+    .chambre-title {
+        color: #f7fafc;
+    }
+}
+
+/* ============================================================================
+   STYLES POUR LA SECTION SÉMINAIRES
+ ============================================================================ */

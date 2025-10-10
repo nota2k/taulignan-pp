@@ -1,0 +1,55 @@
+/* ============================================================================
+   LOADING SCREEN & ANIMATIONS
+   ============================================================================ */
+
+// Écran de chargement
+.loading-screen {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: var(--Olive);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    .loading-wrapper {
+        max-width: 50%;
+        width: 100%;
+    }
+}
+
+// Barre de chargement
+.loading-bar {
+    height: 20px;
+    width: 100%;
+    max-width: 600px;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid var(--olive-fonce);
+    padding: 2px;
+    box-sizing: content-box;
+
+    .progress-bar {
+        height: inherit;
+        width: 100%;
+        background-color: var(--olive-fonce);
+        border-radius: 3px;
+        left: 0;
+        transform-origin: left;
+        transform: scaleX(0);
+        z-index: 3;
+    }
+}
+
+// Pourcentage de chargement
+.percent {
+    font-size: 12vw;
+    color: var(--olive-fonce);
+    margin: 0;
+    width: fit-content;
+    align-self: center;
+}

@@ -1,0 +1,334 @@
+/**
+ * Styles CSS pour le système de positionnement des blocs
+ * Château de Taulignan - Extension de positionnement
+ */
+
+/* ===========================================
+   POSITIONNEMENT DES BLOCS
+   =========================================== */
+
+/* Positionnement de base pour les blocs avec positionnement activé */
+.wp-block-group[style*="position: relative"],
+.wp-block-row[style*="position: relative"],
+.wp-block-grid[style*="position: relative"] {
+    position: relative !important;
+}
+
+/* Classes utilitaires pour le positionnement */
+.position-relative {
+    position: relative !important;
+}
+
+.position-absolute {
+    position: absolute !important;
+}
+
+.position-fixed {
+    position: fixed !important;
+}
+
+.position-sticky {
+    position: sticky !important;
+}
+
+/* ===========================================
+   POSITIONNEMENT LEFT/RIGHT
+   =========================================== */
+
+/* Valeurs automatiques */
+.left-auto { left: auto !important; }
+.right-auto { right: auto !important; }
+
+/* Valeurs nulles */
+.left-0 { left: 0 !important; }
+.right-0 { right: 0 !important; }
+
+/* Valeurs en pourcentages */
+.left-25 { left: 25% !important; }
+.left-50 { left: 50% !important; }
+.left-75 { left: 75% !important; }
+.left-100 { left: 100% !important; }
+
+.right-25 { right: 25% !important; }
+.right-50 { right: 50% !important; }
+.right-75 { right: 75% !important; }
+.right-100 { right: 100% !important; }
+
+/* Valeurs en pixels positives */
+.left-5 { left: 5px !important; }
+.left-10 { left: 10px !important; }
+.left-15 { left: 15px !important; }
+.left-20 { left: 20px !important; }
+.left-25 { left: 25px !important; }
+.left-30 { left: 30px !important; }
+.left-40 { left: 40px !important; }
+.left-50 { left: 50px !important; }
+.left-60 { left: 60px !important; }
+.left-70 { left: 70px !important; }
+.left-80 { left: 80px !important; }
+.left-90 { left: 90px !important; }
+.left-100 { left: 100px !important; }
+
+.right-5 { right: 5px !important; }
+.right-10 { right: 10px !important; }
+.right-15 { right: 15px !important; }
+.right-20 { right: 20px !important; }
+.right-25 { right: 25px !important; }
+.right-30 { right: 30px !important; }
+.right-40 { right: 40px !important; }
+.right-50 { right: 50px !important; }
+.right-60 { right: 60px !important; }
+.right-70 { right: 70px !important; }
+.right-80 { right: 80px !important; }
+.right-90 { right: 90px !important; }
+.right-100 { right: 100px !important; }
+
+/* Valeurs en pixels négatives */
+.left-n5 { left: -5px !important; }
+.left-n10 { left: -10px !important; }
+.left-n15 { left: -15px !important; }
+.left-n20 { left: -20px !important; }
+.left-n25 { left: -25px !important; }
+.left-n30 { left: -30px !important; }
+.left-n40 { left: -40px !important; }
+.left-n50 { left: -50px !important; }
+.left-n60 { left: -60px !important; }
+.left-n70 { left: -70px !important; }
+.left-n80 { left: -80px !important; }
+.left-n90 { left: -90px !important; }
+.left-n100 { left: -100px !important; }
+
+.right-n5 { right: -5px !important; }
+.right-n10 { right: -10px !important; }
+.right-n15 { right: -15px !important; }
+.right-n20 { right: -20px !important; }
+.right-n25 { right: -25px !important; }
+.right-n30 { right: -30px !important; }
+.right-n40 { right: -40px !important; }
+.right-n50 { right: -50px !important; }
+.right-n60 { right: -60px !important; }
+.right-n70 { right: -70px !important; }
+.right-n80 { right: -80px !important; }
+.right-n90 { right: -90px !important; }
+.right-n100 { right: -100px !important; }
+
+/* Valeurs en rem */
+.left-1rem { left: 1rem !important; }
+.left-2rem { left: 2rem !important; }
+.left-3rem { left: 3rem !important; }
+.left-4rem { left: 4rem !important; }
+.left-5rem { left: 5rem !important; }
+
+.right-1rem { right: 1rem !important; }
+.right-2rem { right: 2rem !important; }
+.right-3rem { right: 3rem !important; }
+.right-4rem { right: 4rem !important; }
+.right-5rem { right: 5rem !important; }
+
+.left-n1rem { left: -1rem !important; }
+.left-n2rem { left: -2rem !important; }
+.left-n3rem { left: -3rem !important; }
+.left-n4rem { left: -4rem !important; }
+.left-n5rem { left: -5rem !important; }
+
+.right-n1rem { right: -1rem !important; }
+.right-n2rem { right: -2rem !important; }
+.right-n3rem { right: -3rem !important; }
+.right-n4rem { right: -4rem !important; }
+.right-n5rem { right: -5rem !important; }
+
+/* ===========================================
+   Z-INDEX
+   =========================================== */
+
+/* Valeurs positives */
+.z-1 { z-index: 1 !important; }
+.z-2 { z-index: 2 !important; }
+.z-3 { z-index: 3 !important; }
+.z-4 { z-index: 4 !important; }
+.z-5 { z-index: 5 !important; }
+.z-10 { z-index: 10 !important; }
+.z-20 { z-index: 20 !important; }
+.z-30 { z-index: 30 !important; }
+.z-40 { z-index: 40 !important; }
+.z-50 { z-index: 50 !important; }
+.z-100 { z-index: 100 !important; }
+.z-200 { z-index: 200 !important; }
+.z-300 { z-index: 300 !important; }
+.z-400 { z-index: 400 !important; }
+.z-500 { z-index: 500 !important; }
+.z-1000 { z-index: 1000 !important; }
+.z-2000 { z-index: 2000 !important; }
+.z-3000 { z-index: 3000 !important; }
+.z-4000 { z-index: 4000 !important; }
+.z-5000 { z-index: 5000 !important; }
+
+/* Valeurs négatives */
+.z-n1 { z-index: -1 !important; }
+.z-n2 { z-index: -2 !important; }
+.z-n3 { z-index: -3 !important; }
+.z-n4 { z-index: -4 !important; }
+.z-n5 { z-index: -5 !important; }
+.z-n10 { z-index: -10 !important; }
+.z-n20 { z-index: -20 !important; }
+.z-n30 { z-index: -30 !important; }
+.z-n40 { z-index: -40 !important; }
+.z-n50 { z-index: -50 !important; }
+.z-n100 { z-index: -100 !important; }
+.z-n200 { z-index: -200 !important; }
+.z-n300 { z-index: -300 !important; }
+.z-n400 { z-index: -400 !important; }
+.z-n500 { z-index: -500 !important; }
+.z-n1000 { z-index: -1000 !important; }
+
+/* Valeurs spéciales */
+.z-auto { z-index: auto !important; }
+.z-inherit { z-index: inherit !important; }
+.z-initial { z-index: initial !important; }
+.z-unset { z-index: unset !important; }
+
+/* ===========================================
+   POSITIONNEMENT AVANCÉ
+   =========================================== */
+
+/* Positionnement avec transform pour centrage */
+.position-center-left {
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+
+.position-center-right {
+    position: relative !important;
+    right: 50% !important;
+    transform: translateX(50%) !important;
+}
+
+/* Positionnement avec marges négatives pour débordement */
+.overflow-left {
+    position: relative !important;
+    left: -100px !important;
+}
+
+.overflow-right {
+    position: relative !important;
+    right: -100px !important;
+}
+
+/* ===========================================
+   RESPONSIVE
+   =========================================== */
+
+/* Mobile First - Valeurs par défaut */
+@media (max-width: 767px) {
+    .mobile-left-0 { left: 0 !important; }
+    .mobile-right-0 { right: 0 !important; }
+    .mobile-z-1 { z-index: 1 !important; }
+}
+
+/* Tablette */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .tablet-left-10 { left: 10px !important; }
+    .tablet-right-10 { right: 10px !important; }
+    .tablet-z-10 { z-index: 10 !important; }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .desktop-left-20 { left: 20px !important; }
+    .desktop-right-20 { right: 20px !important; }
+    .desktop-z-100 { z-index: 100 !important; }
+}
+
+/* ===========================================
+   UTILITAIRES SPÉCIAUX
+   =========================================== */
+
+/* Positionnement pour les éléments de navigation */
+.nav-positioned {
+    position: relative !important;
+    z-index: 1000 !important;
+}
+
+/* Positionnement pour les modales et overlays */
+.modal-positioned {
+    position: relative !important;
+    z-index: 9999 !important;
+}
+
+/* Positionnement pour les éléments flottants */
+.float-positioned {
+    position: relative !important;
+    z-index: 100 !important;
+}
+
+/* Positionnement pour les éléments de fond */
+.background-positioned {
+    position: relative !important;
+    z-index: -1 !important;
+}
+
+/* ===========================================
+   DEBUG ET VISUALISATION
+   =========================================== */
+
+/* Classe de debug pour visualiser le positionnement */
+.debug-positioning {
+    outline: 2px dashed #ff0000 !important;
+    outline-offset: 2px;
+}
+
+.debug-positioning::before {
+    content: attr(style);
+    position: absolute;
+    top: -30px;
+    left: 0;
+    background: #ff0000;
+    color: white;
+    padding: 4px 8px;
+    font-size: 10px;
+    border-radius: 3px;
+    z-index: 9999;
+    white-space: nowrap;
+}
+
+/* ===========================================
+   ANIMATIONS ET TRANSITIONS
+   =========================================== */
+
+/* Transition douce pour les changements de position */
+.positioning-transition {
+    transition: left 0.3s ease, right 0.3s ease, z-index 0.1s ease;
+}
+
+/* Animation d'entrée depuis la gauche */
+@keyframes slideInFromLeft {
+    from {
+        left: -100%;
+        opacity: 0;
+    }
+    to {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+.slide-in-left {
+    animation: slideInFromLeft 0.5s ease-out;
+}
+
+/* Animation d'entrée depuis la droite */
+@keyframes slideInFromRight {
+    from {
+        right: -100%;
+        opacity: 0;
+    }
+    to {
+        right: 0;
+        opacity: 1;
+    }
+}
+
+.slide-in-right {
+    animation: slideInFromRight 0.5s ease-out;
+}

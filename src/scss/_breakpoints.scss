@@ -1,0 +1,389 @@
+@use 'sass:map';
+
+/* ============================================================================
+   BREAKPOINTS ET MIXINS RESPONSIVE
+   ============================================================================ */
+
+// Variables de breakpoints
+$breakpoints: (
+  'xs': 0,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+  'xxl': 1400px
+) !default;
+
+// Fonction pour récupérer une valeur de breakpoint
+@function breakpoint($name) {
+  @if map.has-key($breakpoints, $name) {
+    @return map.get($breakpoints, $name);
+  } @else {
+    @warn "Breakpoint `#{$name}` n'existe pas dans $breakpoints.";
+    @return null;
+  }
+}
+
+// Mixin pour media queries min-width
+@mixin min-width($breakpoint) {
+  $value: breakpoint($breakpoint);
+
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+}
+
+// Alias pour la compatibilité avec l'ancien code
+@mixin respond-to($breakpoint) {
+  @include min-width($breakpoint) {
+    @content;
+  }
+}
+
+// Mixin pour media queries max-width
+@mixin max-width($breakpoint) {
+  $value: breakpoint($breakpoint);
+
+  @if $value {
+    @media (max-width: $value - 1px) {
+      @content;
+    }
+  }
+}
+
+// Mixin pour media queries entre deux breakpoints
+@mixin between($min-breakpoint, $max-breakpoint) {
+  $min-value: breakpoint($min-breakpoint);
+  $max-value: breakpoint($max-breakpoint);
+  
+  @if $min-value and $max-value {
+    @media (min-width: $min-value) and (max-width: $max-value - 1px) {
+      @content;
+    }
+  }
+}
+
+// Mixins pratiques pour les breakpoints courants
+@mixin mobile-only {
+  @include max-width('md') {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @include min-width('md') {
+    @content;
+  }
+}
+
+@mixin mobile-up {
+  @include min-width('xs') {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @include min-width('lg') {
+    @content;
+  }
+}
+
+@mixin large-desktop-up {
+  @include min-width('xl') {
+    @content;
+  }
+}
+
+// Mixin pour orientation
+@mixin landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin portrait {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+// Mixin pour les écrans haute résolution
+@mixin retina {
+  @media (-webkit-min-device-pixel-ratio: 2), (resolution >= 192dpi) {
+    @content;
+  }
+}
+
+// Mixin pour les écrans très haute résolution
+@mixin retina-3x {
+  @media (-webkit-min-device-pixel-ratio: 3), (resolution >= 288dpi) {
+    @content;
+  }
+}
+
+// Mixin pour les préférences de mouvement réduit
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// Mixin pour le mode sombre
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+// Mixin pour les préférences de contraste élevé
+@mixin high-contrast {
+  @media (prefers-contrast: high) {
+    @content;
+  }
+}
+
+// Mixin pour les préférences de contraste faible
+@mixin low-contrast {
+  @media (prefers-contrast: low) {
+    @content;
+  }
+}
+
+// Mixin pour les écrans tactiles
+@mixin touch {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+// Mixin pour les écrans non-tactiles (souris)
+@mixin no-touch {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+// Mixin pour les écrans d'impression
+@mixin print {
+  @media print {
+    @content;
+  }
+}
+
+// Mixin pour les écrans de lecture (lecteurs d'écran)
+@mixin screen-reader-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+// Mixin pour les conteneurs responsives
+@mixin container($max-width: 1200px, $padding: 1rem) {
+  width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding-left: $padding;
+  padding-right: $padding;
+  
+  @include mobile-only {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+// Mixin pour les grilles responsives
+@mixin grid($columns: 12, $gap: 1rem) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+  
+  @include mobile-only {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Mixin pour les flexbox responsives
+@mixin flex-responsive($direction: row, $wrap: wrap, $gap: 1rem) {
+  display: flex;
+  flex-flow: $direction $wrap;
+  gap: $gap;
+  
+  @include mobile-only {
+    flex-direction: column;
+  }
+}
+
+// Mixin pour les espacements responsives
+@mixin spacing-responsive($property: margin, $mobile: 1rem, $desktop: 2rem) {
+  #{$property}: $mobile;
+  
+  @include tablet-up {
+    #{$property}: $desktop;
+  }
+}
+
+// Mixin pour les tailles de police responsives
+@mixin font-size-responsive($mobile-size, $desktop-size) {
+  font-size: $mobile-size;
+  
+  @include tablet-up {
+    font-size: $desktop-size;
+  }
+}
+
+// Mixin pour les images responsives
+@mixin responsive-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Mixin pour les vidéos responsives
+@mixin responsive-video {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; // 16:9 aspect ratio
+  
+  iframe,
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Mixin pour les cartes responsives
+@mixin card-responsive($mobile-columns: 1, $desktop-columns: 3) {
+  display: grid;
+  grid-template-columns: repeat($mobile-columns, 1fr);
+  gap: 1rem;
+  
+  @include tablet-up {
+    grid-template-columns: repeat($desktop-columns, 1fr);
+  }
+}
+
+// Mixin pour les boutons responsives
+@mixin button-responsive($mobile-padding: 0.75rem 1rem, $desktop-padding: 1rem 2rem) {
+  padding: $mobile-padding;
+  font-size: 0.9rem;
+  
+  @include tablet-up {
+    padding: $desktop-padding;
+    font-size: 1rem;
+  }
+}
+
+// Mixin pour les navigations responsives
+@mixin nav-responsive {
+  @include mobile-only {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    
+    &.active {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  
+  @include tablet-up {
+    flex-direction: row;
+    position: static;
+    background: none;
+    box-shadow: none;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// Mixin pour les modales responsives
+@mixin modal-responsive {
+  @include mobile-only {
+    width: 95%;
+    max-width: 400px;
+    margin: 1rem auto;
+  }
+  
+  @include tablet-up {
+    width: 80%;
+    max-width: 600px;
+    margin: 2rem auto;
+  }
+  
+  @include desktop-up {
+    width: 60%;
+    max-width: 800px;
+  }
+}
+
+// Mixin pour les tableaux responsives
+@mixin table-responsive {
+  @include mobile-only {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  @include tablet-up {
+    display: table;
+    width: 100%;
+  }
+}
+
+// Mixin pour les formulaires responsives
+@mixin form-responsive {
+  @include mobile-only {
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+    }
+    
+    .btn {
+      width: 100%;
+      margin-top: 1rem;
+    }
+  }
+  
+  @include tablet-up {
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-control {
+      width: auto;
+      padding: 1rem;
+    }
+    
+    .btn {
+      width: auto;
+      margin-top: 0;
+    }
+  }
+}

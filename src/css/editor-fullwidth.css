@@ -1,0 +1,144 @@
+/* ============================================================================
+   ÉDITEUR WORDPRESS - FORÇAGE PLEINE LARGEUR
+   ============================================================================ */
+
+/* 
+   Ce fichier force tous les blocs à prendre la pleine largeur
+   dans l'éditeur WordPress, en surchargeant les contraintes automatiques
+*/
+
+/* ============================================================================
+   SUPPRESSION DES CONTRAINTES DE LARGEUR
+   ============================================================================ */
+
+/* Supprimer la limitation de largeur sur tous les blocs */
+.block-editor-block-list__layout.is-root-container > .wp-block {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Forcer la pleine largeur sur les groupes */
+.block-editor-block-list__layout.is-root-container > .wp-block-group {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Forcer la pleine largeur sur les colonnes */
+.block-editor-block-list__layout.is-root-container > .wp-block-columns {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Forcer la pleine largeur sur les colonnes individuelles */
+.block-editor-block-list__layout.is-root-container > .wp-block-column {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* ============================================================================
+   SUPPRESSION DES MARGES AUTOMATIQUES
+   ============================================================================ */
+
+/* Supprimer le centrage automatique */
+.block-editor-block-list__layout.is-root-container > .wp-block {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Supprimer les paddings automatiques */
+.block-editor-block-list__layout.is-root-container > .wp-block-group {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* ============================================================================
+   FORÇAGE SUR TOUS LES TYPES DE BLOCS
+   ============================================================================ */
+
+/* Blocs de couverture */
+.block-editor-block-list__layout.is-root-container > .wp-block-cover {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Blocs d'images */
+.block-editor-block-list__layout.is-root-container > .wp-block-image {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Blocs de galerie */
+.block-editor-block-list__layout.is-root-container > .wp-block-gallery {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Blocs de navigation */
+.block-editor-block-list__layout.is-root-container > .wp-block-navigation {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Blocs de paragraphes */
+.block-editor-block-list__layout.is-root-container > .wp-block-paragraph {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Blocs de titres */
+.block-editor-block-list__layout.is-root-container > .wp-block-heading {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Blocs de boutons */
+.block-editor-block-list__layout.is-root-container > .wp-block-button {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* ============================================================================
+   RESPONSIVE DANS L'ÉDITEUR
+   ============================================================================ */
+
+/* Mobile */
+@media (max-width: 768px) {
+    .block-editor-block-list__layout.is-root-container > .wp-block {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .block-editor-block-list__layout.is-root-container > .wp-block {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+}
+
+/* ============================================================================
+   SURRIDES FINALES AVEC PRIORITÉ MAXIMALE
+   ============================================================================ */
+
+/* Règle finale qui surcharge tout */
+.block-editor-block-list__layout.is-root-container > * {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Surcharge spécifique pour les conteneurs */
+.block-editor-block-list__layout.is-root-container > .wp-block-group,
+.block-editor-block-list__layout.is-root-container > .wp-block-columns,
+.block-editor-block-list__layout.is-root-container > .wp-block-column {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}

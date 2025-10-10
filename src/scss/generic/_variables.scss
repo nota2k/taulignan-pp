@@ -1,0 +1,134 @@
+/* ============================================================================
+   VARIABLES CSS PERSONNALISÉES - THÈME TAULIGNAN
+   ============================================================================ */
+
+:root {
+  /* ============================================================================
+       BREAKPOINTS PERSONNALISÉS
+       ============================================================================ */
+  --breakpoint-mobile: 600px;
+  --breakpoint-tablet: 960px;
+  --breakpoint-desktop: 1200px;
+  --breakpoint-large: 1400px;
+
+  /* ============================================================================
+       ESPACEMENTS RESPONSIVES
+       ============================================================================ */
+  --spacing-xs: clamp(0.5rem, 2vw, 0.75rem);
+  --spacing-sm: clamp(1rem, 3vw, 1.5rem);
+  --spacing-md: clamp(1.5rem, 4vw, 2rem);
+  --spacing-lg: clamp(2rem, 5vw, 3rem);
+  --spacing-xl: clamp(3rem, 6vw, 4rem);
+  --wp--preset--spacing--large: clamp(1rem, 4vw, 6rem);
+
+  /* ============================================================================
+       TAILLES DE POLICE RESPONSIVES
+       ============================================================================ */
+  --font-size-xs: clamp(0.75rem, 2vw, 0.875rem);
+  --font-size-sm: clamp(0.875rem, 2.5vw, 1rem);
+  --font-size-base: clamp(1rem, 3vw, 1.125rem);
+  --font-size-lg: clamp(1.125rem, 3.5vw, 1.25rem);
+  --font-size-xl: clamp(1.25rem, 4vw, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 5vw, 2rem);
+  --font-size-3xl: clamp(2rem, 6vw, 3rem);
+  --font-size-4xl: clamp(2.5rem, 8vw, 4rem);
+  --font-size-5xl: clamp(3rem, 10vw, 5rem);
+
+  /* ============================================================================
+       HAUTEURS RESPONSIVES
+       ============================================================================ */
+  --section-height-mobile: 50vh;
+  --section-height-tablet: 60vh;
+  --section-height-desktop: 70vh;
+  --section-height-large: 80vh;
+
+  /* ============================================================================
+       LARGEURS RESPONSIVES
+       ============================================================================ */
+  --container-width-mobile: 95%;
+  --container-width-tablet: 90%;
+  --container-width-desktop: 1200px;
+  --container-width-large: 1400px;
+
+  /* ============================================================================
+       MARGES ET PADDINGS RESPONSIVES
+       ============================================================================ */
+  --margin-mobile: var(--spacing-sm);
+  --margin-tablet: var(--spacing-md);
+  --margin-desktop: var(--spacing-lg);
+  --padding-mobile: var(--spacing-sm);
+  --padding-tablet: var(--spacing-md);
+  --padding-desktop: var(--spacing-lg);
+
+  /* ============================================================================
+       GAPS RESPONSIVES
+       ============================================================================ */
+  --gap-mobile: var(--spacing-sm);
+  --gap-tablet: var(--spacing-md);
+  --gap-desktop: var(--spacing-lg);
+
+  /* ============================================================================
+       BORDER-RADIUS RESPONSIFS
+       ============================================================================ */
+  --radius-sm: clamp(4px, 1vw, 6px);
+  --radius-md: clamp(8px, 2vw, 12px);
+  --radius-lg: clamp(12px, 3vw, 20px);
+  --radius-xl: clamp(16px, 4vw, 32px);
+}
+
+// Variables SCSS pour les mixins et fonctions
+$breakpoints: (
+  "mobile": 600px,
+  "tablet": 960px,
+  "desktop": 1200px,
+  "large": 1400px,
+);
+$spacings: (
+  "xs": var(--spacing-xs),
+  "sm": var(--spacing-sm),
+  "md": var(--spacing-md),
+  "lg": var(--spacing-lg),
+  "xl": var(--spacing-xl),
+);
+$font-sizes: (
+  "xs": var(--font-size-xs),
+  "sm": var(--font-size-sm),
+  "base": var(--font-size-base),
+  "lg": var(--font-size-lg),
+  "xl": var(--font-size-xl),
+  "2xl": var(--font-size-2xl),
+  "3xl": var(--font-size-3xl),
+  "4xl": var(--font-size-4xl),
+  "5xl": var(--font-size-5xl),
+);
+$container-widths: (
+  "mobile": var(--container-width-mobile),
+  "tablet": var(--container-width-tablet),
+  "desktop": var(--container-width-desktop),
+  "large": var(--container-width-large),
+);
+$section-heights: (
+  "mobile": var(--section-height-mobile),
+  "tablet": var(--section-height-tablet),
+  "desktop": var(--section-height-desktop),
+  "large": var(--section-height-large),
+);
+$radius: (
+  "sm": var(--radius-sm),
+  "md": var(--radius-md),
+  "lg": var(--radius-lg),
+  "xl": var(--radius-xl),
+);
+$colors: (
+  "noir": var(--wp--preset--color--noir),
+  "blanc": var(--wp--preset--color--blanc),
+  "olive": var(--wp--preset--color--olive),
+  "vert-olive": var(--wp--preset--color--vert-olive),
+  "olive-fonce": var(--wp--preset--color--olive-fonce),
+  "beige": var(--wp--preset--color--beige),
+  "beige-fonce": var(--wp--preset--color- -beige-fonce),
+  "lavande-light": var(--wp--preset--color--lavande-light),
+  "lavande": var(--wp--preset--color--lavande),
+  "violet-fonce": var(--wp--preset--color--violet-fonce),
+  "bleu-canard": var(--wp--preset--color--bleu-canard),
+);

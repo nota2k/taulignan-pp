@@ -1,0 +1,156 @@
+/* Carousel Fullscreen - 100% Viewport */
+.scroll-slider {
+    /* width: 100vw !important; */
+    height: 100vh !important;
+
+}
+
+/* Container du slider */
+.scroll-slider .slick-list,
+.scroll-slider .slick-track {
+    /* height: 100vh !important; */
+    /* width: 100vw !important; */
+}
+
+/* Chaque slide */
+.scroll-slider .slick-slide {
+    height: 100vh !important;
+    /* width: 100vw !important; */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Contenu de chaque slide */
+.scroll-slider .slick-slide > div {
+    height: 100vh !important;
+    width: 100vw !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Images dans les slides */
+.scroll-slider .slick-slide img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Navigation arrows */
+.scroll-slider .slick-prev,
+.scroll-slider .slick-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-slider .slick-prev {
+    left: 30px;
+}
+
+.scroll-slider .slick-next {
+    right: 30px;
+}
+
+/* Dots de navigation */
+.scroll-slider .slick-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex !important;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.scroll-slider .slick-dots li {
+    margin: 0;
+}
+
+.scroll-slider .slick-dots button {
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0;
+    padding: 0;
+}
+
+.scroll-slider .slick-dots li.slick-active button {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .scroll-slider .slick-prev,
+    .scroll-slider .slick-next {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .scroll-slider .slick-prev {
+        left: 20px;
+    }
+    
+    .scroll-slider .slick-next {
+        right: 20px;
+    }
+    
+    .scroll-slider .slick-dots {
+        bottom: 20px;
+    }
+    
+    .scroll-slider .slick-dots button {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Animation de transition */
+/* .scroll-slider .slick-slide {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.scroll-slider .slick-slide.slick-active {
+    opacity: 1;
+} */
+
+/* Effet de parallaxe optionnel */
+.scroll-slider .slick-slide .parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.1);
+    transition: transform 0.8s ease-out;
+}
+
+.scroll-slider .slick-slide.slick-active .parallax-bg {
+    transform: scale(1);
+}

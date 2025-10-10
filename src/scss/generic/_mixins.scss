@@ -1,0 +1,305 @@
+// /* ============================================================================
+//   MIXINS
+// ============================================================================ */
+
+// @use 'sass:map';
+// @use 'sass:color';
+
+// // Mixins utilitaires pour le thème Taulignan
+// // Mixins SCSS pour simplifier le développement
+
+// // Mixin pour les media queries
+// @mixin respond-to($breakpoint) {
+//   @if map.has-key($breakpoints, $breakpoint) {
+//     @media (min-width: map.get($breakpoints, $breakpoint)) {
+//       @content;
+//     }
+//   } @else {
+//     @warn "Breakpoint `#{$breakpoint}` n'existe pas dans `$breakpoints`.";
+//   }
+// }
+
+// @mixin respond-below($breakpoint) {
+//   @if map.has-key($breakpoints, $breakpoint) {
+//     @media (max-width: (map.get($breakpoints, $breakpoint) - 1px)) {
+//       @content;
+//     }
+//   } @else {
+//     @warn "Breakpoint `#{$breakpoint}` n'existe pas dans `$breakpoints`.";
+//   }
+// }
+
+// @mixin respond-between($min, $max) {
+//   @if map.has-key($breakpoints, $min) and map.has-key($breakpoints, $max) {
+//     @media (min-width: map.get($breakpoints, $min)) and (max-width: (map.get($breakpoints, $max) - 1px)) {
+//       @content;
+//     }
+//   } @else {
+//     @warn "Breakpoint `#{$min}` ou `#{$max}` n'existe pas dans `$breakpoints`.";
+//   }
+// }
+
+// // Mixin pour les transitions
+// @mixin transition($property: all, $duration: var(--transition-base), $timing: ease-in-out) {
+//   transition: $property $duration $timing;
+// }
+
+// // Mixin pour les transformations
+// @mixin transform($transforms) {
+//   transform: $transforms;
+// }
+
+// // Mixin pour les flexbox
+// @mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+//   display: flex;
+//   flex-flow: $direction $wrap;
+//   justify-content: $justify;
+//   align-items: $align;
+// }
+
+// // Mixin pour centrer un élément
+// @mixin center($position: absolute) {
+//   position: $position;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// }
+
+// // Mixin pour les boutons
+// @mixin button($bg-color: var(--color-primary), $text-color: white, $padding: var(--spacing-md) var(--spacing-lg)) {
+//   display: inline-block;
+//   padding: $padding;
+//   background-color: $bg-color;
+//   color: $text-color;
+//   text-decoration: none;
+//   border: none;
+//   border-radius: var(--border-radius);
+//   cursor: pointer;
+//   font-family: var(--font-primary);
+//   font-size: var(--font-size-base);
+//   font-weight: 500;
+//   line-height: 1.5;
+//   text-align: center;
+//   transition: var(--transition-base);
+  
+//   &:hover {
+//     background-color: color.adjust($bg-color, $lightness: -10%);
+//     transform: translateY(-2px);
+//     box-shadow: var(--shadow-md);
+//   }
+  
+//   &:active {
+//     transform: translateY(0);
+//   }
+  
+//   &:focus {
+//     outline: 2px solid var(--color-primary);
+//     outline-offset: 2px;
+//   }
+// }
+
+// // Mixin pour les cartes
+// @mixin card($padding: var(--spacing-lg), $shadow: var(--shadow)) {
+//   background-color: var(--color-bg);
+//   border-radius: var(--border-radius-lg);
+//   box-shadow: $shadow;
+//   padding: $padding;
+//   transition: var(--transition-base);
+  
+//   &:hover {
+//     box-shadow: var(--shadow-lg);
+//     transform: translateY(-2px);
+//   }
+// }
+
+// // Mixin pour les inputs
+// @mixin input($width: 100%) {
+//   width: $width;
+//   padding: var(--spacing-sm) var(--spacing-md);
+//   border: 1px solid var(--color-border);
+//   border-radius: var(--border-radius);
+//   font-family: var(--font-primary);
+//   font-size: var(--font-size-base);
+//   line-height: 1.5;
+//   color: var(--color-text);
+//   background-color: var(--color-bg);
+//   transition: var(--transition-base);
+  
+//   &:focus {
+//     outline: none;
+//     border-color: var(--color-primary);
+//     box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+//   }
+  
+//   &::placeholder {
+//     color: var(--color-text-muted);
+//   }
+// }
+
+// // Mixin pour les titres
+// @mixin title($size: 2rem, $weight: 700, $color: var(--color-text)) {
+//   font-family: var(--font-primary);
+//   font-size: $size;
+//   font-weight: $weight;
+//   color: $color;
+//   line-height: 1.2;
+//   margin-bottom: var(--spacing-md);
+// }
+
+// // Mixin pour les textes
+// @mixin text($size: var(--font-size-base), $color: var(--color-text), $line-height: 1.6) {
+//   font-family: var(--font-primary);
+//   font-size: $size;
+//   color: $color;
+//   line-height: $line-height;
+//   margin-bottom: var(--spacing-md);
+// }
+
+// // Mixin pour les listes
+// @mixin list($style: none, $padding: 0, $margin: 0) {
+//   list-style: $style;
+//   padding: $padding;
+//   margin: $margin;
+// }
+
+// // Mixin pour les liens
+// @mixin link($color: var(--color-primary), $hover-color: color.adjust($color, $lightness: -10%)) {
+//   color: $color;
+//   text-decoration: none;
+//   transition: var(--transition-base);
+  
+//   &:hover {
+//     color: $hover-color;
+//     text-decoration: underline;
+//   }
+  
+//   &:focus {
+//     outline: 2px solid var(--color-primary);
+//     outline-offset: 2px;
+//   }
+// }
+
+// // Mixin pour les images responsives
+// @mixin responsive-image($max-width: 100%, $height: auto) {
+//   max-width: $max-width;
+//   height: $height;
+//   display: block;
+// }
+
+// // Mixin pour les conteneurs
+// @mixin container($max-width: 1200px, $padding: var(--spacing-lg)) {
+//   max-width: $max-width;
+//   margin: 0 auto;
+//   padding: 0 $padding;
+  
+//   @include respond-to('sm') {
+//     padding: 0 var(--spacing-xl);
+//   }
+  
+//   @include respond-to('lg') {
+//     padding: 0 var(--spacing-2xl);
+//   }
+// }
+
+// // Mixin pour les grilles
+// @mixin grid($columns: 12, $gap: var(--spacing-md)) {
+//   display: grid;
+//   grid-template-columns: repeat($columns, 1fr);
+//   gap: $gap;
+// }
+
+// // Mixin pour les animations
+// @mixin animation($name, $duration: 1s, $timing: ease-in-out, $delay: 0s, $iteration: 1, $direction: normal, $fill: both) {
+//   animation: $name $duration $timing $delay $iteration $direction $fill;
+// }
+
+// // Mixin pour les keyframes
+// @mixin keyframes($name) {
+//   @keyframes #{$name} {
+//     @content;
+//   }
+// }
+
+// // Mixin pour les ombres
+// @mixin shadow($level: 1) {
+//   @if $level == 1 {
+//     box-shadow: var(--shadow-sm);
+//   } @else if $level == 2 {
+//     box-shadow: var(--shadow);
+//   } @else if $level == 3 {
+//     box-shadow: var(--shadow-md);
+//   } @else if $level == 4 {
+//     box-shadow: var(--shadow-lg);
+//   } @else if $level == 5 {
+//     box-shadow: var(--shadow-xl);
+//   }
+// }
+
+// // Mixin pour les bordures
+// @mixin border($width: 1px, $style: solid, $color: var(--color-border)) {
+//   border: $width $style $color;
+// }
+
+// // Mixin pour les rayons de bordure
+// @mixin border-radius($radius: var(--border-radius)) {
+//   border-radius: $radius;
+// }
+
+// // Mixin pour les débordements
+// @mixin overflow($overflow: hidden) {
+//   overflow: $overflow;
+// }
+
+// // Mixin pour les positions
+// @mixin position($position: relative, $top: auto, $right: auto, $bottom: auto, $left: auto) {
+//   position: $position;
+//   inset: $top $right $bottom $left;
+// }
+
+// // Mixin pour les z-index
+// @mixin z-index($z: 1) {
+//   z-index: $z;
+// }
+
+// // Mixin pour les visibilités
+// @mixin visibility($visibility: visible) {
+//   visibility: $visibility;
+// }
+
+// // Mixin pour les opacités
+// @mixin opacity($opacity: 1) {
+//   opacity: $opacity;
+// }
+
+// // Mixin pour les transformations
+// @mixin scale($scale: 1) {
+//   transform: scale($scale);
+// }
+
+// @mixin rotate($rotate: 0deg) {
+//   transform: rotate($rotate);
+// }
+
+// @mixin translate($x: 0, $y: 0) {
+//   transform: translate($x, $y);
+// }
+
+// // Mixin pour les filtres
+// @mixin filter($filter: none) {
+//   filter: $filter;
+// }
+
+// // Mixin pour les backdrops
+// @mixin backdrop-filter($filter: none) {
+//   backdrop-filter: $filter;
+// }
+
+// // Mixin pour les masques
+// @mixin mask($mask: none) {
+//   mask: $mask;
+// }
+
+// // Mixin pour les clips
+// @mixin clip-path($path: none) {
+//   clip-path: $path;
+// }

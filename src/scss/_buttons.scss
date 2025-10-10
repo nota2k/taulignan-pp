@@ -1,0 +1,184 @@
+@use 'breakpoints' as *;
+
+/* ============================================================================
+   BUTTONS & INTERACTIVE ELEMENTS
+   ============================================================================ */
+
+// Boutons de base
+sbutton,
+.btn {
+    appearance: none;
+    text-align: center;
+    transition: 0.1s ease-in-out all;
+    margin-top: 1.5em;
+}
+
+// Boutons WordPress
+.wp-block-button__link {
+    transition: 0.1s ease-in-out all;
+
+    // Couleurs de fond au hover
+    &.has-bleu-nuit-background-color:hover {
+        background-color: var(--wp--preset-color-violet-gris);
+    }
+
+    &.has-lavande-color:hover {
+        background-color: var(--wp--preset--color--violet-fonce) !important;
+        color: #F5F2E8 !important;
+    }
+
+    &.has-olive-background-color:hover {
+        background-color: #d0d397 !important;
+        color: var(--wp-preset-color-bg-olive);
+    }
+
+    &.has-violet-fonce-background-color:hover {
+        background-color: #392b46 !important;
+        color: #fff !important;
+    }
+
+    &.has-beige-color:hover {
+        background-color: var(--wp--preset--color--beige) !important;
+        border-color: var(--wp--preset--color--beige) !important;
+        color: var(--wp--preset--color--olive) !important;
+    }
+
+    &.has-vert-olive-color:hover {
+        background-color: var(--wp--preset--color--vert-olive) !important;
+        border-color: var(--wp--preset--color--vert-olive) !important;
+        color: var(--wp--preset--color--beige) !important;
+    }
+
+    &.has-violet-fonce-color:hover {
+        background-color: var(--wp--preset--color--violet-fonce) !important;
+        color: var(--wp--preset--color--lavande-light) !important;
+        border-color: var(--wp--preset--color--violet-fonce) !important;
+    }
+
+    // Styles spécifiques par couleur
+    &.has-text-color[style*="color:#b8a3d1;"]:hover {
+        background-color: var(--wp--preset--color--lavande) !important;
+        color: #fff !important;
+    }
+
+    &.has-background[style*="background-color:#b8a3d1;"]:hover {
+        background-color: var(--wp--preset--color--violet-fonce) !important;
+        color: #fff !important;
+    }
+}
+
+a.wp-block-button__link.has-text-color[style*="color:#ffffff;"]:hover {
+    background-color: #fff !important;
+    color: var(--wp--preset--color--bleu-nuit) !important;
+    border-color: #fff !important;
+}
+
+// Wrapper des boutons
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 1em auto;
+}
+
+// Boutons solides
+.btn-solid {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    a {
+        color: #fff;
+    }
+
+    &:hover {
+        background-color: var(--primary);
+    }
+
+    // Variantes de couleur
+    &.lavande {
+        background-color: var(--Lavande-fonce);
+
+        &:hover {
+            background-color: var(--Lavande-fonce);
+        }
+    }
+
+    &.secondary {
+        background-color: var(--secondary);
+
+        &:hover {
+            background-color: var(--bordeau);
+        }
+    }
+}
+
+// Boutons outline
+.btn-outline {
+    // Variantes de couleur
+    &.lavande {
+        color: var(--Lavande-fonce);
+        border: 1px solid var(--Lavande-fonce);
+
+        &:hover {
+            background-color: var(--Lavande-fonce);
+            color: #fff;
+        }
+    }
+
+    &.beige {
+        color: var(--beige);
+        border: 1px solid var(--beige);
+
+        &:hover {
+            background-color: var(--beige);
+            color: var(--Lavande-fonce);
+        }
+    }
+
+    &.white {
+        color: #fff;
+        border: 1px solid #fff;
+
+        &:hover {
+            background-color: #fff;
+            color: #000;
+        }
+    }
+}
+
+// Tailles de boutons
+.btn-sm {
+    width: 100%;
+    max-width: 100px;
+    min-width: fit-content;
+}
+
+.btn-md {
+    width: 100%;
+    min-width: fit-content;
+    max-width: 150px;
+}
+
+.btn-l {
+    width: 100%;
+    min-width: fit-content;
+    max-width: 200px;
+}
+
+.btn-xl {
+    width: 100%;
+    max-width: 250px;
+}
+
+// Boutons dans la navigation
+nav .btn-solid {
+    padding: 5px 10px;
+}
+
+.wp-block-button{
+    @include max-width('md') {
+        width: 100%;
+    }
+}

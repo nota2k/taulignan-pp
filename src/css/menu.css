@@ -1,0 +1,131 @@
+.menu-toggle[aria-expanded=false]{
+    display: none;
+}
+
+.menu-toggle[aria-expanded=true]{
+    display: inherit;
+}
+
+.mobile-menu{
+    display: none;
+    cursor: pointer;
+    width: 38px;
+    height: 28px;
+    padding: 4px;
+}
+
+.mini{
+    display: none;
+    position: absolute;
+    z-index: 2000;
+}
+
+.mini .line{
+    width: 25px;
+    transition: 0.3s ease-in-out all;
+}
+
+.mini .line:nth-child(1){
+    transform-origin: 10px 0px;
+}
+
+.mini .line:nth-child(3){
+    transform-origin: -6px -6px;
+}
+
+.mobile-menu.active{
+    z-index: 1000;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.active .mini{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.active .mini .line:nth-child(1){
+    transform: rotate(45deg);
+}
+
+.active .mini .line:nth-child(2){
+    opacity: 0;
+
+}
+
+.active ul.mobile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--beige);
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes fadeIn {
+    0% {
+        left: 1000px;
+        opacity: 0;
+    }
+    100%{
+        left: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        left: 0;
+        opacity: 1;
+    }
+
+    100%{
+        left: 1000px;
+        opacity: 0;
+    }
+}
+
+.active .mini .line:nth-child(3){
+    transform: rotate(-45deg);
+}
+
+@media screen and (max-width: 576px){
+
+    .mobile-menu{
+        display: inherit;
+    }
+
+    .mini{
+        display: flex;
+        width: 38px;
+        height: 28px;
+        justify-content: space-between;
+        padding: 4px;
+    }
+
+    .mobile{
+        display: none;
+    }
+    
+    .mini .line{
+        width: 100%;
+        height: 2px;
+        background-color: var(--olive-fonce);
+        border-radius: 9px;
+    }
+    
+}
