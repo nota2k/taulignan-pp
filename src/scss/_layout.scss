@@ -82,6 +82,11 @@ LAYOUT & STRUCTURE
 .wp-block-group{
   @include max-width('md') {
     max-width: 100%;
+    
+    // &.alignfull{
+    //   margin-right: inherit!important;
+    //   margin-left: inherit!important;
+    // }
   }
 }
 .wp-container-core-group-is-layout-7e8b24b2 > :where(:not(.alignleft):not(.alignright):not(.alignfull)){

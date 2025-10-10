@@ -1,0 +1,10 @@
+@use '../generic/variables' as *;
+@use '../generic/mixins' as *;
+@use '../breakpoints' as *;
+
+.woocommerce {
+    .wp-block-post-template:has(.type-product){
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
