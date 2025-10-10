@@ -108,3 +108,32 @@ img {
 img[style*="width:585px"] {
     width: 100%!important;
 }
+
+
+.wrapper-double{
+    height:554px;
+
+    .ornement{
+        transform:rotate(-140deg);
+    }
+
+    .rectangle{
+        width: 170px;
+        height:554px;
+        // padding: 130px;
+    }
+
+    .ornement+div{
+        border-radius: 0 20px 20px 0;
+        object-fit: cover;
+        max-width: 100%;
+        float:inherit;
+        height: 100%;
+
+        img{
+            height: 100%;
+            max-width: 100%;
+        }
+    }
+}
+
