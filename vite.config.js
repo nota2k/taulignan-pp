@@ -6,6 +6,7 @@ import externalGlobals from "rollup-plugin-external-globals";
 import { defineConfig } from "vite";
 
 const port = process.env.VITE_PORT || 1559;
+const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
 
 export default defineConfig({
   input: [
@@ -17,9 +18,11 @@ export default defineConfig({
   port,
 
   plugins: [
-    uupVite(),
+    // Désactiver uupVite en CI/CD car il n'y a pas de WordPress
+    !isCI && uupVite(),
 
-    liveReload(__dirname + "/**/**.php"),
+    // Désactiver liveReload en CI/CD (pas de serveur de dev)
+    !isCI && liveReload(__dirname + "/**/**.php"),
 
     checker({
       stylelint: {
@@ -32,7 +35,7 @@ export default defineConfig({
       "@wordpress/blocks": "wp.blocks",
       "@wordpress/i18n": "wp.i18n",
     }),
-  ],
+  ].filter(Boolean), // Retirer les plugins false/null
   css: {
     postcss: {
       plugins: [autoprefixer()],
