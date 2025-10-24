@@ -5,9 +5,34 @@
 
 // Styles pour les pills WooCommerce Blocks
 .wc-block-add-to-cart-with-options-variation-selector-attribute-options__pill {
+  overflow:hidden;
+
+  input {
+    width: fit-content;
+  }
+
   &.out-of-order {
-    display: none !important; // Masquer complètement les pills en rupture de stock
-    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    &::after {
+      content: "Complet";
+      display: block;
+      position: absolute;
+      z-index: 10;
+      width: 130%;
+      background-color: #f08c8c;
+      cursor: not-allowed;
+      pointer-events: none;
+      transform: rotate(-6deg);
+      text-align: center;
+      height: 140%;
+      line-height: 3.3em;
+      font-weight: 600;
+    }
+
     label {
       &.out-of-order {
         opacity: 0.5;
