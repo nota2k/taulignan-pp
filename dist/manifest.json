@@ -1,0 +1,27 @@
+{
+  "src/js/editor.js": {
+    "file": "editor-DsDySEqp.js",
+    "name": "editor",
+    "src": "src/js/editor.js",
+    "isEntry": true
+  },
+  "src/js/main.js": {
+    "file": "main-C0sUpFQz.js",
+    "name": "main",
+    "src": "src/js/main.js",
+    "isEntry": true,
+    "css": [
+      "main-B_l4pjL9.css"
+    ]
+  },
+  "src/scss/_block-editor.scss": {
+    "file": "_block-editor-Cj529SY7.css",
+    "src": "src/scss/_block-editor.scss",
+    "isEntry": true
+  },
+  "src/scss/_theme.scss": {
+    "file": "_theme-DTItZS28.css",
+    "src": "src/scss/_theme.scss",
+    "isEntry": true
+  }
+}
