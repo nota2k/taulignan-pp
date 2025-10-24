@@ -15,7 +15,37 @@ sbutton,
 
 // Boutons WordPress
 .wp-block-button__link {
-    transition: 0.1s ease-in-out all;
+    transition: all 0.2s ease-in-out;
+    border-width: 1px;
+    border-style: solid;
+    
+    // Comportement générique : Inverser les couleurs au hover
+    // Les couleurs sont définies dynamiquement par JavaScript
+    
+    // Pour les boutons avec background (boutons pleins)
+    &.has-background {
+        border-color: transparent;
+        
+        &:hover {
+            // Utilise les variables CSS définies par JavaScript
+            background-color: var(--hover-bg-color, transparent) !important;
+            color: var(--hover-text-color, var(--original-bg-color)) !important;
+            border-color: var(--hover-border-color, var(--original-bg-color)) !important;
+        }
+    }
+    
+    // Pour les boutons outline/contour (has-text-color uniquement)
+    &.has-text-color:not(.has-background) {
+        background-color: transparent;
+        border-color: currentcolor;
+        
+        &:hover {
+            // Utilise les variables CSS définies par JavaScript
+            background-color: var(--hover-bg-color, currentColor) !important;
+            color: var(--hover-text-color, #fff) !important;
+            border-color: var(--hover-border-color, currentColor) !important;
+        }
+    }
 
     // Couleurs de fond au hover
     &.has-bleu-nuit-background-color:hover {

@@ -74,21 +74,9 @@ img {
     border-radius: 100%;
     aspect-ratio: 1/1;
     position: absolute;
-    min-height: 300px;
-    top: 0;
 
     @include max-width('md')  {
         position: relative;
-        width: 100% !important;
-    }
-
-    @include min-width('md') {
-        width: 100% !important;
-        max-width: 700px !important;
-    }
-
-    @media screen and (min-width: 1200px) {
-        max-width: 60%!important;
     }
 }
 
@@ -110,37 +98,3 @@ img {
     margin-bottom: 0;
     margin-top: 0;
 }
-
-img[style*="width:585px"] {
-    width: 100%!important;
-}
-
-
-.wrapper-double{
-    height:554px;
-
-    .ornement{
-        transform:rotate(-140deg);
-        margin: 0 auto;
-    }
-
-    .rectangle{
-        width: 170px;
-        height:554px;
-        // padding: 130px;
-    }
-
-    .ornement+div{
-        border-radius: 0 20px 20px 0;
-        object-fit: cover;
-        max-width: 100%;
-        float:inherit;
-        height: 100%;
-
-        img{
-            height: 100%;
-            max-width: 100%;
-        }
-    }
-}
-

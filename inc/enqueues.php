@@ -1,6 +1,6 @@
 <?php
 $vite_assets_loader = new Uup\ViteAssetsLoader(
-	APP_THEME_DIR . 'dist/manifest.json',
+	APP_THEME_DIR . '/dist/manifest.json',
 	APP_THEME_URL . '/dist/manifest.json'
 );
 

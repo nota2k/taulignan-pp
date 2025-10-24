@@ -5,11 +5,6 @@
    ============================================================================ */
 
 // Template de la page d'accueil
-.content-block{
-    position: relative;
-    z-index: 10;
-}
-
 .home {
     section {
         height: 100%;
@@ -24,16 +19,9 @@
             padding: 4em 1em;
         }
 
-        .title-block{
-                z-index: 10;
-
-            }
-
         .title-block-wrapper {
             overflow-y: hidden;
             box-sizing: border-box;
-
-            
 
             h1 {
                 display: block;
@@ -296,88 +284,6 @@
         width: 30%;
         background-color: var(--beige);
         margin: 0 0 2em;
-    }
-
-    .grid-wedding{
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto 1fr;
-        gap: 3em;
-
-        .flower{
-            grid-column: 2/span 1;
-            grid-row: 1/span 1;
-            justify-self: flex-end;
-            width: -moz-fit-content;
-            width: 100%;
-        }
-
-        .block-title{
-            grid-column: 3/span 3;
-            grid-row: 1/span 1;
-            height: -moz-fit-content;
-            height: fit-content;
-            align-self: flex-end;
-        }
-
-        .bloc-txt{
-            grid-column: 4/span 2;
-            grid-row: 2/span 1;
-        }
-
-        .img{
-            grid-column: 2 / span 2;
-            grid-row: 2 / span 1;
-
-        }
-
-        @include max-width('md') {
-            grid-template-columns: 1fr;
-            grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
-
-            
-            .flower{
-                grid-column: 1 / span 1;
-                grid-row-start: 1;     
-                max-width: 50%;
-                justify-self: center;      
-            }
-
-            .block-title{
-                grid-column: 1 / -1;
-                grid-row-start: 1;             
-                }
-
-            .bloc-txt{
-                grid-column: 1 / span 1;
-                grid-row: inherit;            
-                }
-
-            .img{
-                grid-column: 1 / span 1;
-                grid-row: inherit;            
-            }
-        }
-
-        @include max-width('sm') {
-            grid-template-columns: 1fr;
-
-            > *{
-                grid-column: 1 / -1;
-            }
-        }
-    }
-
-    .flower{
-        transform:rotate(16deg);
-        mix-blend-mode: exclusion;
-
-        img{
-            min-width: 100%;
-            max-width: 100%;
-            width: 100%!important;
-            height: auto!important;
-        }
-        
     }
 }
 

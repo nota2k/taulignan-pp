@@ -1,0 +1,30 @@
+/**
+ * Styles pour les variations de produits WooCommerce Blocks
+ * Gère l'affichage des variations en rupture de stock avec la classe "out-of-order"
+ */
+
+// Styles pour les pills WooCommerce Blocks
+.wc-block-add-to-cart-with-options-variation-selector-attribute-options__pill {
+  &.out-of-order {
+    display: none !important; // Masquer complètement les pills en rupture de stock
+    
+    label {
+      &.out-of-order {
+        opacity: 0.5;
+        text-decoration: line-through;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// Styles pour les options de sélection (select) WooCommerce classiques
+.variations_form {
+  select {
+    option.out-of-order {
+      color: var(--wp--preset--color--custom-gris-clair);
+      font-style: italic;
+    }
+  }
+}

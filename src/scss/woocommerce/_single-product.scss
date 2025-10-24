@@ -158,21 +158,14 @@
   }
 }
 
-.wp-block-woocommerce-add-to-cart-with-options-variation-selector-attribute-name {
-  font-size: 1rem;
-  font-weight: 600;
+.add-to-cart-wrapper {
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.wp-block-woocommerce-add-to-cart-with-options-variation-selector-attribute-options {
-  .wc-block-add-to-cart-with-options-variation-selector-attribute-options__pill {
-    display: inline-block;
-    width: fit-content;
-    border-radius: 2px;
-
-    &:has(
-        .wc-block-add-to-cart-with-options-variation-selector-attribute-options__pill-input:checked
-      ) {
-      background-color: var(--wp--preset--color--custom-bleu-canard);
-    }
-  }
+.wc-block-add-to-cart-with-options-variation-selector-attribute-options__pill {
+  padding: 10px 25px;
+  border-radius: 4px;
+  font-size: 1em;
+  width: fit-content;
 }

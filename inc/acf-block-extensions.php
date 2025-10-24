@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Extensions ACF pour les blocs natifs WordPress
  * 
@@ -14,11 +15,12 @@ if (!defined('ABSPATH')) {
 /**
  * Ajouter des champs ACF au bloc image natif
  */
-function taulignan_extend_image_block() {
+function taulignan_extend_image_block()
+{
     if (!function_exists('acf_add_local_field_group')) {
         return;
     }
-    
+
     acf_add_local_field_group(array(
         'key' => 'group_image_block_extension',
         'title' => 'Extension du bloc Image',
@@ -120,11 +122,12 @@ function taulignan_extend_image_block() {
 /**
  * Ajouter des champs ACF au bloc paragraphe natif
  */
-function taulignan_extend_paragraph_block() {
+function taulignan_extend_paragraph_block()
+{
     if (!function_exists('acf_add_local_field_group')) {
         return;
     }
-    
+
     acf_add_local_field_group(array(
         'key' => 'group_paragraph_block_extension',
         'title' => 'Extension du bloc Paragraphe',
@@ -174,11 +177,12 @@ function taulignan_extend_paragraph_block() {
 /**
  * Ajouter des champs ACF au bloc heading natif
  */
-function taulignan_extend_heading_block() {
+function taulignan_extend_heading_block()
+{
     if (!function_exists('acf_add_local_field_group')) {
         return;
     }
-    
+
     acf_add_local_field_group(array(
         'key' => 'group_heading_block_extension',
         'title' => 'Extension du bloc Titre',
@@ -228,7 +232,8 @@ function taulignan_extend_heading_block() {
 /**
  * Initialiser toutes les extensions de blocs
  */
-function taulignan_init_block_extensions() {
+function taulignan_init_block_extensions()
+{
     // Attendre que ACF soit chargé
     if (function_exists('acf_add_local_field_group')) {
         taulignan_extend_image_block();
@@ -243,7 +248,8 @@ add_action('acf/init', 'taulignan_init_block_extensions');
 /**
  * Rendre les champs ACF disponibles dans l'éditeur de blocs
  */
-function taulignan_enable_acf_fields_in_blocks() {
+function taulignan_enable_acf_fields_in_blocks()
+{
     if (function_exists('acf_get_field_groups')) {
         // Activer ACF pour tous les blocs
         add_filter('acf/settings/remove_wp_meta_box', '__return_false');
@@ -260,14 +266,15 @@ add_action('init', 'taulignan_enable_acf_fields_in_blocks');
  * @param int $post_id ID du post (optionnel)
  * @return mixed Valeur du champ ou false si non trouvé
  */
-function taulignan_get_block_acf_field($block_name, $field_name, $post_id = null) {
+function taulignan_get_block_acf_field($block_name, $field_name, $post_id = null)
+{
     if (!$post_id) {
         $post_id = get_the_ID();
     }
-    
+
     // Récupérer tous les blocs du post
     $blocks = parse_blocks(get_post_field('post_content', $post_id));
-    
+
     // Chercher le bloc spécifique
     foreach ($blocks as $block) {
         if ($block['blockName'] === $block_name) {
@@ -280,7 +287,7 @@ function taulignan_get_block_acf_field($block_name, $field_name, $post_id = null
             }
         }
     }
-    
+
     return false;
 }
 
@@ -537,3 +544,5 @@ function register_card_event_fields()
 }
 add_action('acf/init', 'register_card_event_fields');
 
+// Les champs ACF pour le Séjours Slider sont maintenant gérés via BlockSections
+// Voir /sections/SejoursSlider.php

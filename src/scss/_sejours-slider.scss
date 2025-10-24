@@ -1,0 +1,379 @@
+@use "generic/variables" as *;
+@use "generic/mixins" as *;
+
+/* ============================================================================
+   SÉJOURS SLIDER avec SWIPER
+   ============================================================================ */
+
+.sejours-slider-section {
+  overflow: hidden;
+  padding: var(--spacing-lg) 0;
+  background-color: var(--wp--preset--color--base);
+
+  // Assurer que tous les éléments enfants utilisent box-sizing: border-box
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .is-layout-flex {
+    @media (width <= 768px) {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+
+  @media (width <= 768px) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+// Colonnes principales
+.sejours-slider-columns {
+  display: flex;
+  gap: 3rem;
+  align-items: stretch;
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  min-height: 40vh;
+  box-sizing: border-box;
+
+  @media (width <= 960px) {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 var(--spacing-sm);
+  }
+
+  @media (width <= 768px) {
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+}
+
+// Colonne gauche : Contenu éditable (InnerBlocks)
+.sejours-slider-left-column {
+  flex: 1;
+  min-width: 300px;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+
+  @media (width <= 960px) {
+    padding-right: 0;
+    text-align: center;
+    min-width: 0;
+    width: 100%;
+    border: none !important;
+  }
+
+  @media (width <= 768px) {
+    padding: 0;
+  }
+
+  // Styles pour le paragraphe/description
+  p,
+  .sejours-slider-description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--wp--preset--color--olive-fonce);
+    margin-bottom: 2rem;
+  }
+
+  // Styles pour les boutons
+  .sejours-slider-buttons,
+  .wp-block-buttons {
+    margin-top: 0;
+
+    @media (width <= 960px) {
+      justify-content: flex-start;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  }
+
+  .wp-block-button__link {
+    display: inline-block;
+    border-radius: 50px;
+    padding: 0.875rem 2.5rem;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+  }
+
+  > .wp-block-group {
+    @media (width <= 768px) {
+      min-height: auto !important;
+
+      p {
+        margin-left: 0 !important   ;
+        margin-right: 0 !important;
+      }
+    }
+  }
+}
+
+// Colonne droite : Swiper Slider
+.sejours-slider-right-column {
+  flex: 1.2;
+  position: relative;
+  overflow: hidden;
+
+  @media (width <= 960px) {
+    padding-left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+// Swiper Séjours
+.sejours-swiper {
+  width: 100%;
+  height: auto;
+  padding-bottom: 3rem;
+  max-width: 100%;
+  overflow: hidden;
+
+  // Wrapper et slides
+  .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  .swiper-slide {
+    height: auto;
+    width: 100%;
+    max-width: 100%;
+
+    // Swiper gère l'opacity avec l'effet fade, pas besoin de le redéfinir ici
+  }
+}
+
+// Contenu de la slide
+.sejour-slide-content {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  height: 100%;
+  min-height: 40vh;
+
+  @media (width <= 960px) {
+    gap: 1.5rem;
+  }
+
+  @media (width <= 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+// Image du séjour
+.sejour-image {
+  flex: 1 0 45%;
+max-width: 900px;
+  margin: 0;
+  height: 100%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+  }
+
+  @media (width <= 960px) {
+    max-width: 300px;
+  }
+
+  @media (width <= 768px) {
+    flex: 1;
+    max-width: 100%;
+  }
+}
+
+// Contenu du séjour
+.sejour-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  .sejour-title {
+    font-size: 4rem;
+    font-weight: 400;
+    color: var(--wp--preset--color--custom-bleu-canard);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--wp--preset--color--custom-bleu-canard);
+    padding-bottom: 0.4em;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: var(--wp--preset--color--olive-fonce);
+      }
+    }
+  }
+
+  .sejour-variations-wrapper {
+    margin-top: -0.5rem;
+  }
+
+  .sejour-variation-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .variation-label {
+      font-size: 1.375rem;
+      font-weight: 600;
+      color: var(--wp--preset--color--custom-bleu-canard);
+      white-space: nowrap;
+      padding-top: 0.25rem;
+    }
+  }
+
+  .sejour-variations-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .sejour-variation {
+    font-size: 0.875rem;
+    color: var(--wp--preset--color--olive-fonce);
+    letter-spacing: 0.02em;
+    background-color: rgba(85, 92, 73, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    margin: 0;
+    line-height: 1.5;
+    display: inline-block;
+    flex-grow: 2;
+    text-align: center;
+
+    .variation-value {
+      font-weight: 400;
+    }
+  }
+
+  .sejour-separator {
+    margin: 1rem 0;
+    background-color: var(--wp--preset--color--olive-fonce);
+    border: none;
+    height: 1px;
+  }
+
+  .sejour-date {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--wp--preset--color--olive-fonce);
+    margin-bottom: 0.5rem;
+  }
+
+  .sejour-excerpt {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--wp--preset--color--olive-fonce);
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .sejour-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+
+    @media (width <= 768px) {
+      margin-top: 1rem;
+    }
+
+    .wp-block-button__link {
+      display: inline-block;
+      border-radius: 50px;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      width: 100%;
+
+      @media (width <= 768px) {
+        width: 60%;
+        margin: 0 auto!important;
+      }
+
+      &:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// Pagination Swiper (points de navigation)
+.sejours-swiper {
+  .swiper-pagination {
+    position: relative;
+    margin-top: 2rem;
+    bottom: 0;
+
+    .swiper-pagination-bullet {
+      width: 12px;
+      height: 12px;
+      background-color: var(--wp--preset--color--custom-bleu-canard);
+      opacity: 0.3;
+      margin: 0 6px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        opacity: 0.6;
+        transform: scale(1.1);
+      }
+
+      &.swiper-pagination-bullet-active {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+// Responsive supplémentaire
+@media (width <= 768px) {
+  .sejours-swiper {
+    padding-bottom: 2rem;
+  }
+
+  .sejour-content {
+    .sejour-title {
+      font-size: 3.7rem;
+        margin-top: 20px;
+    }
+  }
+}

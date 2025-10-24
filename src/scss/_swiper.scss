@@ -1,19 +1,147 @@
 // // ============================================================================
 // // STYLES SWIPER
 // // ============================================================================
-@use 'breakpoints' as *;
 
-.swiper-wrapper{
-  height:100vh!important;
+// // Variables Swiper personnalisées
+// :root {
+//   --swiper-navigation-color: #333;
+//   --swiper-pagination-color: #333;
+//   --swiper-pagination-bullet-inactive-color: rgba(0, 0, 0, 0.2);
+//   --swiper-pagination-bullet-inactive-opacity: 0.2;
+// }
 
-  @include max-width('md') {
-    height:35vh!important;
+// // Conteneur principal Swiper
+// .swiper {
+//   width: 100%;
+//   height: 100%;
+  
+//   // Wrapper des slides
+//   .swiper-wrapper {
+//     align-items: center;
+//   }
+  
+//   // Slides individuelles
+//   .swiper-slide {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     text-align: center;
+//     font-size: 18px;
+//     background: #fff;
+    
+//     // Slide active
+//     &.swiper-slide-active {
+//       // Styles pour la slide active si nécessaire
+//     }
+//   }
+// }
 
-    .swiper-slide{
-      height:fit-content
-    }
-  }
-}
+// // Navigation (boutons précédent/suivant)
+// .swiper-button-next,
+// .swiper-button-prev {
+//   color: var(--swiper-navigation-color);
+//   background: rgba(255, 255, 255, 0.9);
+//   border-radius: 50%;
+//   width: 44px;
+//   height: 44px;
+//   margin-top: -22px;
+//   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+//   transition: all 0.3s ease;
+  
+//   &:after {
+//     font-size: 18px;
+//     font-weight: 600;
+//   }
+  
+//   &:hover {
+//     background: var(--swiper-navigation-color);
+//     color: white;
+//     transform: scale(1.1);
+//   }
+  
+//   &.swiper-button-disabled {
+//     opacity: 0.3;
+//     cursor: not-allowed;
+//   }
+// }
+
+// .swiper-button-next {
+//   right: 10px;
+// }
+
+// .swiper-button-prev {
+//   left: 10px;
+// }
+
+// // Pagination (points)
+// .swiper-pagination {
+//   position: relative;
+//   margin-top: 20px;
+  
+//   .swiper-pagination-bullet {
+//     width: 12px;
+//     height: 12px;
+//     background: var(--swiper-pagination-bullet-inactive-color);
+//     opacity: var(--swiper-pagination-bullet-inactive-opacity);
+//     margin: 0 6px;
+//     transition: all 0.3s ease;
+    
+//     &.swiper-pagination-bullet-active {
+//       background: var(--swiper-pagination-color);
+//       opacity: 1;
+//       transform: scale(1.2);
+//     }
+//   }
+  
+//   // Style pour la pagination fraction
+//   &.swiper-pagination-fraction {
+//     color: var(--swiper-pagination-color);
+//     font-weight: 600;
+//     font-size: 14px;
+//   }
+  
+//   // Style pour la pagination progressive
+//   &.swiper-pagination-progressbar {
+//     background: rgba(0, 0, 0, 0.1);
+//     height: 4px;
+//     border-radius: 2px;
+    
+//     .swiper-pagination-progressbar-fill {
+//       background: var(--swiper-pagination-color);
+//       border-radius: 2px;
+//     }
+//   }
+// }
+
+// // Effets personnalisés
+// .swiper {
+//   // Effet fade
+//   &.swiper-effect-fade {
+//     .swiper-slide {
+//       opacity: 0;
+//       transition: opacity 0.3s ease;
+      
+//       &.swiper-slide-active {
+//         opacity: 1;
+//       }
+//     }
+//   }
+  
+//   // Effet coverflow
+//   &.swiper-effect-coverflow {
+//     .swiper-slide {
+//       transition: transform 0.3s ease;
+//     }
+//   }
+  
+//   // Effet cards
+//   &.swiper-effect-cards {
+//     .swiper-slide {
+//       border-radius: 8px;
+//       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+//     }
+//   }
+// }
 
 // Styles responsives
 @media (width <= 959px) {
@@ -46,3 +174,39 @@
     }
   }
 }
+
+// // Styles pour l'éditeur WordPress
+// .wp-block-group {
+//   .swiper {
+//     // Styles spécifiques dans l'éditeur si nécessaire
+//   }
+// }
+
+// // Classes utilitaires pour personnaliser les swipers
+// .swiper-container {
+//   // Conteneur personnalisé
+//   &.swiper-no-pagination {
+//     .swiper-pagination {
+//       display: none;
+//     }
+//   }
+  
+//   &.swiper-no-navigation {
+//     .swiper-button-next,
+//     .swiper-button-prev {
+//       display: none;
+//     }
+//   }
+  
+//   &.swiper-centered {
+//     .swiper-wrapper {
+//       align-items: center;
+//     }
+//   }
+  
+//   &.swiper-stretch {
+//     .swiper-slide {
+//       height: auto;
+//     }
+//   }
+// }

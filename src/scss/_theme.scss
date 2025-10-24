@@ -13,10 +13,11 @@
 @use 'swiper' as *;
 @use 'block-editor' as *;
 @use 'loading' as *;
+@use 'sejours-slider' as *;
 @use 'components/card-event' as *;
 @use 'pages/home' as *;
 @use 'woocommerce/single-product' as *;
-@use 'woocommerce/products' as *;
+@use 'woocommerce/variations' as *;
 
 
 body {
