@@ -34,18 +34,18 @@
 // Colonnes principales
 .sejours-slider-columns {
   display: flex;
-  gap: 3rem;
+  gap: 1rem;
   align-items: stretch;
   position: relative;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-md);
-  min-height: 40vh;
+  min-height: 30vh;
   box-sizing: border-box;
 
   @media (width <= 960px) {
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     padding: 0 var(--spacing-sm);
   }
 
@@ -180,7 +180,7 @@
 // Image du séjour
 .sejour-image {
   flex: 1 0 45%;
-max-width: 20vw;
+  max-width: 20vw;
   margin: 0;
   height: 100%;
 
@@ -322,7 +322,6 @@ max-width: 20vw;
       text-decoration: none;
       transition: all 0.3s ease;
       width: 100%;
-      max-width: 300px;
 
       @media (width <= 768px) {
         width: 60%;

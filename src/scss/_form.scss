@@ -1,16 +1,188 @@
-@use 'generic/variables' as *;
-@use 'generic/mixins' as *;
-@use 'breakpoints' as *;
+@use "generic/variables" as *;
+@use "generic/mixins" as *;
+@use "breakpoints" as *;
+@use "layout" as *;
+@use "fonts" as *;
+@use "header" as *;
+@use "footer" as *;
+@use "carousel" as *;
+@use "gallery" as *;
+@use "medias" as *;
+@use "buttons" as *;
 
-.form-control {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
+// Formulaires Contact Form 7
+.wpcf7-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 20px;
+  row-gap: 0;
+  min-width: 300px;
+  max-width: 500px;
+      width: 100%;
+
+  label .wpcf7-form-control {
+    margin-top: 0;
+  }
+
+  @include max-width("md") {
+    grid-template-columns: 1fr !important;
+
+    > * {
+      grid-column: span 1 !important;
+    }
+  }
 }
 
-.wpcf7-form{
-    @include tablet-up {
-        grid-template-columns: 1fr!important;
+.map-wrapper{
+    max-width: 30%;
+    flex-grow: 3;
+
+    @include max-width("md") {  
+        max-width: 100%!important;
     }
+}
+
+.wp-block-group:has(.wpcf7-form) {
+  // max-width: 50%;
+
+  @include max-width("md") {
+    max-width: 100% !important;
+  }
+}
+
+// Champs de formulaire
+.wpc7-field,
+.wpc7-fieldtext,
+label,
+input,
+option {
+  width: 100%;
+
+  // margin-bottom: 15px;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+input,
+textarea,
+select {
+  border: none;
+  border-radius: 5px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+// Contrôles de formulaire
+.wpcf7-form-control {
+  padding: 11px;
+  font-size: 0.9em;
+  color: var(--wp--preset--color--violet-fonce);
+}
+
+// Champs spécifiques
+.wpc7-field {
+  &.mail {
+    grid-column: span 2;
+    grid-row: 2 / span 1;
+  }
+
+  &.object {
+    grid-column: span 2;
+    grid-row: 4 / span 1;
+    justify-self: flex-start;
+
+    label {
+      font-weight: 500;
+    }
+  }
+}
+
+.wpc7-fieldtext {
+  grid-column: 1 / -1;
+  grid-row: 5 / span 1;
+}
+
+.wpcf7-form-control-wrap {
+  height: 100%;
+  display: block;
+  margin-top: 10px;
+  grid-column: span 1;
+  grid-row: 3 / span 1;
+}
+
+.wpcf7-submit {
+  grid-column: span 1;
+  grid-row: 6 / span 1;
+  justify-self: flex-start;
+}
+
+// Formulaire spécifique ID 124
+#wpcf7-f124-p119-o1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+    width: 100%!important;
+  padding: 1.5em;
+  border-radius: 10px;
+  border: 1px solid var(--wp--preset--color--olive-fonce);
+
+  //   background-color: var(--wp--preset--color--olive);
+
+  label {
+    font-weight: 400;
+    color: var(--wp--preset--color--violet-fonce);
+    margin-bottom: 0.5em;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    border: 1px solid var(--wp--preset--color--olive-fonce);
+  }
+
+  input[type="submit"] {
+    background-color: var(--Olive);
+    width: fit-content;
+    padding: 10px 30px;
+    color: var(--wp--preset--color--olive-fonce);
+    font-size: 0.9em;
+    border: 1px solid var(--wp--preset--color--olive-fonce);
+  }
+
+  .wpcf7-select {
+    margin-top: 23px;
+    padding: 8px;
+    border: 1px solid var(--wp--preset--color--olive-fonce);
+  }
+}
+
+// Page spécifique - ID 119
+.page-id-119 {
+  .wp-block-group iframe {
+    width: 100%;
+    min-width: 300px;
+    height: 300px;
+    flex-grow: 2;
+  }
+}
+
+// Plage de dates
+.date-range {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+
+  > label {
+    flex-grow: 2;
+  }
+}
+
+#ConstellationWidget{
+    padding: 0!important;
+    width: 100%!important;
+    max-width: 100%!important;
 }
