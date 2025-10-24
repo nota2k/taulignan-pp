@@ -219,37 +219,14 @@ function generate_weekends_by_month($end_month, $year)
     return $weekends_by_month;
 }
 
-// Exécution du script - S'EXÉCUTE UNE SEULE FOIS
-$execution_flag = get_option('weekend_attributes_script_executed_once');
-
-if ($execution_flag) {
-    echo "⚠️ CE SCRIPT A DÉJÀ ÉTÉ EXÉCUTÉ\n\n";
-    echo "Les attributs ont été créés le : " . date('d/m/Y à H:i:s', $execution_flag) . "\n\n";
-    echo "Si vous voulez le réexécuter, vous devez d'abord supprimer le flag en exécutant :\n";
-    echo "delete_option('weekend_attributes_script_executed_once');\n\n";
-    echo "Ou supprimez cette option dans la table wp_options de votre base de données.\n";
-    exit;
-}
-
-$result = create_monthly_weekend_attributes($end_month, $current_year);
-
-if (!$result['success']) {
-    echo 'Erreur : ' . $result['message'];
-} else {
-    echo $result['message'] . "\n\n";
-    echo "Détails :\n";
-    foreach ($result['details'] as $detail) {
-        echo $detail . "\n";
-    }
-    echo "\n✓ Script terminé avec succès !";
-    echo "\n→ Allez dans Produits > Attributs pour voir les nouveaux attributs";
-
-    // Marquer définitivement le script comme exécuté
-    update_option('weekend_attributes_script_executed_once', time(), false);
-
-    echo "\n\n⚠️ Ce script ne pourra plus être réexécuté.";
-    echo "\nPour le réexécuter, vous devrez supprimer l'option 'weekend_attributes_script_executed_once'";
-}
+/**
+ * NOTE : Ce script ne s'exécute PLUS automatiquement !
+ * 
+ * Pour générer les dates, utilisez maintenant l'interface d'administration :
+ * Outils > Dates automatiques
+ * 
+ * Ou appelez directement la fonction : create_monthly_weekend_attributes($end_month, $current_year)
+ */
 
 /**
  * CORRECTIFS APPLIQUÉS :

@@ -56,6 +56,11 @@ function app_init()
     require_once APP_THEME_DIR . '/inc/template-functions.php';
     require_once APP_THEME_DIR . '/inc/template-tags.php';
     require_once APP_THEME_DIR . '/inc/sections.php';
+    
+    // Interface d'administration pour la génération automatique de dates
+    if (is_admin()) {
+        require_once APP_THEME_DIR . '/inc/automatic-dates-admin.php';
+    }
 }
 
 
