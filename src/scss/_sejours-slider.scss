@@ -180,7 +180,7 @@
 // Image du séjour
 .sejour-image {
   flex: 1 0 45%;
-max-width: 900px;
+max-width: 20vw;
   margin: 0;
   height: 100%;
 
@@ -322,6 +322,7 @@ max-width: 900px;
       text-decoration: none;
       transition: all 0.3s ease;
       width: 100%;
+      max-width: 300px;
 
       @media (width <= 768px) {
         width: 60%;

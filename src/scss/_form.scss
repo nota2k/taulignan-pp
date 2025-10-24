@@ -1,0 +1,16 @@
+@use 'generic/variables' as *;
+@use 'generic/mixins' as *;
+@use 'breakpoints' as *;
+
+.form-control {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.wpcf7-form{
+    @include tablet-up {
+        grid-template-columns: 1fr!important;
+    }
+}

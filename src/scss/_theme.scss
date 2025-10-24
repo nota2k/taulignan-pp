@@ -15,9 +15,12 @@
 @use 'loading' as *;
 @use 'sejours-slider' as *;
 @use 'components/card-event' as *;
+@use 'components/listing-sejours-finis' as *;
+@use 'components/sejours-query-sort' as *;
 @use 'pages/home' as *;
 @use 'woocommerce/single-product' as *;
 @use 'woocommerce/variations' as *;
+@use 'form' as *;
 
 
 body {

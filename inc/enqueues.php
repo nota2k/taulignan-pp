@@ -1,6 +1,7 @@
 <?php
+// Initialize ViteAssetsLoader
 $vite_assets_loader = new Uup\ViteAssetsLoader(
-	APP_THEME_DIR . '/dist/manifest.json',
+	APP_THEME_DIR . 'dist/manifest.json',
 	APP_THEME_URL . '/dist/manifest.json'
 );
 
@@ -12,6 +13,9 @@ $vite_assets_loader->enqueue_editor_style( 'block-editor-bundle', 'src/scss/_blo
 // Enqueue JS and CSS assets on the front-end
 add_action( 'wp_enqueue_scripts', 'app_enqueue_assets' );
 function app_enqueue_assets() {
+	// Enqueue jQuery
+	wp_enqueue_script( 'jquery' );
+	
 	# The theme style.css file may contain overrides for the bundled styles
 	wp_enqueue_style( 'theme-styles', APP_THEME_URL . '/style.css' );
 }
@@ -32,5 +36,3 @@ add_action( 'login_enqueue_scripts', 'app_login_enqueue' );
 function app_login_enqueue() {
 	# app_enqueue_style( 'theme-login-styles', APP_THEME_URL . '/css/login-style.css' );
 }
-
-wp_enqueue_script( 'jquery' );

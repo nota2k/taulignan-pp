@@ -3,3 +3,4 @@ import './modules/taulignan.js';
 import './modules/navigation.js';
 import './modules/custom-swiper.js';
 import './modules/woocommerce-custom.js';
+import './modules/sejours-query-sort.js';

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Extensions ACF pour les blocs natifs WordPress
  * 
@@ -15,12 +14,11 @@ if (!defined('ABSPATH')) {
 /**
  * Ajouter des champs ACF au bloc image natif
  */
-function taulignan_extend_image_block()
-{
+function taulignan_extend_image_block() {
     if (!function_exists('acf_add_local_field_group')) {
         return;
     }
-
+    
     acf_add_local_field_group(array(
         'key' => 'group_image_block_extension',
         'title' => 'Extension du bloc Image',
@@ -122,12 +120,11 @@ function taulignan_extend_image_block()
 /**
  * Ajouter des champs ACF au bloc paragraphe natif
  */
-function taulignan_extend_paragraph_block()
-{
+function taulignan_extend_paragraph_block() {
     if (!function_exists('acf_add_local_field_group')) {
         return;
     }
-
+    
     acf_add_local_field_group(array(
         'key' => 'group_paragraph_block_extension',
         'title' => 'Extension du bloc Paragraphe',
@@ -177,12 +174,11 @@ function taulignan_extend_paragraph_block()
 /**
  * Ajouter des champs ACF au bloc heading natif
  */
-function taulignan_extend_heading_block()
-{
+function taulignan_extend_heading_block() {
     if (!function_exists('acf_add_local_field_group')) {
         return;
     }
-
+    
     acf_add_local_field_group(array(
         'key' => 'group_heading_block_extension',
         'title' => 'Extension du bloc Titre',
@@ -232,8 +228,7 @@ function taulignan_extend_heading_block()
 /**
  * Initialiser toutes les extensions de blocs
  */
-function taulignan_init_block_extensions()
-{
+function taulignan_init_block_extensions() {
     // Attendre que ACF soit chargé
     if (function_exists('acf_add_local_field_group')) {
         taulignan_extend_image_block();
@@ -248,8 +243,7 @@ add_action('acf/init', 'taulignan_init_block_extensions');
 /**
  * Rendre les champs ACF disponibles dans l'éditeur de blocs
  */
-function taulignan_enable_acf_fields_in_blocks()
-{
+function taulignan_enable_acf_fields_in_blocks() {
     if (function_exists('acf_get_field_groups')) {
         // Activer ACF pour tous les blocs
         add_filter('acf/settings/remove_wp_meta_box', '__return_false');
@@ -266,15 +260,14 @@ add_action('init', 'taulignan_enable_acf_fields_in_blocks');
  * @param int $post_id ID du post (optionnel)
  * @return mixed Valeur du champ ou false si non trouvé
  */
-function taulignan_get_block_acf_field($block_name, $field_name, $post_id = null)
-{
+function taulignan_get_block_acf_field($block_name, $field_name, $post_id = null) {
     if (!$post_id) {
         $post_id = get_the_ID();
     }
-
+    
     // Récupérer tous les blocs du post
     $blocks = parse_blocks(get_post_field('post_content', $post_id));
-
+    
     // Chercher le bloc spécifique
     foreach ($blocks as $block) {
         if ($block['blockName'] === $block_name) {
@@ -287,7 +280,7 @@ function taulignan_get_block_acf_field($block_name, $field_name, $post_id = null
             }
         }
     }
-
+    
     return false;
 }
 
@@ -546,3 +539,209 @@ add_action('acf/init', 'register_card_event_fields');
 
 // Les champs ACF pour le Séjours Slider sont maintenant gérés via BlockSections
 // Voir /sections/SejoursSlider.php
+
+/**
+ * Enregistrer le bloc ACF pour la query loop de séjours avec tri
+ */
+function register_sejours_query_sort_block()
+{
+    if (!function_exists('acf_register_block_type')) {
+        return;
+    }
+
+    acf_register_block_type(array(
+        'name'              => 'sejours-query-sort',
+        'title'             => __('Query Loop Séjours avec Tri'),
+        'description'       => __('Affiche une liste de séjours avec options de tri basées sur les champs ACF'),
+        'render_template'   => get_template_directory() . '/inc/blocks/sejours-query-sort.php',
+        'category'          => 'widgets',
+        'icon'              => 'list-view',
+        'keywords'          => array('séjours', 'query', 'tri', 'produits', 'woocommerce'),
+        'mode'              => 'edit',
+        'supports'          => array(
+            'align' => array('wide', 'full'),
+            'mode'  => false,
+        ),
+    ));
+}
+add_action('acf/init', 'register_sejours_query_sort_block');
+
+/**
+ * Enregistrer les champs ACF pour le bloc sejours-query-sort
+ */
+function register_sejours_query_sort_fields()
+{
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_sejours_query_sort_block',
+        'title' => 'Paramètres de la Query Loop Séjours',
+        'fields' => array(
+            array(
+                'key' => 'field_query_title',
+                'label' => 'Titre de la section',
+                'name' => 'query_title',
+                'type' => 'text',
+                'instructions' => 'Titre affiché au-dessus de la liste des séjours',
+                'required' => 0,
+                'default_value' => 'Nos Séjours',
+                'placeholder' => 'Ex: Découvrez nos séjours',
+                'maxlength' => 100,
+            ),
+            array(
+                'key' => 'field_posts_per_page',
+                'label' => 'Nombre de séjours par page',
+                'name' => 'posts_per_page',
+                'type' => 'number',
+                'instructions' => 'Nombre de séjours à afficher par page',
+                'required' => 0,
+                'default_value' => 6,
+                'min' => 1,
+                'max' => 50,
+                'step' => 1,
+            ),
+            array(
+                'key' => 'field_default_sort',
+                'label' => 'Tri par défaut',
+                'name' => 'default_sort',
+                'type' => 'select',
+                'instructions' => 'Critère de tri par défaut',
+                'required' => 0,
+                'choices' => array(
+                    'event_finish_asc' => 'Statut événement (terminé → actif)',
+                    'event_finish_desc' => 'Statut événement (actif → terminé)',
+                    'date_sejour_asc' => 'Date du séjour (croissant)',
+                    'date_sejour_desc' => 'Date du séjour (décroissant)',
+                    'title_asc' => 'Titre (A-Z)',
+                    'title_desc' => 'Titre (Z-A)',
+                    'price_asc' => 'Prix (croissant)',
+                    'price_desc' => 'Prix (décroissant)',
+                ),
+                'default_value' => 'event_finish_desc',
+                'return_format' => 'value',
+            ),
+            array(
+                'key' => 'field_show_sort_options',
+                'label' => 'Afficher les options de tri',
+                'name' => 'show_sort_options',
+                'type' => 'true_false',
+                'instructions' => 'Permettre aux visiteurs de changer le tri',
+                'required' => 0,
+                'default_value' => 1,
+                'ui' => 1,
+                'ui_on_text' => 'Oui',
+                'ui_off_text' => 'Non',
+            ),
+            array(
+                'key' => 'field_sort_options',
+                'label' => 'Options de tri disponibles',
+                'name' => 'sort_options',
+                'type' => 'checkbox',
+                'instructions' => 'Sélectionnez les options de tri à proposer aux visiteurs',
+                'required' => 0,
+                'choices' => array(
+                    'event_finish_asc' => 'Statut événement (terminé → actif)',
+                    'event_finish_desc' => 'Statut événement (actif → terminé)',
+                    'date_sejour_asc' => 'Date du séjour (croissant)',
+                    'date_sejour_desc' => 'Date du séjour (décroissant)',
+                    'title_asc' => 'Titre (A-Z)',
+                    'title_desc' => 'Titre (Z-A)',
+                    'price_asc' => 'Prix (croissant)',
+                    'price_desc' => 'Prix (décroissant)',
+                ),
+                'default_value' => array('event_finish_desc', 'date_sejour_asc', 'title_asc', 'price_asc'),
+                'allow_custom' => 0,
+                'save_custom' => 0,
+                'layout' => 'vertical',
+                'toggle' => 0,
+                'return_format' => 'value',
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_show_sort_options',
+                            'operator' => '==',
+                            'value' => '1',
+                        ),
+                    ),
+                ),
+            ),
+            array(
+                'key' => 'field_filter_by_date',
+                'label' => 'Filtrer par période',
+                'name' => 'filter_by_date',
+                'type' => 'select',
+                'instructions' => 'Afficher seulement les séjours d\'une période spécifique',
+                'required' => 0,
+                'choices' => array(
+                    'all' => 'Tous les séjours',
+                    'active' => 'Séjours actifs uniquement',
+                    'finished' => 'Séjours terminés uniquement',
+                    'upcoming' => 'Séjours à venir uniquement',
+                    'past' => 'Séjours passés uniquement',
+                ),
+                'default_value' => 'active',
+                'return_format' => 'value',
+            ),
+            array(
+                'key' => 'field_layout_style',
+                'label' => 'Style d\'affichage',
+                'name' => 'layout_style',
+                'type' => 'select',
+                'instructions' => 'Style d\'affichage des cartes de séjours',
+                'required' => 0,
+                'choices' => array(
+                    'grid' => 'Grille',
+                    'list' => 'Liste',
+                    'cards' => 'Cartes',
+                ),
+                'default_value' => 'grid',
+                'return_format' => 'value',
+            ),
+            array(
+                'key' => 'field_show_pagination',
+                'label' => 'Afficher la pagination',
+                'name' => 'show_pagination',
+                'type' => 'true_false',
+                'instructions' => 'Afficher la pagination si nécessaire',
+                'required' => 0,
+                'default_value' => 1,
+                'ui' => 1,
+                'ui_on_text' => 'Oui',
+                'ui_off_text' => 'Non',
+            ),
+            array(
+                'key' => 'field_empty_message',
+                'label' => 'Message si aucun séjour',
+                'name' => 'empty_message',
+                'type' => 'textarea',
+                'instructions' => 'Message affiché quand aucun séjour ne correspond aux critères',
+                'required' => 0,
+                'default_value' => 'Aucun séjour trouvé pour le moment.',
+                'placeholder' => 'Ex: Aucun séjour disponible.',
+                'rows' => 3,
+                'new_lines' => 'br',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'block',
+                    'operator' => '==',
+                    'value' => 'acf/sejours-query-sort',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => 'Paramètres pour le bloc de query loop des séjours avec tri',
+    ));
+}
+add_action('acf/init', 'register_sejours_query_sort_fields');
+

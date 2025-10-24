@@ -1,0 +1,215 @@
+/**
+ * Styles pour la section Listing Séjours Finis
+ */
+
+.listing-sejours-finis {
+    padding: var(--wp--preset--spacing--large, 4rem) 0;
+
+    // background-color: var(--wp--preset--color--base, #fff);
+
+    .sejours-finis-container {
+        max-width: var(--wp--style--global--wide-size, 1200px);
+        margin: 0 auto;
+        padding: 0 var(--wp--preset--spacing--medium, 2rem);
+    }
+
+    .sejours-finis-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        color: var(--wp--preset--color--lavande);
+        margin-bottom: 1rem;
+    }
+
+    .sejours-finis-subtitle {
+        font-size: 1.125rem;
+        text-align: center;
+        color: var(--wp--preset--color--lavande-light);
+        margin-bottom: 3rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .sejours-finis-grid {
+        margin-bottom: 3rem;
+
+        // Responsive grid
+        @media (width <= 1024px) {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+
+        @media (width <= 768px) {
+            grid-template-columns: 1fr !important;
+            gap: 1.5rem;
+        }
+    }
+
+    .sejours-finis-empty {
+        text-align: center;
+        font-style: italic;
+        font-size: 1.125rem;
+        color: var(--wp--preset--color--lavande-light);
+        padding: 3rem 0;
+    }
+
+    // Pagination
+    .sejours-finis-pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
+
+        .page-numbers {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            gap: 0.5rem;
+            align-items: center;
+
+            li {
+                list-style: none;
+            }
+
+            a,
+            span {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 40px;
+                height: 40px;
+                padding: 0.5rem 1rem;
+                border: 1px solid var(--wp--preset--color--lavande);
+                border-radius: 4px;
+                text-decoration: none;
+                color: var(--wp--preset--color--lavande);
+                transition: all 0.3s ease;
+
+                &:hover {
+                    // background-color: var(--wp--preset--color--lavande);
+                    color: var(--wp--preset--color--blanc, #fff);
+                }
+            }
+
+            .current {
+                background-color: var(--wp--preset--color--lavande);
+                color: var(--wp--preset--color--blanc, #fff);
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+// Styles spécifiques pour les cartes terminées
+.card-event.finished {
+    position: relative;
+    opacity: 0.95;
+    border-color: var(--wp--preset--color--lavande);
+    
+    .card-event-title,.card-event-body, .card-event-excerpt{
+        color: var(--wp--preset--color--lavande);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: var(--wp--preset--color--lavande-light);
+        opacity: 0.3;
+
+        // background: rgba(0, 0, 0, 0.05);
+        pointer-events: none;
+        z-index: 5;
+    }
+
+    .card-event-image-wrapper {
+        position: relative;
+
+        &::after {
+            // content: 'Terminé';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+
+            // background-color: var(--wp--preset--color--contrast-2, #666);
+            color: var(--wp--preset--color--blanc, #fff);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+    }
+}
+
+.wp-block-woocommerce-product-specifications{
+    th{
+        border:none;
+        font-size: 1.2em;
+        color: var(--wp--preset--color--custom-bleu-canard);
+        font-weight: 400;
+        padding: 0;
+    }
+
+    .wp-block-product-specifications-item__value{
+        display: none;
+    }
+}
+
+.wc-block-product-template__responsive.columns-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    overflow: hidden; /* Empêche le débordement */
+
+    > li {
+        min-width: 0; /* Permet aux éléments de se réduire */
+        overflow: hidden; /* Empêche le débordement */
+        word-wrap: break-word; /* Force le retour à la ligne */
+        
+        /* Contraintes pour les cartes d'événement */
+        .card-event {
+            min-width: 0; /* Permet aux cartes de se réduire */
+            overflow: hidden; /* Empêche le débordement */
+            word-wrap: break-word; /* Force le retour à la ligne pour les mots longs */
+        }
+
+        .card-event-content {
+            min-width: 0; /* Permet au contenu de se réduire */
+            overflow: hidden; /* Empêche le débordement */
+        }
+
+        .card-event-body {
+            min-width: 0; /* Permet au corps de la carte de se réduire */
+            overflow: hidden; /* Empêche le débordement */
+        }
+
+        .card-event-title,
+        .card-event-excerpt,
+        .card-event-date {
+            word-wrap: break-word; /* Force le retour à la ligne */
+            overflow-wrap: break-word; /* Force le retour à la ligne pour les mots longs */
+            hyphens: auto; /* Césure automatique */
+        }
+    }
+    
+    /* Responsive */
+    @media (width <= 1024px) {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    @media (width <= 768px) {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+    }
+}
+
+.alignwide{
+    @media (width <= 768px) {
+        max-width: 100%!important;
+    }
+}

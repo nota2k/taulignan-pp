@@ -1,0 +1,479 @@
+/**
+ * Styles pour le bloc Query Loop Séjours avec Tri
+ * 
+ * @package Taulignan_U_Child
+ * @since 1.0.0
+ */
+
+.sejours-query-sort {
+    margin: 2rem 0;
+    padding: 0;
+}
+
+/* Header */
+.sejours-query-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.sejours-query-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* Contrôles de tri */
+.sejours-sort-controls {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.sejours-sort-form {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.sejours-sort-form label {
+    font-weight: 600;
+    color: #495057;
+    margin: 0;
+}
+
+.sejours-sort-select {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background: white;
+    font-size: 1rem;
+    min-width: 200px;
+    cursor: pointer;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.sejours-sort-select:focus {
+    outline: none;
+    border-color: #007cba;
+    box-shadow: 0 0 0 0.2rem rgba(0, 124, 186, 0.25);
+}
+
+.sejours-sort-submit {
+    padding: 0.5rem 1rem;
+    background: #007cba;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.sejours-sort-submit:hover {
+    background: #005a87;
+}
+
+/* Grille des séjours */
+.sejours-grid {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    width: 100%;
+    overflow: hidden; /* Empêche le débordement */
+}
+
+/* Style Grille */
+.sejours-grid.layout-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.sejours-grid.layout-cards {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+/* Style Liste */
+.sejours-grid.layout-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.sejours-grid.layout-list .card-event {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-width: 0; /* Permet au contenu de se réduire */
+}
+
+.sejours-grid.layout-list .card-event-image-wrapper {
+    flex: 0 0 200px;
+    margin-right: 1.5rem;
+    min-width: 0; /* Permet à l'image de se réduire */
+}
+
+.sejours-grid.layout-list .card-event-body {
+    flex: 1;
+    min-width: 0; /* Permet au contenu de se réduire */
+    overflow: hidden; /* Empêche le débordement du texte */
+}
+
+/* Champ ACF Période */
+.sejour-card-periode {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.sejour-periode-icon {
+    font-size: 1rem;
+}
+
+.sejour-periode-label {
+    font-weight: 600;
+    color: #495057;
+}
+
+.sejour-periode-value {
+    color: #6c757d;
+}
+
+.sejour-card-attribute {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.sejour-attribute-label {
+    font-weight: 600;
+    color: #495057;
+    min-width: 80px;
+}
+
+.sejour-attribute-value {
+    color: #6c757d;
+    flex: 1;
+}
+
+/* Statut événement */
+.sejour-card-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.sejour-card-status .sejour-status-icon {
+    font-size: 1rem;
+}
+
+.sejour-card-status.status-finished {
+    color: #dc3545; /* Rouge pour terminé */
+}
+
+.sejour-card-status.status-active {
+    color: #28a745; /* Vert pour actif */
+}
+
+/* Prix */
+.sejour-card-price {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #28a745;
+}
+
+/* Extrait */
+.sejour-card-excerpt {
+    margin-bottom: 1.5rem;
+    color: #6c757d;
+    line-height: 1.5;
+    flex: 1;
+}
+
+/* Actions */
+.sejour-card-actions {
+    margin-top: auto;
+}
+
+.sejour-card-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #007cba;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+.sejour-card-button:hover {
+    background: #005a87;
+    transform: translateY(-1px);
+    color: white;
+}
+
+/* Message vide */
+.sejours-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6c757d;
+}
+
+.sejours-empty-message {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Pagination */
+.sejours-pagination {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.sejours-pagination .page-numbers {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sejours-pagination .page-numbers li {
+    margin: 0;
+}
+
+.sejours-pagination .page-numbers a,
+.sejours-pagination .page-numbers span {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    margin: 0 0.25rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    color: #007cba;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sejours-pagination .page-numbers a:hover {
+    background: #007cba;
+    color: white;
+    border-color: #007cba;
+}
+
+.sejours-pagination .page-numbers .current {
+    background: #007cba;
+    color: white;
+    border-color: #007cba;
+}
+
+.sejours-pagination .page-numbers .prev,
+.sejours-pagination .page-numbers .next {
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (width <= 768px) {
+    .sejours-query-title {
+        font-size: 2rem;
+    }
+    
+    .sejours-sort-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .sejours-sort-form label {
+        text-align: center;
+    }
+    
+    .sejours-sort-select {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .sejours-grid.layout-grid,
+    .sejours-grid.layout-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .sejours-grid.layout-list .card-event {
+        flex-direction: column;
+    }
+    
+    .sejours-grid.layout-list .card-event-image-wrapper {
+        flex: none;
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .sejour-card-periode {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+    
+    .sejour-periode-label {
+        font-size: 0.8rem;
+    }
+    
+    .sejour-periode-value {
+        font-size: 0.85rem;
+    }
+    
+    .sejour-card-attribute {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+    
+    .sejour-attribute-label {
+        min-width: auto;
+        font-size: 0.8rem;
+    }
+    
+    .sejour-attribute-value {
+        font-size: 0.85rem;
+    }
+    
+    .sejours-pagination .page-numbers {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (width <= 480px) {
+    .sejours-query-sort {
+        margin: 1rem 0;
+    }
+    
+    .sejours-sort-controls {
+        padding: 0.75rem;
+    }
+    
+    .sejours-grid {
+        gap: 1rem;
+    }
+    
+    .sejour-card-content {
+        padding: 0.75rem;
+    }
+    
+    .sejour-card-title {
+        font-size: 1.1rem;
+    }
+    
+    .sejour-card-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Indicateur de chargement */
+.sejours-loading-indicator {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    border-radius: 8px;
+}
+
+.sejours-loading-spinner {
+    text-align: center;
+}
+
+.sejours-loading-spinner .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007cba;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+.sejours-loading-spinner p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* États spéciaux pour les cartes d'événement */
+.sejours-query-sort.filter-finished .card-event {
+    opacity: 0.8;
+}
+
+.sejours-query-sort.filter-finished .card-event::after {
+    content: "Terminé";
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #dc3545;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.sejours-query-sort.filter-active .card-event::after {
+    content: "Actif";
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #28a745;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.sejours-query-sort.filter-upcoming .card-event::after {
+    content: "À venir";
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #007cba;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.sejours-query-sort.filter-past .card-event::after {
+    content: "Passé";
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #6c757d;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 10;
+}

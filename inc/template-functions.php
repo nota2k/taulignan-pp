@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Functions which enhance the theme by hooking into WordPress
  *
@@ -12,32 +11,30 @@
  * @param array $classes Classes for the body element.
  * @return array
  */
-function taulignan_body_classes($classes)
-{
+function taulignan_body_classes( $classes ) {
 	// Adds a class of hfeed to non-singular pages.
-	if (! is_singular()) {
+	if ( ! is_singular() ) {
 		$classes[] = 'hfeed';
 	}
 
 	// Adds a class of no-sidebar when there is no sidebar present.
-	if (! is_active_sidebar('sidebar-1')) {
+	if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 		$classes[] = 'no-sidebar';
 	}
 
 	return $classes;
 }
-add_filter('body_class', 'taulignan_body_classes');
+add_filter( 'body_class', 'taulignan_body_classes' );
 
 /**
  * Add a pingback url auto-discovery header for single posts, pages, or attachments.
  */
-function taulignan_pingback_header()
-{
-	if (is_singular() && pings_open()) {
-		printf('<link rel="pingback" href="%s">', esc_url(get_bloginfo('pingback_url')));
+function taulignan_pingback_header() {
+	if ( is_singular() && pings_open() ) {
+		printf( '<link rel="pingback" href="%s">', esc_url( get_bloginfo( 'pingback_url' ) ) );
 	}
 }
-add_action('wp_head', 'taulignan_pingback_header');
+add_action( 'wp_head', 'taulignan_pingback_header' );
 
 // functions.php du thème enfant
 function sejour_acf_shortcode()
@@ -83,22 +80,21 @@ add_shortcode('sejour_acf', 'sejour_acf_shortcode');
  *     echo $sejour_data['acf']['date_sejour']['formatted'];
  * }
  */
-function get_sejour_metadata($post_id = null)
-{
+function get_sejour_metadata($post_id = null) {
 	// Si pas de post_id fourni, utiliser le post courant
 	if (!$post_id) {
 		$post_id = get_the_ID();
 	}
-
+	
 	// Vérifier que le post existe
 	$post = get_post($post_id);
 	if (!$post || $post->post_type !== 'product') {
 		return false;
 	}
-
+	
 	// Initialiser le tableau de données
 	$metadata = array();
-
+	
 	// ============================================================================
 	// DONNÉES DE BASE DU POST
 	// ============================================================================
@@ -113,7 +109,7 @@ function get_sejour_metadata($post_id = null)
 	$metadata['author_id'] = $post->post_author;
 	$metadata['author_name'] = get_the_author_meta('display_name', $post->post_author);
 	$metadata['status'] = $post->post_status;
-
+	
 	// ============================================================================
 	// IMAGES
 	// ============================================================================
@@ -127,13 +123,13 @@ function get_sejour_metadata($post_id = null)
 			'alt' => get_post_meta(get_post_thumbnail_id($post_id), '_wp_attachment_image_alt', true),
 		),
 	);
-
+	
 	// ============================================================================
 	// DONNÉES WOOCOMMERCE
 	// ============================================================================
 	if (class_exists('WC_Product')) {
 		$product = wc_get_product($post_id);
-
+		
 		if ($product) {
 			$metadata['woocommerce'] = array(
 				// Prix
@@ -142,36 +138,36 @@ function get_sejour_metadata($post_id = null)
 				'sale_price' => $product->get_sale_price(),
 				'price_html' => $product->get_price_html(),
 				'on_sale' => $product->is_on_sale(),
-
+				
 				// Stock
 				'in_stock' => $product->is_in_stock(),
 				'stock_status' => $product->get_stock_status(),
 				'stock_quantity' => $product->get_stock_quantity(),
 				'manage_stock' => $product->get_manage_stock(),
-
+				
 				// Informations générales
 				'sku' => $product->get_sku(),
 				'type' => $product->get_type(),
 				'is_virtual' => $product->is_virtual(),
 				'is_downloadable' => $product->is_downloadable(),
 				'is_purchasable' => $product->is_purchasable(),
-
+				
 				// Descriptions
 				'short_description' => $product->get_short_description(),
-
+				
 				// Dimensions et poids
 				'weight' => $product->get_weight(),
 				'length' => $product->get_length(),
 				'width' => $product->get_width(),
 				'height' => $product->get_height(),
-
+				
 				// Liens
 				'add_to_cart_url' => $product->add_to_cart_url(),
 				'add_to_cart_text' => $product->add_to_cart_text(),
 			);
 		}
 	}
-
+	
 	// ============================================================================
 	// TAXONOMIES (CATÉGORIES ET TAGS)
 	// ============================================================================
@@ -179,7 +175,7 @@ function get_sejour_metadata($post_id = null)
 		'categories' => array(),
 		'tags' => array(),
 	);
-
+	
 	// Catégories de produits
 	$product_cats = get_the_terms($post_id, 'product_cat');
 	if ($product_cats && !is_wp_error($product_cats)) {
@@ -193,7 +189,7 @@ function get_sejour_metadata($post_id = null)
 			);
 		}
 	}
-
+	
 	// Tags de produits
 	$product_tags = get_the_terms($post_id, 'product_tag');
 	if ($product_tags && !is_wp_error($product_tags)) {
@@ -207,32 +203,32 @@ function get_sejour_metadata($post_id = null)
 			);
 		}
 	}
-
+	
 	// ============================================================================
 	// CHAMPS ACF PERSONNALISÉS
 	// ============================================================================
 	$metadata['acf'] = array();
-
+	
 	if (function_exists('get_field')) {
 		// Récupérer tous les champs ACF
 		$acf_fields = get_fields($post_id);
-
+		
 		if ($acf_fields) {
 			$metadata['acf'] = $acf_fields;
-
+			
 			// Traitement spécial pour date_sejour
 			if (isset($acf_fields['date_sejour'])) {
 				$date_sejour = $acf_fields['date_sejour'];
-
+				
 				// Si c'est un array, prendre la première valeur
 				if (is_array($date_sejour)) {
 					$date_sejour = $date_sejour[0] ?? '';
 				}
-
+				
 				// Convertir et formater la date
 				if ($date_sejour && strlen($date_sejour) === 8) {
 					$date_obj = DateTime::createFromFormat('Ymd', $date_sejour);
-
+					
 					if ($date_obj) {
 						$metadata['acf']['date_sejour'] = array(
 							'raw' => $date_sejour,
@@ -247,17 +243,17 @@ function get_sejour_metadata($post_id = null)
 			}
 		}
 	}
-
+	
 	// ============================================================================
 	// GALERIE WOOCOMMERCE
 	// ============================================================================
 	if (class_exists('WC_Product')) {
 		$product = wc_get_product($post_id);
-
+		
 		if ($product) {
 			$gallery_ids = $product->get_gallery_image_ids();
 			$metadata['images']['gallery'] = array();
-
+			
 			if ($gallery_ids) {
 				foreach ($gallery_ids as $gallery_id) {
 					$metadata['images']['gallery'][] = array(
@@ -273,7 +269,7 @@ function get_sejour_metadata($post_id = null)
 			}
 		}
 	}
-
+	
 	return $metadata;
 }
 
@@ -284,22 +280,21 @@ function get_sejour_metadata($post_id = null)
  * @param array $fields Liste des champs à afficher (optionnel, affiche tout par défaut)
  * @return void
  */
-function display_sejour_metadata($post_id = null, $fields = array())
-{
+function display_sejour_metadata($post_id = null, $fields = array()) {
 	$metadata = get_sejour_metadata($post_id);
-
+	
 	if (!$metadata) {
 		echo '<p>Aucune métadonnée disponible pour ce séjour.</p>';
 		return;
 	}
-
+	
 	// Si des champs spécifiques sont demandés
 	if (!empty($fields)) {
 		foreach ($fields as $field) {
 			// Navigation dans les sous-tableaux avec la notation "woocommerce.price"
 			$keys = explode('.', $field);
 			$value = $metadata;
-
+			
 			foreach ($keys as $key) {
 				if (isset($value[$key])) {
 					$value = $value[$key];
@@ -308,17 +303,17 @@ function display_sejour_metadata($post_id = null, $fields = array())
 					break;
 				}
 			}
-
+			
 			if ($value !== null) {
 				echo '<div class="sejour-field">';
 				echo '<strong>' . esc_html($field) . ':</strong> ';
-
+				
 				if (is_array($value)) {
 					echo '<pre>' . esc_html(print_r($value, true)) . '</pre>';
 				} else {
 					echo esc_html($value);
 				}
-
+				
 				echo '</div>';
 			}
 		}
@@ -472,7 +467,7 @@ function get_stock_variations_from_product($product = null)
 	if ($product === null) {
 		global $product;
 	}
-
+	
 	// Récupérer l'objet produit si un ID est fourni
 	if (is_numeric($product)) {
 		$product = wc_get_product($product);
@@ -610,7 +605,7 @@ function add_stock_data_to_variation($variation_data, $product, $variation)
 
 	$variation_data['stock_quantity'] = $stock;
 	$variation_data['is_out_of_order'] = ($stock == 0);
-
+	
 	// Ajouter aussi un indicateur dans les attributs pour le JavaScript
 	if ($stock == 0) {
 		$variation_data['availability_html'] = '<p class="stock out-of-stock out-of-order">Complet</p>';
@@ -644,12 +639,12 @@ function add_variation_stock_data_to_page()
 	$stock_json = wp_json_encode($stock_data);
 
 	// Ajouter un script inline avec les données
-?>
+	?>
 	<script type="text/javascript">
 		window.taulignanVariationStockData = <?php echo $stock_json; ?>;
 		console.log('[Taulignan PHP] Stock data injecté:', window.taulignanVariationStockData);
 	</script>
-<?php
+	<?php
 }
 
 /**
@@ -664,7 +659,7 @@ function modify_woocommerce_variation_block_output($block_content, $block)
 	if (
 		!isset($block['blockName']) ||
 		(strpos($block['blockName'], 'woocommerce/add-to-cart-with-options') === false &&
-			strpos($block['blockName'], 'woocommerce/product-button') === false)
+		 strpos($block['blockName'], 'woocommerce/product-button') === false)
 	) {
 		return $block_content;
 	}
@@ -687,7 +682,7 @@ function modify_woocommerce_variation_block_output($block_content, $block)
 	// Parser le HTML pour ajouter des attributs data-stock
 	$doc = new DOMDocument();
 	libxml_use_internal_errors(true);
-
+	
 	// Ajouter un wrapper pour éviter les erreurs de parsing
 	$wrapped_content = '<?xml encoding="UTF-8"><div>' . $block_content . '</div>';
 	$doc->loadHTML($wrapped_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
@@ -771,7 +766,7 @@ function add_stock_classes_to_variation_block($block_content, $block, $instance)
 
 	// Ajouter un attribut data pour que JavaScript puisse utiliser
 	$data_attr = 'data-variation-stock="' . esc_attr(wp_json_encode($stock_data)) . '"';
-
+	
 	// Injecter l'attribut dans le wrapper principal
 	$block_content = preg_replace(
 		'/class="([^"]*wc-block[^"]*)"/i',

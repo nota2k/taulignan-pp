@@ -6,21 +6,37 @@
  * Ce fichier contient toutes les fonctionnalités personnalisées du thème
  */
 
+// Empêcher l'accès direct
+if (! defined('ABSPATH')) {
+    exit;
+}
+
+// Désactiver les avertissements PHP pour éviter l'envoi prématuré des headers
+// Cela empêche les erreurs de plugins tiers d'affecter l'affichage
+// Note: À supprimer une fois que WooCommerce Payments est mis à jour
+if (! defined('WP_DEBUG') || ! WP_DEBUG) {
+    error_reporting(E_ERROR | E_PARSE);
+}
+
+// Filtrer les erreurs spécifiques de WordPress 6.7.0 liées aux traductions
+add_filter('doing_it_wrong_trigger_error', function ($trigger, $function_name) {
+    // Supprimer l'erreur pour _load_textdomain_just_in_time provenant de plugins
+    if ($function_name === '_load_textdomain_just_in_time' && strpos(wp_debug_backtrace_summary(), 'woocommerce-payments') !== false) {
+        return false;
+    }
+    return $trigger;
+}, 10, 2);
+
 // Charger l'autoloader Composer
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Définir les constantes du thème
-define('APP_THEME_DIR', get_template_directory());
+define('APP_THEME_DIR', get_template_directory() . '/');
 define('APP_THEME_URL', get_template_directory_uri());
 
 // ============================================================================
 // INCLUSIONS DES FICHIERS
 // ============================================================================
-// Charger les fichiers de template-tags et template-functions immédiatement
-// Ces fonctions doivent être disponibles avant le chargement des templates
-require_once APP_THEME_DIR . '/inc/template-tags.php';
-require_once APP_THEME_DIR . '/inc/template-functions.php';
-
 // Register options and load additional functionality
 add_action('init', 'app_init', 0);
 
@@ -37,6 +53,8 @@ function app_init()
     require_once APP_THEME_DIR . '/inc/parallax-extension.php';
     require_once APP_THEME_DIR . '/inc/patterns-simple.php';
     require_once APP_THEME_DIR . '/inc/patterns.php';
+    require_once APP_THEME_DIR . '/inc/template-functions.php';
+    require_once APP_THEME_DIR . '/inc/template-tags.php';
     require_once APP_THEME_DIR . '/inc/sections.php';
 }
 
@@ -960,7 +978,7 @@ function infosejours_shortcode($atts)
         </div>
     <?php endif; ?>
 
-<?php
+    <?php
     return ob_get_clean();
 }
 add_shortcode('infosejours', 'infosejours_shortcode');
@@ -1207,17 +1225,6 @@ function fix_walker_warnings()
 }
 add_action('init', 'fix_walker_warnings');
 
-
-function add_date_sejour_to_product_page()
-{
-    if (is_product()) {
-        echo '<div class="sejour-field sejour-date">';
-        echo '<p class="date">' . get_field('date_sejour') . '</p>';
-        echo '</div>';
-    }
-}
-add_action('woocommerce_single_product_summary', 'add_date_sejour_to_product_page', 1);
-
 function group_price_to_formule()
 {
     if (is_product()) {
@@ -1257,3 +1264,285 @@ function group_price_to_formule()
     }
 }
 add_action('woocommerce_single_product_summary', 'group_price_to_formule', 1);
+
+// ============================================================================
+// FILTRES PERSONNALISÉS POUR QUERY LOOP
+// ============================================================================
+
+/**
+ * Ajouter un filtre personnalisé pour le bloc Query Loop
+ * Permet de filtrer les séjours selon le champ ACF event_finish
+ * 
+ * Usage dans l'éditeur de blocs :
+ * 1. Ajouter un bloc Query Loop
+ * 2. Sélectionner le bloc Query Loop
+ * 3. Dans le panneau latéral, section "Paramètres" > "Avancé"
+ * 4. Ajouter une classe CSS supplémentaire : "query-sejours-finis" ou "query-sejours-actifs"
+ */
+function taulignan_filter_query_loop_by_event_finish($query, $block, $page)
+{
+    // Récupérer les classes CSS du bloc
+    $block_classes = isset($block->context['className']) ? $block->context['className'] : '';
+
+    // Alternative : vérifier dans les attributs du bloc
+    if (empty($block_classes) && isset($block->parsed_block['attrs']['className'])) {
+        $block_classes = $block->parsed_block['attrs']['className'];
+    }
+
+    // Filtre pour les séjours finis (event_finish == 'oui')
+    if (strpos($block_classes, 'query-sejours-finis') !== false) {
+        $query['meta_query'] = array(
+            array(
+                'key' => 'event_finish',
+                'value' => 'oui',
+                'compare' => '='
+            ),
+        );
+
+        // Tri par date de séjour (du plus récent au plus ancien)
+        $query['meta_key'] = 'date_sejour';
+        $query['orderby'] = 'meta_value';
+        $query['order'] = 'DESC';
+    }
+
+    // Filtre pour les séjours actifs/à venir (event_finish != 'oui')
+    if (strpos($block_classes, 'query-sejours-actifs') !== false) {
+        $query['meta_query'] = array(
+            'relation' => 'OR',
+            array(
+                'key' => 'event_finish',
+                'value' => 'oui',
+                'compare' => '!='
+            ),
+            array(
+                'key' => 'event_finish',
+                'compare' => 'NOT EXISTS'
+            ),
+        );
+
+        // Tri par date de séjour (du plus proche au plus lointain)
+        $query['meta_key'] = 'date_sejour';
+        $query['orderby'] = 'meta_value';
+        $query['order'] = 'ASC';
+    }
+
+    return $query;
+}
+add_filter('query_loop_block_query_vars', 'taulignan_filter_query_loop_by_event_finish', 10, 3);
+
+// ============================================================================
+// PERSONNALISATION DES EMAILS WOOCOMMERCE
+// ============================================================================
+
+/**
+ * Ajouter une option pour le numéro de téléphone dans les paramètres du thème
+ */
+function taulignan_add_theme_options() {
+    // Ajouter une option pour le téléphone de contact
+    add_option( 'taulignan_contact_phone', '' );
+}
+add_action( 'after_setup_theme', 'taulignan_add_theme_options' );
+
+/**
+ * Personnaliser le sujet des emails de confirmation
+ */
+function taulignan_custom_email_subject( $subject, $order, $email ) {
+    if ( ! is_a( $order, 'WC_Order' ) ) {
+        return $subject;
+    }
+    
+    $order_number = $order->get_order_number();
+    
+    // Email de commande en cours de traitement
+    if ( $email->id === 'customer_processing_order' ) {
+        $subject = sprintf( '✓ Réservation reçue #%s - %s', $order_number, get_bloginfo( 'name' ) );
+    }
+    
+    // Email de commande terminée
+    if ( $email->id === 'customer_completed_order' ) {
+        $subject = sprintf( '🎉 Réservation confirmée #%s - %s', $order_number, get_bloginfo( 'name' ) );
+    }
+    
+    return $subject;
+}
+add_filter( 'woocommerce_email_subject_customer_processing_order', 'taulignan_custom_email_subject', 10, 3 );
+add_filter( 'woocommerce_email_subject_customer_completed_order', 'taulignan_custom_email_subject', 10, 3 );
+
+/**
+ * Personnaliser le titre des emails
+ */
+function taulignan_custom_email_heading( $heading, $email ) {
+    // Email de commande en cours de traitement
+    if ( $email->id === 'customer_processing_order' ) {
+        $heading = 'Réservation reçue !';
+    }
+    
+    // Email de commande terminée
+    if ( $email->id === 'customer_completed_order' ) {
+        $heading = 'Réservation confirmée !';
+    }
+    
+    return $heading;
+}
+add_filter( 'woocommerce_email_heading_customer_processing_order', 'taulignan_custom_email_heading', 10, 2 );
+add_filter( 'woocommerce_email_heading_customer_completed_order', 'taulignan_custom_email_heading', 10, 2 );
+
+/**
+ * Personnaliser le texte "Produit" par "Séjour" dans les emails
+ */
+function taulignan_email_order_items_table( $order, $args ) {
+    // Personnalisation déjà gérée dans le template email-order-details.php
+}
+
+/**
+ * Ajouter des informations de séjour dans l'email
+ */
+function taulignan_add_sejour_info_to_email( $order, $sent_to_admin, $plain_text, $email ) {
+    // Récupérer les items de la commande
+    $items = $order->get_items();
+    
+    foreach ( $items as $item ) {
+        $product = $item->get_product();
+        if ( ! $product ) {
+            continue;
+        }
+        
+        // Récupérer la date du séjour si elle existe (champ ACF)
+        $date_sejour = get_field( 'date_sejour', $product->get_id() );
+        
+        if ( $date_sejour ) {
+            // Formater la date
+            if ( is_array( $date_sejour ) ) {
+                $date_sejour = $date_sejour[0] ?? '';
+            }
+            
+            if ( $date_sejour && strlen( $date_sejour ) === 8 ) {
+                $date_obj = DateTime::createFromFormat( 'Ymd', $date_sejour );
+                if ( $date_obj ) {
+                    // Stocker la date formatée comme meta de l'item
+                    $item->add_meta_data( 'Date du séjour', $date_obj->format( 'd/m/Y' ), true );
+                    $item->save();
+                }
+            }
+        }
+    }
+}
+add_action( 'woocommerce_email_before_order_table', 'taulignan_add_sejour_info_to_email', 10, 4 );
+
+/**
+ * Modifier le texte du bouton "View Order" dans les emails
+ */
+function taulignan_change_view_order_text( $text ) {
+    return 'Voir ma réservation';
+}
+add_filter( 'woocommerce_email_order_details_button_text', 'taulignan_change_view_order_text' );
+
+/**
+ * Désactiver les améliorations d'email WooCommerce par défaut pour utiliser notre design
+ */
+function taulignan_disable_wc_email_improvements() {
+    // Nous utilisons notre propre design, donc on garde les améliorations désactivées
+    // pour avoir un contrôle total sur le design
+    return false;
+}
+add_filter( 'pre_option_woocommerce_email_improvements_enabled', 'taulignan_disable_wc_email_improvements' );
+
+/**
+ * Personnaliser les couleurs des emails WooCommerce dans les paramètres
+ */
+function taulignan_email_settings_defaults( $settings ) {
+    // Définir les couleurs par défaut selon le thème
+    $custom_colors = array(
+        'woocommerce_email_background_color' => '#F5F2E8',
+        'woocommerce_email_body_background_color' => '#ffffff',
+        'woocommerce_email_base_color' => '#B8A3D1',
+        'woocommerce_email_text_color' => '#000000',
+        'woocommerce_email_footer_text_color' => '#6e5b7c',
+    );
+    
+    foreach ( $custom_colors as $key => $value ) {
+        if ( ! get_option( $key ) ) {
+            update_option( $key, $value );
+        }
+    }
+    
+    return $settings;
+}
+add_filter( 'woocommerce_email_settings', 'taulignan_email_settings_defaults' );
+
+/**
+ * Changer "Commande" par "Réservation" dans tous les textes d'email
+ */
+function taulignan_change_order_to_reservation( $translated_text, $text, $domain ) {
+    if ( $domain === 'woocommerce' ) {
+        // Traductions pour les emails
+        $translations = array(
+            'Order' => 'Réservation',
+            'Your order' => 'Votre réservation',
+            'Order details' => 'Détails de la réservation',
+            'Order number' => 'Numéro de réservation',
+            'Order date' => 'Date de réservation',
+            'Payment method' => 'Mode de paiement',
+            'Product' => 'Séjour',
+            'Products' => 'Séjours',
+            'Quantity' => 'Quantité',
+            'Price' => 'Prix',
+            'Subtotal' => 'Sous-total',
+            'Total' => 'Total',
+        );
+        
+        if ( isset( $translations[ $text ] ) ) {
+            return $translations[ $text ];
+        }
+    }
+    
+    return $translated_text;
+}
+add_filter( 'gettext', 'taulignan_change_order_to_reservation', 20, 3 );
+
+/**
+ * Ajouter un message personnalisé dans le footer des emails
+ */
+function taulignan_email_footer_text() {
+    return sprintf(
+        '<p style="text-align: center; margin: 16px 0 0; color: #8B7355; font-size: 14px;">Belle journée à vous ! 🌿</p>'
+    );
+}
+add_action( 'woocommerce_email_footer', 'taulignan_email_footer_text', 5 );
+
+/**
+ * Open a preview e-mail.
+ *
+ * @return null
+ */
+function previewEmail()
+{
+
+    if (is_admin()) {
+        $default_path = WC()->plugin_path() . '/templates/';
+
+        $files = scandir($default_path . 'emails');
+        $exclude = array('.', '..', 'email-header.php', 'email-footer.php', 'plain');
+        $list = array_diff($files, $exclude);
+    ?><form method="get" action="<?php echo site_url(); ?>/wp-admin/admin-ajax.php">
+            <input type="hidden" name="order" value="2055">
+            <input type="hidden" name="action" value="previewemail">
+            <select name="file">
+                <?php
+                foreach ($list as $item) { ?>
+                    <option value="<?php echo $item; ?>"><?php echo str_replace('.php', '', $item); ?></option>
+                <?php } ?>
+            </select><input type="submit" value="Go">
+        </form><?php
+                global $order;
+                $order = new WC_Order($_GET['order']);
+                wc_get_template('emails/email-header.php', array('order' => $order));
+
+
+                wc_get_template('emails/' . $_GET['file'], array('order' => $order));
+                wc_get_template('emails/email-footer.php', array('order' => $order));
+            }
+            return null;
+        }
+
+        add_action('wp_ajax_previewemail', 'previewEmail');
