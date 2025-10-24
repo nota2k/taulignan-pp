@@ -9,13 +9,22 @@ const port = process.env.VITE_PORT || 1559;
 const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
 
 export default defineConfig({
-  input: [
-    "src/js/main.js",
-    "src/js/editor.js",
-    "src/scss/_theme.scss",
-    "src/scss/_block-editor.scss",
-  ],
-  port,
+  server: {
+    port,
+  },
+
+  build: {
+    rollupOptions: {
+      input: [
+        "src/js/main.js",
+        "src/js/editor.js",
+        "src/scss/_theme.scss",
+        "src/scss/_block-editor.scss",
+      ],
+    },
+    manifest: true,
+    outDir: 'dist',
+  },
 
   plugins: [
     // Désactiver uupVite en CI/CD car il n'y a pas de WordPress
