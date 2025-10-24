@@ -74,6 +74,7 @@ img {
     border-radius: 100%;
     aspect-ratio: 1/1;
     position: absolute;
+    top: 0;
 
     @include max-width('md')  {
         position: relative;
