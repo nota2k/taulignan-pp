@@ -215,7 +215,7 @@
         text-align: center;
         font-size: var(--titre-h1);
         font-weight: 300;
-        font-family: var(--maghfirea);
+        font-family: var(--wp--preset--font-family--maghfirea);
         line-height: 0.9em;
     }
 
@@ -236,8 +236,23 @@
 // Section Mariages
 #mariages {
     color: var(--beige);
-    background: var(--beige);
     position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, minmax(200px, 300px));
+
+    .flower{
+        grid-column: 3 / span 1;
+    }
+
+    .wrapper-text{
+        grid-column: 2 / span 2;
+        grid-row-start: 2;
+    }
+
+    .img-wrapper {
+        grid-column: 4 / span 2;
+    }
 
     .block-title {
         margin-bottom: 1.5em;
@@ -263,28 +278,14 @@
         }
     }
 
-    .img-wrapper {
-        position: absolute;
-        z-index: 0;
-        min-height: 100vh;
-        top: 1%;
-        max-width: 95%;
+   @include max-width('md') {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
 
-        img {
-            height: 100%;
-            object-fit: cover;
-            object-position: 20% 50%;
-        }
+    > * {
+        grid-column: 1 / -1;
     }
-
-    p::before {
-        content: "";
-        display: block;
-        height: 1px;
-        width: 30%;
-        background-color: var(--beige);
-        margin: 0 0 2em;
-    }
+   }
 }
 
 // Section Séminaires

@@ -70,22 +70,6 @@
         "dimensions": {
           "minHeight": true
         }
-      },
-      "core/heading": {
-        "typography": {
-          "fontFamilies": [
-            {
-              "fontFamily": "\"Bellota Text\", sans-serif",
-              "name": "Bellota Text",
-              "slug": "bellota-text"
-            },
-            {
-              "fontFamily": "\"Maghfirea\", serif",
-              "name": "Maghfirea",
-              "slug": "maghfirea"
-            }
-          ]
-        }
       }
     },
     "border": {
@@ -220,58 +204,7 @@
       "customFontSize": true,
       "defaultFontSizes": false,
       "dropCap": false,
-      "fontFamilies": [
-        {
-          "fontFace": [
-            {
-              "fontFamily": "\"Bellota Text\"",
-              "fontStyle": "normal",
-              "fontWeight": "300",
-              "src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlMVP2VnlWS4f3-UE9hHXM5VfsqeAXwQy6yxg.woff2"
-            },
-            {
-              "fontFamily": "\"Bellota Text\"",
-              "fontStyle": "normal",
-              "fontWeight": "700",
-              "src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlMVP2VnlWS4f3-UE9hHXM5RfwqeAXwQy6yxg.woff2"
-            },
-            {
-              "fontFamily": "\"Bellota Text\"",
-              "fontStyle": "italic",
-              "fontWeight": "300",
-              "src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlOVP2VnlWS4f3-UE9hHXMx-Gmfw_xYSuixmYK.woff2"
-            },
-            {
-              "fontFamily": "\"Bellota Text\"",
-              "fontStyle": "italic",
-              "fontWeight": "400",
-              "src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlNVP2VnlWS4f3-UE9hHXMx-9kPVyv8Sjer.woff2"
-            },
-            {
-              "fontFamily": "\"Bellota Text\"",
-              "fontStyle": "italic",
-              "fontWeight": "700",
-              "src": "https://taulignan.nellybabillon.fr/wp-content/uploads/fonts/0FlOVP2VnlWS4f3-UE9hHXMx-G2eA_xYSuixmYK.woff2"
-            }
-          ],
-          "fontFamily": "\"Bellota Text\", system-ui",
-          "name": "Bellota Text",
-          "slug": "bellota-text"
-        },
-        {
-          "fontFace": [
-            {
-              "fontFamily": "\"Maghfirea\"",
-              "fontStyle": "normal",
-              "fontWeight": "400",
-              "src": "https://taulignan.nellybabillon.fr/wp-content/themes/taulignan-pp/assets/fonts/Maghfirea.otf"
-            }
-          ],
-          "fontFamily": "\"Maghfirea\", system-ui",
-          "name": "Maghfirea",
-          "slug": "maghfirea"
-        }
-      ],
+      "fontFamilies": [],
       "fontSizes": [
         {
           "name": "Petit",

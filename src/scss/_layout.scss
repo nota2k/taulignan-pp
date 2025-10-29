@@ -43,6 +43,12 @@
     }
 }
 
+.is-style-right-pos{
+    @include max-width('md') {
+        right: 0;
+    }
+}
+
 .hide-on-mobile {
     @include max-width('md') {
         display: none;

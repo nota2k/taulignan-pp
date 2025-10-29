@@ -11,7 +11,6 @@
 // Configuration
 $end_month = 12; // Décembre
 $current_year = date('Y');
-delete_option('weekend_attributes_script_executed_once');
 
 function create_monthly_weekend_attributes($end_month, $current_year)
 {
