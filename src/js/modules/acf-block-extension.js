@@ -6,8 +6,6 @@
 (function() {
     'use strict';
 
-    console.log('🎯 ACF Block Extension: Script chargé');
-
     const { addFilter } = wp.hooks;
     const { Fragment, createElement: el } = wp.element;
     const { InspectorControls } = wp.blockEditor;
@@ -113,14 +111,8 @@
             const { attributes, setAttributes } = props;
             const { acfGroupKey } = props.attributes;
 
-            // Debug - afficher les attributs dans la console
-            console.log('🎯 ACF Extension - Attributs du bloc:', {
-                acfGroupKey
-            });
-
             // Vérifier si ce bloc utilise le bon groupe ACF
             if (acfGroupKey !== 'group_68aa9ae61a5e6') {
-                console.log('🎯 ACF Extension - Groupe ACF non reconnu:', acfGroupKey);
                 return el(BlockEdit, props);
             }
 
@@ -160,8 +152,6 @@
 
     // Extension prête
     wp.domReady(function() {
-        console.log('🎯 WordPress DOM ready, extension ACF de positionnement initialisée');
+        // Extension ACF de positionnement initialisée
     });
-
-    console.log('🎯 ACF Block Extension: Initialisée avec succès');
 })();

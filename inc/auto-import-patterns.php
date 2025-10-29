@@ -25,7 +25,6 @@ function taulignan_auto_import_patterns() {
     
     // Vérifier si le dossier existe
     if (!is_dir($patterns_dir)) {
-        error_log('Taulignan: Dossier patterns-json non trouvé: ' . $patterns_dir);
         return;
     }
     
@@ -33,7 +32,6 @@ function taulignan_auto_import_patterns() {
     $json_files = glob($patterns_dir . '*.json');
     
     if (empty($json_files)) {
-        error_log('Taulignan: Aucun fichier JSON trouvé dans: ' . $patterns_dir);
         return;
     }
     
@@ -99,7 +97,6 @@ function taulignan_auto_import_patterns() {
             
             if ($result) {
                 $imported_count++;
-                error_log('Taulignan: Pattern importé avec succès: ' . $args['slug']);
             } else {
                 $errors[] = 'Échec de l\'enregistrement du pattern: ' . $args['slug'];
             }
@@ -107,15 +104,6 @@ function taulignan_auto_import_patterns() {
         } catch (Exception $e) {
             $errors[] = 'Exception lors de l\'import de ' . basename($json_file) . ': ' . $e->getMessage();
         }
-    }
-    
-    // Log des résultats
-    if ($imported_count > 0) {
-        error_log("Taulignan: $imported_count patterns importés avec succès");
-    }
-    
-    if (!empty($errors)) {
-        error_log('Taulignan: Erreurs lors de l\'import des patterns: ' . implode(', ', $errors));
     }
 }
 

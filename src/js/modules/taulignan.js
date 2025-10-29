@@ -1,11 +1,8 @@
-console.log("🏰 Taulignan JS chargé avec succès !");
-
 // Animation de la page d'accueil
 
 // Titres révélés au scroll
 document.addEventListener("DOMContentLoaded", () => {
   const blockTitle = document.querySelectorAll(".title-block-wrapper");
-  console.log("🔍 Éléments .title-block-wrapper trouvés:", blockTitle.length);
 
   function openTitleAnimate(element) {
     let txt = element.querySelectorAll("h1"); // Sélectionner chaque h1 dans le titre
@@ -63,8 +60,6 @@ if (parallaxDiv.length > 0) {
       let speed = element.getAttribute("data-speed");
       let elH = element.clientHeight / 2;
       let rectY = element.getBoundingClientRect().top - elH;
-      // console.log(elH);
-      // console.log(rectY);
       let posY = window.scrollY * speed * -1;
       if (speed <= 0.5) {
         posY = rectY * speed - 1;
@@ -76,56 +71,12 @@ if (parallaxDiv.length > 0) {
         posY = rectY * speed * 1.5; // Déplacement plus rapide pour les grandes valeurs de speed
         posY = posY / 4;
       }
-      // console.log(posY);
       let translation = `translateY(${posY}px)`;
       element.style.transform = translation;
     });
     }
   });
 }
-
-// Loading Page
-
-  // let loader = document.querySelector(".loading-screen");
-  // let progressBar = document.querySelector(".progress-bar");
-  // let percent = document.querySelector(".percent");
-  // let homeTemplate = document.querySelector(".home-template");
-
-
-  // console.time("Execution Time");
-  // let counter = 0;
-  // let intervalId = setInterval(() => {
-  //     counter += 10; // Augmente le compteur de 10 à chaque fois
-  //     percent.textContent = counter + '%';
-  //     progressBar.style.transition = '1s ease-in-out all';
-  //     progressBar.style.transform = 'scaleX('+counter / 100+')';
-
-  //     if (counter >= 100) {
-  //         // Arrête l'intervalle une fois que le compteur atteint 100
-  //         clearInterval(intervalId);
-  //         homeTemplate.setAttribute('data-status', 'finished');
-
-  //         setInterval(() => {
-  //             loader.animate([
-  //                 {opacity: '1'},
-  //                 {opacity: '0'}
-  //             ], {
-  //                 duration: 1000,
-  //                 fill: 'forwards'
-  //             });
-
-  //             setTimeout(() => {
-  //                 homeTemplate.style.overflow = 'auto';
-  //                 homeTemplate.style.height = 'auto';
-  //                 loader.style.display = 'none';
-  //             }, 1000);
-
-  //         }, 1000);
-
-  //         console.timeEnd("Execution Time");
-
-  //     }
-  // }, 200);
 
 // Fullwidth forced
 function fullwidth(el) {
@@ -215,8 +166,6 @@ function adaptGalleryLayout(galleryElement) {
     
     // Ajouter un attribut data pour le CSS
     galleryElement.setAttribute('data-items', itemCount);
-    
-    console.log(`Galerie adaptée : ${itemCount} éléments, ${columns} colonnes`);
   }
   
   // Ajuster au chargement
@@ -253,7 +202,6 @@ if (gallery) {
 function checkImageOrientation(items) {
   // Vérifier que items existe et n'est pas vide
   if (!items || items.length === 0) {
-    // console.warn("Aucun élément trouvé pour checkImageOrientation");
     return;
   }
 
@@ -264,15 +212,12 @@ function checkImageOrientation(items) {
     let itemImg = element.querySelector("img");
     
     if (!itemImg) {
-      // console.warn(`Pas d'image dans l'élément ${index}`);
       return;
     }
     
     function processImage() {
       const width = itemImg.naturalWidth || itemImg.width;
       const height = itemImg.naturalHeight || itemImg.height;
-      
-      // console.log(`Image ${index}: ${width}x${height}`);
       
       if (width > height) {
         element.classList.add("horizontal");
@@ -288,7 +233,6 @@ function checkImageOrientation(items) {
     } else {
       itemImg.addEventListener('load', processImage);
       itemImg.addEventListener('error', () => {
-        // console.error('Erreur de chargement:', itemImg.src);
       });
     }
   });
@@ -347,8 +291,6 @@ function checkAndAnimate() {
             }, delay);
             delay += 250; // Réduit à 150ms pour plus de fluidité
         });
-        
-        console.log(`${images.length} animations déclenchées !`);
     }
 }
 
@@ -432,7 +374,6 @@ document.addEventListener("DOMContentLoaded", function() {
 //Sticky menu on scroll
 
 let mastHead = document.querySelector('.wp-block-template-part')
-// console.log(mastHead);
 
 // S'assurer que le header a le bon état au chargement
 function initHeader() {
@@ -471,7 +412,4 @@ window.addEventListener('scroll', function() {
 
 // Réinitialiser au redimensionnement de la fenêtre
 window.addEventListener('resize', initHeader);
-
-// Confirmation que le script est bien chargé
-console.log("✅ Taulignan JS initialisé avec succès !");
 

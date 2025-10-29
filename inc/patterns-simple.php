@@ -76,21 +76,6 @@ function taulignan_simple_register_patterns() {
 <!-- /wp:group -->'
         )
     );
-
-    // Pattern 3: Debug test
-    register_block_pattern(
-        'taulignan/debug-test',
-        array(
-            'title' => 'Debug Test',
-            'description' => 'Test de débogage',
-            'categories' => array( 'featured' ),
-            'keywords' => array( 'debug', 'test' ),
-            'viewportWidth' => 600,
-            'content' => '<!-- wp:paragraph -->
-<p>Test de débogage</p>
-<!-- /wp:paragraph -->'
-        )
-    );
 }
 
 // Enregistrer les patterns

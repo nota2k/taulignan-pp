@@ -642,7 +642,6 @@ function add_variation_stock_data_to_page()
 	?>
 	<script type="text/javascript">
 		window.taulignanVariationStockData = <?php echo $stock_json; ?>;
-		console.log('[Taulignan PHP] Stock data injecté:', window.taulignanVariationStockData);
 	</script>
 	<?php
 }

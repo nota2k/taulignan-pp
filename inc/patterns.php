@@ -77,7 +77,6 @@ function taulignan_parse_pattern_metadata( $content ) {
     // Extraire le contenu HTML (après la balise PHP fermante)
     $html_pattern = '/\?>\s*(.*?)$/s';
     if ( ! preg_match( $html_pattern, $content, $matches ) ) {
-        error_log( 'Impossible d\'extraire le contenu HTML du pattern' );
         return false;
     }
     
@@ -108,12 +107,8 @@ function taulignan_parse_pattern_metadata( $content ) {
     preg_match( $metadata_pattern, $content, $viewport_match );
     $viewportWidth = isset( $viewport_match[1] ) ? intval( $viewport_match[1] ) : 1200;
     
-    // Debug des métadonnées extraites
-    error_log( 'Pattern metadata extrait - Title: ' . $title . ', Slug: ' . $slug . ', Description: ' . $description );
-    
     // Vérifier que les données essentielles sont présentes
     if ( empty( $title ) || empty( $slug ) || empty( $html_content ) ) {
-        error_log( 'Données manquantes pour le pattern - Title: ' . $title . ', Slug: ' . $slug . ', HTML: ' . (empty($html_content) ? 'VIDE' : 'OK') );
         return false;
     }
     
@@ -133,24 +128,3 @@ function taulignan_parse_pattern_metadata( $content ) {
  */
 add_action( 'init', 'taulignan_auto_register_patterns' );
 
-/**
- * Fonction de débogage des patterns
- */
-function taulignan_debug_patterns() {
-    if ( current_user_can( 'administrator' ) ) {
-        $patterns_dir = get_template_directory() . '/patterns/';
-        if ( is_dir( $patterns_dir ) ) {
-            $files = scandir( $patterns_dir );
-            error_log( 'Fichiers patterns détectés: ' . print_r( $files, true ) );
-        }
-        
-        // Vérifier si la classe existe avant de l'utiliser
-        if ( class_exists( 'WP_Block_Pattern_Registry' ) ) {
-            $registered_patterns = WP_Block_Pattern_Registry::get_instance()->get_all_registered();
-            error_log( 'Patterns enregistrés: ' . count( $registered_patterns ) );
-        } else {
-            error_log( 'WP_Block_Pattern_Registry n\'existe pas' );
-        }
-    }
-}
-add_action( 'init', 'taulignan_debug_patterns', 20 );

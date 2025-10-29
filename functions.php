@@ -119,16 +119,11 @@ function get_asset_url($asset_key)
  */
 function load_vitejs_assets(): void
 {
-    // Debug: afficher le mode actuel
-    echo '<!-- WP_DEBUG status: ' . (defined('WP_DEBUG') && WP_DEBUG ? 'ENABLED' : 'DISABLED') . ' -->';
-
     if (defined('WP_DEBUG') && WP_DEBUG) {
-        echo '<!-- WP_DEBUG is enabled - using Vite dev server -->';
         // Mode développement - charger depuis Vite dev server
         echo '<script type="module" src="http://localhost:5173/@vite/client"></script>';
         echo '<script type="module" src="http://localhost:5173/assets/main.js"></script>';
     } elseif (is_dir(get_theme_file_path() . "/dist")) {
-        echo '<!-- Using compiled assets from manifest -->';
         $manifest_path = get_theme_file_path() . "/dist/manifest.json";
 
         if (file_exists($manifest_path)) {
@@ -140,15 +135,12 @@ function load_vitejs_assets(): void
 
                 // CSS principal (main.css)
                 if ($css_main = get_manifest_asset($manifest, 'css/main')) {
-                    echo '<!-- Loading CSS Main: ' . $css_main . ' -->';
                     wp_enqueue_style(
                         "taulignan-main",
                         $css_main,
                         [],
                         '1.0.0'
                     );
-                } else {
-                    echo '<!-- CSS Main not found in manifest -->';
                 }
 
                 // CSS de l'éditeur (editor-style.css)
@@ -195,7 +187,6 @@ function load_vitejs_assets(): void
 
                 foreach ($scripts as $script_name => $dependencies) {
                     if ($js_file = get_manifest_asset($manifest, $script_name)) {
-                        echo '<!-- Loading ' . $script_name . ' JS: ' . $js_file . ' -->';
                         wp_enqueue_script(
                             "taulignan-{$script_name}",
                             $js_file,
@@ -203,8 +194,6 @@ function load_vitejs_assets(): void
                             '1.0.0',
                             true
                         );
-                    } else {
-                        echo '<!-- ' . $script_name . ' JS not found in manifest -->';
                     }
                 }
             }
@@ -802,41 +791,6 @@ function modifier_blocs_galerie_gutenberg($block_content, $block)
 }
 add_filter('render_block', 'modifier_blocs_galerie_gutenberg', 10, 2);
 
-/**
- * Debug pour vérifier le chargement de Swiper
- */
-function debug_swiper_loading()
-{
-    if (current_user_can('manage_options')) { // Seulement pour les administrateurs
-?>
-        <script>
-            console.log('=== DEBUG SWIPER ===');
-            console.log('Swiper disponible:', typeof Swiper !== 'undefined');
-            console.log('TaulignanSwiperModule disponible:', typeof window.TaulignanSwiperModule !== 'undefined');
-            console.log('Éléments .swiper trouvés:', document.querySelectorAll('.swiper').length);
-            document.querySelectorAll('.swiper').forEach((el, index) => {
-                console.log(`Galerie ${index + 1}:`, el, 'Initialisé:', el.hasAttribute('data-swiper-initialized'));
-            });
-        </script>
-    <?php
-    }
-}
-add_action('wp_footer', 'debug_swiper_loading');
-
-// ============================================================================
-
-// TESTS ET DÉBOGAGE (À SUPPRIMER APRÈS UTILISATION)
-// ============================================================================
-
-// Test temporaire - SUPPRIMER APRÈS TEST
-add_action('init', function () {
-    if (function_exists('register_block_pattern')) {
-        error_log('Taulignan: Fonction register_block_pattern disponible');
-    } else {
-        error_log('Taulignan: Fonction register_block_pattern NON disponible');
-    }
-}, 5);
-
 // ============================================================================
 // INCLUSION DES PARTS PERSONNALISÉS
 // ============================================================================
@@ -1173,44 +1127,6 @@ function customize_sejour_date_display($date, $format, $post_id)
 }
 add_filter('get_the_date', 'customize_sejour_date_display', 10, 3);
 
-/**
- * Fonction de debug pour diagnostiquer le champ date_sejour
- */
-function debug_date_sejour_field()
-{
-    if (current_user_can('manage_options') && isset($_GET['debug_date_field'])) {
-        $products = get_posts(array(
-            'post_type' => 'product',
-            'posts_per_page' => 3,
-            'meta_query' => array(
-                array(
-                    'key' => 'date_sejour',
-                    'compare' => 'EXISTS'
-                )
-            )
-        ));
-
-        echo '<div style="background: #f0f0f0; padding: 20px; margin: 20px; border: 1px solid #ccc;">';
-        echo '<h3>Debug Champ date_sejour</h3>';
-
-        foreach ($products as $product) {
-            $date_field = get_field('date_sejour', $product->ID);
-            echo '<h4>' . $product->post_title . '</h4>';
-            echo '<p><strong>Type:</strong> ' . gettype($date_field) . '</p>';
-            echo '<p><strong>Valeur brute:</strong> ';
-            var_dump($date_field);
-            echo '</p>';
-
-            if (is_array($date_field)) {
-                echo '<p><strong>Premier élément:</strong> ' . ($date_field[0] ?? 'Aucun') . '</p>';
-            }
-            echo '<hr>';
-        }
-
-        echo '</div>';
-    }
-}
-add_action('wp_footer', 'debug_date_sejour_field');
 
 /**
  * Corriger les warnings liés aux walkers WordPress
@@ -1551,3 +1467,52 @@ function previewEmail()
         }
 
         add_action('wp_ajax_previewemail', 'previewEmail');
+
+
+/**
+ * Désactiver le preload agressif de WordPress/WooCommerce
+ */
+function taulignan_disable_resource_hints()
+{
+    // Retirer les resource hints (preload/prefetch) pour les scripts non critiques
+    remove_action('wp_head', 'wp_resource_hints', 2);
+
+    // Ou plus spécifiquement, désactiver pour WooCommerce
+    add_filter('woocommerce_defer_transient_notices', '__return_true');
+}
+add_action('init', 'taulignan_disable_resource_hints');
+
+/**
+ * Désactiver le preload uniquement pour les scripts non utilisés
+ */
+function taulignan_remove_unused_preloads($urls, $relation_type)
+{
+    // Liste des scripts à ne PAS précharger
+    $unused_scripts = [
+        'mini-cart-contents-block',
+        'blocks-checkout',
+        'blocks-components',
+        'admin/sanitize',
+        'style-engine',
+        'wordcount',
+        'warning',
+        'dom-ready',
+        'autop',
+        'a11y',
+        'primitives',
+        'navigation/view',
+    ];
+
+    if ($relation_type === 'preload') {
+        foreach ($unused_scripts as $script) {
+            foreach ($urls as $key => $url) {
+                if (strpos($url['href'], $script) !== false) {
+                    unset($urls[$key]);
+                }
+            }
+        }
+    }
+
+    return $urls;
+}
+add_filter('wp_resource_hints', 'taulignan_remove_unused_preloads', 10, 2);

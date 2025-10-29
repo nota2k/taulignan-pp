@@ -6,8 +6,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Sejours Query Sort module loaded');
-    
     // Initialiser les fonctionnalités du bloc
     initSejoursQuerySort();
 });
@@ -27,8 +25,6 @@ function initSejoursQuerySort() {
         initCardInteractions(block);
         initPagination(block);
     });
-    
-    console.log('Sejours Query Sort initialized');
 }
 
 /**

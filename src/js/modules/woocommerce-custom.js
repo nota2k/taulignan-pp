@@ -2,8 +2,6 @@
  * Masque les variations WooCommerce en rupture de stock
  */
 
-console.log("woocommerce-blocks-variations.js loaded");
-
 // (function () {
 //   function markOutOfStock() {
 //     // Trouver tous les inputs avec data-stock="0" ou data-out-of-stock

@@ -293,11 +293,6 @@ if ($show_sort_options) {
                                 $card_content
                             );
                         }
-                    } else {
-                        // Debug si aucune information supplémentaire
-                        if (current_user_can('administrator')) {
-                            echo '<!-- Debug: Aucune information supplémentaire à afficher -->';
-                        }
                     }
                     
                     echo $card_content;
