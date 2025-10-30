@@ -18,8 +18,8 @@ $shipping   = $order->get_formatted_shipping_address();
 ?>
 
 <!-- Adresse de facturation -->
-<div style="margin: 24px 0;">
-	<h3 style="color: #004f6e; font-family: 'Maghfirea', Georgia, serif; font-size: 18px; margin: 0 0 12px; font-weight: 400;">
+<div style="margin: 24px 0;" class="address-block">
+	<h3 style="color: #004f6e; font-family: 'Cabin', sans-serif; font-size: 24px; margin: 0 0 12px; font-weight: 600;">
 		Adresse de facturation
 	</h3>
 

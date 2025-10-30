@@ -32,22 +32,22 @@ $store_name = get_bloginfo('name', 'display');
 	</style>
 </head>
 
-<body <?php echo is_rtl() ? 'rightmargin' : 'leftmargin'; ?>="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="background-color: #F5F2E8;">
-	<div width="100%" id="outer_wrapper" style="background-color: #F5F2E8;">
+<body <?php echo is_rtl() ? 'rightmargin' : 'leftmargin'; ?>="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+	<div width="100%" id="outer_wrapper">
 		<div id="wrapper" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>" style="margin: 0 auto; max-width: 600px;">
-			<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="inner_wrapper" style="background-color: #ffffff;">
+			<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="inner_wrapper">
 				<tr>
 					<td align="center" valign="top">
 						<!-- Logo / Nom du site -->
 						<table border="0" cellpadding="0" cellspacing="0" width="100%">
 							<tr>
-								<td id="template_header_image" style="padding: 32px 32px 0; text-align: center; background-color: #ffffff;">
+								<td id="template_header_image" style="padding: 32px 32px 0; text-align: center; background-color: #ffffff;margin-bottom: 20px;">
 											<?php
 											$img = get_option('woocommerce_email_header_image');
 											if ($img) {
-												echo '<p style="margin-bottom:0;"><img src="' . esc_url($img) . '" alt="' . esc_attr($store_name) . '" style="max-width: 180px; height: auto; border: none;" /></p>';
+												echo '<p style="margin-bottom:20px;"><img src="' . esc_url($img) . '" alt="' . esc_attr($store_name) . '" style="max-width: 180px; height: auto; border: none;" /></p>';
 											} else {
-												echo '<p class="email-logo-text" style="color: #6b764c; font-size: 32px; margin: 0; font-family: \'Maghfirea\', Georgia, serif;">' . esc_html($store_name) . '</p>';
+												echo '<p class="email-logo-text" style="color: #6b764c;margin-bottom: 20px; font-size: 32px; margin: 0; font-family: \'Cabin\', sans-serif;">' . esc_html($store_name) . '</p>';
 											}
 											?>
 										</td>

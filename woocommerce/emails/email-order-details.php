@@ -17,11 +17,12 @@ $margin_side = is_rtl() ? 'left' : 'right';
 // Styles inline pour une meilleure compatibilité email
 $table_style = 'width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #004f6e; border-radius: 8px; overflow: hidden;';
 $th_style = 'background-color: #004f6e; color: white; font-weight: 600; text-align: ' . $text_align . '; padding: 16px 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; font-family: "Bellota Text", "Helvetica Neue", Helvetica, Arial, sans-serif;';
-$td_style = 'padding: 16px 12px; border-bottom: 1px solid #E6D7C3; vertical-align: top; color: #000000; font-family: "Bellota Text", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 15px;';
+$td_style = 'padding: 16px 12px; vertical-align: top; color: #000000; font-family: "Bellota Text", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 15px;';
 $product_name_style = 'font-weight: 600; color: #6b764c; font-size: 16px;';
 $total_row_style = 'padding: 12px; border-bottom: 1px solid #E6D7C3; font-size: 15px; color: #000000;';
 $total_label_style = 'text-align: ' . $text_align . '; padding: 12px; font-weight: 500;';
 $total_amount_style = 'text-align: ' . (is_rtl() ? 'left' : 'right') . '; padding: 12px;';
+$row_style = 'text-transform: inherit;';
 
 ?>
 
@@ -55,22 +56,46 @@ $total_amount_style = 'text-align: ' . (is_rtl() ? 'left' : 'right') . '; paddin
 					'image_size'    => array(32, 32),
 					'plain_text'    => $plain_text,
 					'sent_to_admin' => $sent_to_admin,
+					'row_style'    => $row_style,
 				)
 			));
 			?>
 		</tbody>
 		<tfoot>
 			<?php
-			$item_totals = $order->get_order_item_totals(); ?>
-			<?php foreach ($item_totals as $total) { ?>
-				<tr class="order-totals <?php echo $is_total ? 'order-totals-total' : ''; ?> <?php echo (1 === $i) ? 'first' : ''; ?>" style="<?php echo esc_attr($row_style); ?>">
-					<th scope="row" colspan="2" style="<?php echo esc_attr($label_cell_style); ?>"><?php echo wp_kses_post($total['label']); ?></th>
-					<td style="<?php echo esc_attr($value_cell_style); ?>"><?php echo wp_kses_post($total['value']); ?></td>
-				</tr>
-			<?php } ?>
+			$item_totals = $order->get_order_item_totals();
+			$item_totals_count = is_array($item_totals) ? count($item_totals) : 0;
+			if ($item_totals_count) {
+				$i = 0;
+				foreach ($item_totals as $total) {
+					// Ignorer la ligne du moyen de paiement dans les totaux
+					if (isset($total['type']) && $total['type'] === 'payment_method') {
+						continue;
+					}
+					$i++;
+					$label_cell_style = $total_label_style;
+					$value_cell_style = $total_amount_style;
+					// Déterminer si la ligne correspond au total général
+					$is_total = isset($total['type']) && in_array($total['type'], array('order_total', 'total'), true);
+					$row_classes = 'order-totals';
+					if ($is_total) {
+						$row_classes .= ' order-totals-total';
+					}
+					if (1 === $i) {
+						$row_classes .= ' first';
+					}
+			?>
+					<tr class="<?php echo esc_attr($row_classes); ?>" style="<?php echo esc_attr($row_style); ?>">
+						<th scope="row" style="<?php echo esc_attr($label_cell_style); ?>"><?php echo wp_kses_post($total['label']); ?></th>
+						<td style="padding: 0; mso-line-height-rule: exactly;">&nbsp;</td>
+						<td style="<?php echo esc_attr($value_cell_style); ?>"><?php echo wp_kses_post($total['value']); ?></td>
+					</tr>
+			<?php
+				}
+			}
+			?>
 			<?php
 
-			// Note de commande
 			if ($order->get_customer_note()) {
 			?>
 				<tr class="order-customer-note">
@@ -92,6 +117,33 @@ $total_amount_style = 'text-align: ' . (is_rtl() ? 'left' : 'right') . '; paddin
 
 <style type="text/css">
 	/* Styles additionnels pour une meilleure compatibilité */
+
+	.td.text-align-right {
+		text-align: right !important;
+	}
+
+	.order-totals-total th,
+	.order-totals-total td {
+		color: #fff !important;
+		background-color: #004f6e !important;
+	}
+
+	.order-totals-total td {
+		font-weight: 600 !important;
+		font-size: 18px !important;
+
+	}
+
+	.order-totals-total th {
+		font-weight: 600 !important;
+		font-size: 20px;
+
+	}
+
+	.order-item-data  td:last-of-type{
+		padding: 0!important;
+	}
+	
 	.email-order-details {
 		font-family: "Bellota Text", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 	}
@@ -115,10 +167,6 @@ $total_amount_style = 'text-align: ' . (is_rtl() ? 'left' : 'right') . '; paddin
 	.email-order-details .wc-item-meta-label {
 		font-weight: 600 !important;
 		color: #8B7355 !important;
-	}
-
-	.order_item .td {
-		text-align: right;
 	}
 
 	th {
