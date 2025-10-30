@@ -6,21 +6,21 @@
     "isEntry": true
   },
   "src/js/main.js": {
-    "file": "main-BBWfg0WV.js",
+    "file": "main-DOu64Pik.js",
     "name": "main",
     "src": "src/js/main.js",
     "isEntry": true,
     "css": [
-      "main-Cn_FPcyW.css"
+      "main-DLdmBm76.css"
     ]
   },
   "src/scss/_block-editor.scss": {
-    "file": "_block-editor-Bgk3Ov4L.css",
+    "file": "_block-editor-BbvDZAKC.css",
     "src": "src/scss/_block-editor.scss",
     "isEntry": true
   },
   "src/scss/_theme.scss": {
-    "file": "_theme-pdO9NTGR.css",
+    "file": "_theme-CxaWLjdm.css",
     "src": "src/scss/_theme.scss",
     "isEntry": true
   }

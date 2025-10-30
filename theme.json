@@ -177,69 +177,141 @@
       "customFontSize": true,
       "defaultFontSizes": false,
       "dropCap": false,
-      "fontFamilies": [
-        {
-          "fontFace": [],
-          "fontFamily": "\"Bellota Text\", system-ui",
-          "name": "Bellota Text",
-          "slug": "bellota-text"
-        },
-        {
-          "fontFace": [
-            {
-              "fontFamily": "Cabin",
-              "fontStyle": "normal",
-              "fontWeight": "400",
-              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkV2EL7Svxm7rE_s.woff2"
-            },
-            {
-              "fontFamily": "Cabin",
-              "fontStyle": "normal",
-              "fontWeight": "500",
-              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkW-EL7Svxm7rE_s.woff2"
-            },
-            {
-              "fontFamily": "Cabin",
-              "fontStyle": "normal",
-              "fontWeight": "600",
-              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkYODL7Svxm7rE_s.woff2"
-            },
-            {
-              "fontFamily": "Cabin",
-              "fontStyle": "normal",
-              "fontWeight": "700",
-              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkbqDL7Svxm7rE_s.woff2"
-            },
-            {
-              "fontFamily": "Cabin",
-              "fontStyle": "italic",
-              "fontWeight": "400",
-              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHx_Klx0zuA_u1Bg.woff2"
-            },
-            {
-              "fontFamily": "Cabin",
-              "fontStyle": "italic",
-              "fontWeight": "500",
-              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXH9fKlx0zuA_u1Bg.woff2"
-            },
-            {
-              "fontFamily": "Cabin",
-              "fontStyle": "italic",
-              "fontWeight": "600",
-              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHGfWlx0zuA_u1Bg.woff2"
-            },
-            {
-              "fontFamily": "Cabin",
-              "fontStyle": "italic",
-              "fontWeight": "700",
-              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHIPWlx0zuA_u1Bg.woff2"
-            }
-          ],
-          "fontFamily": "Cabin, sans-serif",
-          "name": "Cabin",
-          "slug": "cabin"
-        }
-      ],
+      "fontFamilies": {
+        "theme": [
+          {
+            "slug": "bellota-text",
+            "name": "Bellota Text",
+            "fontFamily": "\"Bellota Text\", \"Bellota\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+            "fontFace": [
+              {
+                "fontFamily": "Bellota Text",
+                "fontStyle": "normal",
+                "fontWeight": "300",
+                "src": [
+                  "/wp-content/uploads/fonts/BellotaText-Light.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Bellota Text",
+                "fontStyle": "italic",
+                "fontWeight": "300",
+                "src": [
+                  "/wp-content/uploads/fonts/BellotaText-LightItalic.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Bellota Text",
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "src": [
+                  "/wp-content/uploads/fonts/BellotaText-Regular.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Bellota Text",
+                "fontStyle": "italic",
+                "fontWeight": "400",
+                "src": [
+                  "/wp-content/uploads/fonts/BellotaText-Italic.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Bellota Text",
+                "fontStyle": "normal",
+                "fontWeight": "700",
+                "src": [
+                  "/wp-content/uploads/fonts/BellotaText-Bold.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Bellota Text",
+                "fontStyle": "italic",
+                "fontWeight": "700",
+                "src": [
+                  "/wp-content/uploads/fonts/BellotaText-BoldItalic.ttf"
+                ]
+              }
+            ]
+          },
+          {
+            "slug": "cabin",
+            "name": "Cabin",
+            "fontFamily": "Cabin, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+            "fontFace": [
+              {
+                "fontFamily": "Cabin",
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "src": [
+                  "/wp-content/uploads/fonts/Cabin-Regular.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Cabin",
+                "fontStyle": "italic",
+                "fontWeight": "400",
+                "src": [
+                  "/wp-content/uploads/fonts/Cabin-Italic.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Cabin",
+                "fontStyle": "normal",
+                "fontWeight": "500",
+                "src": [
+                  "/wp-content/uploads/fonts/Cabin-Medium.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Cabin",
+                "fontStyle": "italic",
+                "fontWeight": "500",
+                "src": [
+                  "/wp-content/uploads/fonts/Cabin-MediumItalic.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Cabin",
+                "fontStyle": "normal",
+                "fontWeight": "600",
+                "src": [
+                  "/wp-content/uploads/fonts/Cabin-SemiBold.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Cabin",
+                "fontStyle": "italic",
+                "fontWeight": "600",
+                "src": [
+                  "/wp-content/uploads/fonts/Cabin-SemiBoldItalic.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Cabin",
+                "fontStyle": "normal",
+                "fontWeight": "700",
+                "src": [
+                  "/wp-content/uploads/fonts/Cabin-Bold.ttf"
+                ]
+              },
+              {
+                "fontFamily": "Cabin",
+                "fontStyle": "italic",
+                "fontWeight": "700",
+                "src": [
+                  "/wp-content/uploads/fonts/Cabin-BoldItalic.ttf"
+                ]
+              }
+            ]
+          },
+          {
+            "slug": "maghfirea",
+            "name": "Maghfirea",
+            "fontFamily": "\"Maghfirea\", Georgia, serif"
+          }
+        ]
+      },
       "fontSizes": [
         {
           "name": "Petit",
@@ -308,6 +380,18 @@
   },
   "styles": {
     "blocks": {
+      "core/button": {
+        "color": {
+          "background": "var(--wp--preset--color--vert-olive)"
+        },
+        "variations": {
+          "outline": {
+            "color": {
+              "text": "var(--wp--preset--color--vert-olive)"
+            }
+          }
+        }
+      },
       "core/buttons": {
         "border": {
           "bottom": {
@@ -361,7 +445,7 @@
       },
       "core/heading": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--maghfirea)",
+          "fontFamily": "var(--wp--preset--font-family--cabin)",
           "fontSize": "var(--wp--preset--font-size--large)",
           "fontStyle": "normal",
           "fontWeight": "400",
@@ -429,8 +513,19 @@
           }
         },
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--maghfirea)",
+          "fontFamily": "var(--wp--preset--font-family--cabin)",
           "fontSize": "var(--wp--preset--font-size--large)"
+        }
+      },
+      "woocommerce/product-button": {
+        "color": {
+          "background": "var(--wp--preset--color--custom-bleu-canard)"
+        },
+        "spacing": {
+          "padding": {
+            "bottom": "var(--wp--preset--spacing--very-small)",
+            "top": "var(--wp--preset--spacing--very-small)"
+          }
         }
       },
       "woocommerce/product-price": {
@@ -468,26 +563,11 @@
         "color": {
           "background": "var(--wp--preset--color--vert-olive)",
           "text": "#ffffff"
-        },
-        "elements": {
-          "link": {
-            ":hover": {
-              "border": {
-                "color": "currentColor",
-                "style": "solid",
-                "width": "1px"
-              },
-              "color": {
-                "background": "transparent",
-                "text": "var(--wp--preset--color--vert-olive)"
-              }
-            }
-          }
         }
       },
       "h1": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--maghfirea)",
+          "fontFamily": "var(--wp--preset--font-family--cabin)",
           "fontSize": "var(--wp--preset--font-size--large)",
           "fontStyle": "normal",
           "fontWeight": "400",
@@ -496,7 +576,7 @@
       },
       "h2": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--maghfirea)",
+          "fontFamily": "var(--wp--preset--font-family--cabin)",
           "fontSize": "var(--wp--preset--font-size--large)",
           "fontStyle": "normal",
           "fontWeight": "400",
@@ -505,7 +585,7 @@
       },
       "h3": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--maghfirea)",
+          "fontFamily": "var(--wp--preset--font-family--cabin)",
           "fontSize": "var(--wp--preset--font-size--large)",
           "fontStyle": "normal",
           "fontWeight": "400",
@@ -514,7 +594,7 @@
       },
       "h4": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--maghfirea)",
+          "fontFamily": "var(--wp--preset--font-family--cabin)",
           "fontStyle": "normal",
           "fontWeight": "400"
         }

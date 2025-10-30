@@ -13,7 +13,6 @@ function setupAOSAttributes() {
 
   // Si aucune section n'est trouvée, arrêter
   if (sections.length === 0) {
-    console.log('AOS: No .wp-block-group elements found.');
     return;
   }
 
@@ -34,14 +33,12 @@ function setupAOSAttributes() {
     section.setAttribute('data-aos-offset', '100');
   });
 
-  console.log(`AOS attributes added to ${sections.length} elements.`);
 }
 
 // Fonction d'initialisation complète
 function initAOS() {
   // Vérifier si AOS est disponible
   if (!AOS || typeof AOS.init !== 'function') {
-    console.warn('AOS library is not loaded properly.');
     return;
   }
 
@@ -73,7 +70,6 @@ function initAOS() {
     anchorPlacement: 'top-bottom',
   });
 
-  console.log('AOS initialized successfully.');
 }
 
 // Initialiser quand le DOM est prêt

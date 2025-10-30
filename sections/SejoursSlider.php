@@ -178,13 +178,13 @@ class SejoursSlider extends Section
                     // Récupérer les variations/attributs du produit groupés par attribut
                     $variations_grouped = [];
                     $variation_stock_status = [];
-                    
+
                     if ($product) {
                         // Récupérer le statut de stock des variations via la fonction utilitaire
                         if ($product->is_type('variable')) {
                             $variation_stock_status = get_product_variations_stock_status($product);
                         }
-                        
+
                         $attributes = $product->get_attributes();
 
                         foreach ($attributes as $attribute) {
@@ -201,9 +201,9 @@ class SejoursSlider extends Section
                                         $variations_grouped[$attribute_label] = [];
                                         foreach ($terms as $term) {
                                             // Vérifier si cette variation est en rupture de stock
-                                            $is_out_of_stock = isset($variation_stock_status[$attribute_name][$term->slug]) 
+                                            $is_out_of_stock = isset($variation_stock_status[$attribute_name][$term->slug])
                                                 && $variation_stock_status[$attribute_name][$term->slug];
-                                            
+
                                             // Filtrer : ne pas afficher si en rupture de stock
                                             if (!$is_out_of_stock) {
                                                 $variations_grouped[$attribute_label][] = [
@@ -220,13 +220,13 @@ class SejoursSlider extends Section
                                     if (!empty($options)) {
                                         $variations_grouped[$attribute_label] = [];
                                         $option_values = is_array($options) ? $options : [$options];
-                                        
+
                                         foreach ($option_values as $option) {
                                             $option_slug = sanitize_title($option);
                                             // Vérifier si cette variation est en rupture de stock
-                                            $is_out_of_stock = isset($variation_stock_status[$attribute_name][$option_slug]) 
+                                            $is_out_of_stock = isset($variation_stock_status[$attribute_name][$option_slug])
                                                 && $variation_stock_status[$attribute_name][$option_slug];
-                                            
+
                                             // Filtrer : ne pas afficher si en rupture de stock
                                             if (!$is_out_of_stock) {
                                                 $variations_grouped[$attribute_label][] = [
@@ -273,7 +273,7 @@ class SejoursSlider extends Section
                                                 <div class="sejour-variation-group">
                                                     <span class="variation-label"><?php echo esc_html($label); ?></span>
                                                     <div class="sejour-variations-container">
-                                                        <?php foreach ($values as $value) : 
+                                                        <?php foreach ($values as $value) :
                                                             // Récupérer le nom à afficher
                                                             $display_name = is_array($value) ? $value['name'] : $value;
                                                         ?>
