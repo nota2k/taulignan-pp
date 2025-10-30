@@ -6,12 +6,12 @@
     "isEntry": true
   },
   "src/js/main.js": {
-    "file": "main-DOu64Pik.js",
+    "file": "main-BV_bxF7-.js",
     "name": "main",
     "src": "src/js/main.js",
     "isEntry": true,
     "css": [
-      "main-DLdmBm76.css"
+      "main-Cn_FPcyW.css"
     ]
   },
   "src/scss/_block-editor.scss": {
@@ -20,7 +20,7 @@
     "isEntry": true
   },
   "src/scss/_theme.scss": {
-    "file": "_theme-C4FtD7IN.css",
+    "file": "_theme-CI-y0Nds.css",
     "src": "src/scss/_theme.scss",
     "isEntry": true
   }

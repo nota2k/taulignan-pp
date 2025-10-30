@@ -344,37 +344,37 @@ add_action('init', 'desactiver_patterns_distants');
 /**
  * Modifier le HTML des galeries natives pour utiliser Swiper
  */
-// function modifier_galeries_natives($output, $attr, $instance)
-// {
-//     // Vérifier si c'est bien une galerie
-//     if (empty($output)) {
-//         return $output;
-//     }
+function modifier_galeries_natives($output, $attr, $instance)
+{
+    // Vérifier si c'est bien une galerie
+    if (empty($output)) {
+        return $output;
+    }
 
-//     // Ajouter la classe swiper au conteneur principal
-//     $output = preg_replace('/<div[^>]*class="[^"]*gallery[^"]*"[^>]*>/', '<div class="gallery swiper">', $output);
+    // Ajouter la classe swiper au conteneur principal
+    $output = preg_replace('/<div[^>]*class="[^"]*gallery[^"]*"[^>]*>/', '<div class="gallery swiper">', $output);
 
-//     // Remplacer les balises <figure> par <div class="swiper-wrapper">
-//     $output = preg_replace('/<figure[^>]*class="[^"]*gallery[^"]*"[^>]*>/', '<div class="swiper-wrapper">', $output);
-//     $output = preg_replace('/<\/figure>/', '</div>', $output);
+    // Remplacer les balises <figure> par <div class="swiper-wrapper">
+    $output = preg_replace('/<figure[^>]*class="[^"]*gallery[^"]*"[^>]*>/', '<div class="swiper-wrapper">', $output);
+    $output = preg_replace('/<\/figure>/', '</div>', $output);
 
-//     // Remplacer les balises <figure> des images individuelles par <div class="swiper-slide">
-//     $output = preg_replace('/<figure[^>]*class="[^"]*gallery-item[^"]*"[^>]*>/', '<div class="swiper-slide">', $output);
-//     $output = preg_replace('/<figure[^>]*class="[^"]*gallery-icon[^"]*"[^>]*>/', '<div class="swiper-slide">', $output);
+    // Remplacer les balises <figure> des images individuelles par <div class="swiper-slide">
+    $output = preg_replace('/<figure[^>]*class="[^"]*gallery-item[^"]*"[^>]*>/', '<div class="swiper-slide">', $output);
+    $output = preg_replace('/<figure[^>]*class="[^"]*gallery-icon[^"]*"[^>]*>/', '<div class="swiper-slide">', $output);
 
-//     // Remplacer les <dl> et <dt> par des divs swiper
-//     $output = preg_replace('/<dl[^>]*class="[^"]*gallery[^"]*"[^>]*>/', '<div class="swiper-wrapper">', $output);
-//     $output = preg_replace('/<\/dl>/', '</div>', $output);
-//     $output = preg_replace('/<dt[^>]*>/', '<div class="swiper-slide">', $output);
-//     $output = preg_replace('/<\/dt>/', '</div>', $output);
+    // Remplacer les <dl> et <dt> par des divs swiper
+    $output = preg_replace('/<dl[^>]*class="[^"]*gallery[^"]*"[^>]*>/', '<div class="swiper-wrapper">', $output);
+    $output = preg_replace('/<\/dl>/', '</div>', $output);
+    $output = preg_replace('/<dt[^>]*>/', '<div class="swiper-slide">', $output);
+    $output = preg_replace('/<\/dt>/', '</div>', $output);
 
-//     // Transformer les balises <a> en <div class="swiper-slide">
-//     $output = preg_replace('/<a([^>]*)>/', '<div class="swiper-slide"$1>', $output);
-//     $output = preg_replace('/<\/a>/', '</div>', $output);
+    // Transformer les balises <a> en <div class="swiper-slide">
+    $output = preg_replace('/<a([^>]*)>/', '<div class="swiper-slide"$1>', $output);
+    $output = preg_replace('/<\/a>/', '</div>', $output);
 
-//     return $output;
-// }
-// add_filter('post_gallery', 'modifier_galeries_natives', 10, 3);
+    return $output;
+}
+add_filter('post_gallery', 'modifier_galeries_natives', 10, 3);
 
 /**
  * Modifier le HTML des blocs de galerie Gutenberg

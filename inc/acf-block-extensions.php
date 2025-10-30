@@ -745,3 +745,227 @@ function register_sejours_query_sort_fields()
 }
 add_action('acf/init', 'register_sejours_query_sort_fields');
 
+/**
+ * Enregistrer le bloc ACF SliderGallery (galerie d'images avec Swiper)
+ */
+function register_slider_gallery_block()
+{
+    if (!function_exists('acf_register_block_type')) {
+        return;
+    }
+
+    acf_register_block_type(array(
+        'name'              => 'slider-gallery',
+        'title'             => __('Slider Gallery'),
+        'description'       => __('Galerie d\'images avec navigation, pagination et SwiperJS'),
+        'render_template'   => get_template_directory() . '/inc/blocks/slider-gallery.php',
+        'category'          => 'widgets',
+        'icon'              => 'images-alt2',
+        'keywords'          => array('slider', 'gallery', 'images', 'swiper'),
+        'mode'              => 'edit',
+        'supports'          => array(
+            'align' => array('wide', 'full'),
+            'mode'  => false,
+        ),
+    ));
+}
+add_action('acf/init', 'register_slider_gallery_block');
+
+/**
+ * Champs ACF du bloc SliderGallery
+ */
+function register_slider_gallery_fields()
+{
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_slider_gallery_block',
+        'title' => 'Paramètres du Slider Gallery',
+        'fields' => array(
+            array(
+                'key' => 'field_slider_gallery_images',
+                'label' => 'Images',
+                'name' => 'images',
+                'type' => 'gallery',
+                'instructions' => 'Ajoutez les images à afficher dans le slider',
+                'required' => 1,
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'insert' => 'append',
+                'library' => 'all',
+                'min' => 1,
+                'max' => 0,
+            ),
+            array(
+                'key' => 'field_slider_gallery_ratio',
+                'label' => 'Ratio d\'image',
+                'name' => 'image_ratio',
+                'type' => 'select',
+                'choices' => array(
+                    'auto' => 'Auto',
+                    '16/9' => '16:9',
+                    '4/3'  => '4:3',
+                    '1/1'  => '1:1',
+                ),
+                'default_value' => 'auto',
+                'return_format' => 'value',
+            ),
+            array(
+                'key' => 'field_slider_gallery_show_nav',
+                'label' => 'Afficher la navigation',
+                'name' => 'show_nav',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+            ),
+            array(
+                'key' => 'field_slider_gallery_show_pagination',
+                'label' => 'Afficher la pagination',
+                'name' => 'show_pagination',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+            ),
+            // Largeur/hauteur du bloc
+            array(
+                'key' => 'field_slider_gallery_max_width',
+                'label' => 'Largeur max du bloc',
+                'name' => 'max_width',
+                'type' => 'text',
+                'instructions' => 'Valeur CSS (ex: 1200px, 90vw, none)',
+                'required' => 0,
+                'default_value' => '',
+                'placeholder' => 'ex: 1200px',
+            ),
+            array(
+                'key' => 'field_slider_gallery_height',
+                'label' => 'Hauteur du slider',
+                'name' => 'slider_height',
+                'type' => 'text',
+                'instructions' => 'Valeur CSS (ex: 80vh, 600px). Laissez vide pour auto.',
+                'required' => 0,
+                'default_value' => '80vh',
+                'placeholder' => 'ex: 80vh',
+            ),
+            // Options Swiper principales
+            array(
+                'key' => 'field_slider_gallery_slides_per_view',
+                'label' => 'Slides par vue',
+                'name' => 'slides_per_view',
+                'type' => 'text',
+                'instructions' => 'Nombre (ex: 1, 1.5) ou "auto"',
+                'required' => 0,
+                'default_value' => '1',
+            ),
+            array(
+                'key' => 'field_slider_gallery_space_between',
+                'label' => 'Espace entre les slides',
+                'name' => 'space_between',
+                'type' => 'number',
+                'default_value' => 0,
+                'min' => 0,
+                'step' => 1,
+            ),
+            array(
+                'key' => 'field_slider_gallery_loop',
+                'label' => 'Boucle (loop)',
+                'name' => 'loop',
+                'type' => 'true_false',
+                'default_value' => 1,
+                'ui' => 1,
+            ),
+            array(
+                'key' => 'field_slider_gallery_centered_slides',
+                'label' => 'Slides centrées',
+                'name' => 'centered_slides',
+                'type' => 'true_false',
+                'default_value' => 0,
+                'ui' => 1,
+            ),
+            array(
+                'key' => 'field_slider_gallery_grab_cursor',
+                'label' => 'Curseur main (grabCursor)',
+                'name' => 'grab_cursor',
+                'type' => 'true_false',
+                'default_value' => 0,
+                'ui' => 1,
+            ),
+            array(
+                'key' => 'field_slider_gallery_auto_height',
+                'label' => 'Hauteur auto',
+                'name' => 'auto_height',
+                'type' => 'true_false',
+                'default_value' => 0,
+                'ui' => 1,
+            ),
+            array(
+                'key' => 'field_slider_gallery_speed',
+                'label' => 'Vitesse (ms)',
+                'name' => 'speed',
+                'type' => 'number',
+                'default_value' => 400,
+                'min' => 0,
+                'step' => 50,
+            ),
+            array(
+                'key' => 'field_slider_gallery_effect',
+                'label' => 'Effet',
+                'name' => 'effect',
+                'type' => 'select',
+                'choices' => array(
+                    'slide' => 'Slide',
+                    'fade' => 'Fade',
+                ),
+                'default_value' => 'slide',
+                'return_format' => 'value',
+            ),
+            array(
+                'key' => 'field_slider_gallery_autoplay',
+                'label' => 'Autoplay',
+                'name' => 'autoplay',
+                'type' => 'true_false',
+                'default_value' => 0,
+                'ui' => 1,
+            ),
+            array(
+                'key' => 'field_slider_gallery_autoplay_delay',
+                'label' => 'Autoplay delay (ms)',
+                'name' => 'autoplay_delay',
+                'type' => 'number',
+                'default_value' => 3000,
+                'min' => 500,
+                'step' => 100,
+                'conditional_logic' => array(
+                    array(
+                        array(
+                            'field' => 'field_slider_gallery_autoplay',
+                            'operator' => '==',
+                            'value' => '1',
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'block',
+                    'operator' => '==',
+                    'value' => 'acf/slider-gallery',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => 'Champs pour configurer la galerie d\'images Swiper',
+    ));
+}
+add_action('acf/init', 'register_slider_gallery_fields');
+

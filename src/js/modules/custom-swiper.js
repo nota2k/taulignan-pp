@@ -4,24 +4,17 @@ import { Navigation, Pagination, Scrollbar } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 
 document.addEventListener("DOMContentLoaded", function () {
-  var swiper = new Swiper(".swiper:not(.sejours-swiper)", {
-    modules: [Navigation, Pagination, Scrollbar],
-    // setWrapperSize: true,
-    slidesPerView: "2.5",
-    centeredSlides: true,
-
-    breakpoints: {
-      768: {
-        slidesPerView: 1.2,
-      },
-    },
-    pagination: {
-      el: ".swiper-pagination",
-    },
-  });
+  // var swiper = new Swiper(".swiper:not(.sejours-swiper)", {
+  //   modules: [Navigation, Pagination, Scrollbar],
+  //   // setWrapperSize: true,
+  //   slidesPerView: "auto",
+  //   spaceBetween: 0,
+  //   pagination: {
+  //     el: ".swiper-pagination",
+  //   },
+  // });
 
   var swiper = new Swiper(".sejours-swiper", {
     modules: [Navigation, Pagination, Scrollbar],
@@ -42,5 +35,34 @@ document.addEventListener("DOMContentLoaded", function () {
     scrollbar: {
       el: ".swiper-scrollbar",
     },
+  });
+
+  document.querySelectorAll('.slider-gallery').forEach(function(el){
+    var raw = el.getAttribute('data-swiper') || '{}';
+    var opts = {};
+    try { opts = JSON.parse(raw); } catch (e) { opts = {}; }
+
+    // slidesPerView: convertir nombre si string numérique
+    if (typeof opts.slidesPerView === 'string' && opts.slidesPerView !== 'auto') {
+      var num = parseFloat(opts.slidesPerView);
+      if (!isNaN(num)) opts.slidesPerView = num;
+    }
+
+    // Injecter modules
+    opts.modules = [Navigation, Pagination, Scrollbar];
+
+    // Pagination/navigation scoping au bloc
+    var pagEl = el.querySelector('.swiper-pagination');
+    if (pagEl) {
+      opts.pagination = Object.assign({ clickable: true }, opts.pagination || {}, { el: pagEl });
+    }
+    var nextEl = el.querySelector('.swiper-button-next');
+    var prevEl = el.querySelector('.swiper-button-prev');
+    if (nextEl && prevEl) {
+      opts.navigation = Object.assign({}, opts.navigation || {}, { nextEl: nextEl, prevEl: prevEl });
+    }
+
+    var instance = new Swiper(el, opts);
+    instance.allowTouchMove = true;
   });
 });
