@@ -651,3 +651,48 @@ function taulignan_change_order_to_reservation( $translated_text, $text, $domain
     return $translated_text;
 }
 add_filter( 'gettext', 'taulignan_change_order_to_reservation', 20, 3 );
+
+// Désactiver le préchargement des scripts WooCommerce
+add_filter('woocommerce_block_assets_preload_hints', '__return_empty_array');
+
+// Désactiver les préchargements inutiles
+add_action('wp_enqueue_scripts', function () {
+    // Supprimer les hints de préchargement
+    remove_action('wp_head', 'wp_resource_hints', 2);
+}, 999);
+
+// Filtrer les préchargements spécifiques
+add_filter('wp_resource_hints', function ($hints, $relation_type) {
+    if ('preload' === $relation_type) {
+        // Garder seulement les ressources critiques
+        return array_filter($hints, function ($hint) {
+            // Autoriser seulement les CSS et fonts
+            return isset($hint['as']) && in_array($hint['as'], ['style', 'font']);
+        });
+    }
+    return $hints;
+}, 10, 2);
+
+// Charger Stripe uniquement sur la page de paiement
+add_action('wp_enqueue_scripts', function () {
+    if (!is_checkout() && !is_cart()) {
+        // Désenregistrer les scripts de paiement
+        wp_dequeue_script('stripe');
+        wp_dequeue_script('wc-stripe-payment-gateway');
+        wp_dequeue_script('woocommerce-payments');
+        wp_dequeue_script('ppcp-blocks');
+    }
+}, 100);
+
+// Optimiser le chargement des blocs WooCommerce
+add_filter('woocommerce_blocks_register_script_dependencies', function ($dependencies) {
+    return [];
+}, 10, 1);
+
+// Désactiver les scripts du mini-cart si non utilisé
+add_action('wp_enqueue_scripts', function () {
+    if (!is_cart() && !is_checkout()) {
+        wp_dequeue_style('wc-blocks-style');
+        wp_dequeue_script('wc-blocks-checkout');
+    }
+}, 100);
