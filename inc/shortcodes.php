@@ -15,38 +15,41 @@ function infosejours_shortcode($atts)
 
     <?php
     // Programme du séjour
-    $programme = get_field('programme');
-    if ($programme) :
+    $programme_group = get_field('programme');
+    if ($programme_group) :
     ?>
         <div class="sejour-field sejour-programme">
             <p class="field-title">Programme du séjour</p>
             <div class="field-content">
-                <ul class="programme-list">
-                    <?php
-                    // Vérifier si c'est un array (répéteur/groupe) ou une string
-                    if (is_array($programme)) {
-                        // Si c'est un répéteur ou un array
-                        foreach ($programme as $item) {
-                            if (is_array($item)) {
-                                // Si chaque item est aussi un array (sous-champs)
-                                foreach ($item as $key => $value) {
-                                    if (!empty($value)) {
+                <?php
+                // Jours de la semaine
+                $jours = array(
+                    'vendredi' => 'Vendredi',
+                    'samedi' => 'Samedi',
+                    'dimanche' => 'Dimanche'
+                );
+
+                foreach ($jours as $jour_key => $jour_label) :
+                    $repeater = $programme_group[$jour_key] ?? null;
+                    if ($repeater && is_array($repeater)) :
+                ?>
+                        <div class="programme-jour">
+                            <h4 class="jour-title"><?php echo esc_html($jour_label); ?></h4>
+                            <ul class="programme-list">
+                                <?php
+                                foreach ($repeater as $item) {
+                                    $programme_item = $item['programme'] ?? '';
+                                    if (!empty($programme_item)) {
                                         echo '<li class="programme-item">';
-                                        echo wp_kses_post($value);
+                                        echo wp_kses_post($programme_item);
                                         echo '</li>';
                                     }
                                 }
-                            } else {
-                                // Si c'est juste une liste de valeurs
-                                echo '<div class="programme-item">' . wp_kses_post($item) . '</div>';
-                            }
-                        }
-                    } else {
-                        // Si c'est une string simple (textarea, wysiwyg)
-                        echo wp_kses_post($programme);
-                    }
-                    ?>
-                </ul>
+                                ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
         </div>
     <?php endif; ?>

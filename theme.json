@@ -156,6 +156,21 @@
           "color": "#d0d397",
           "name": "Anis",
           "slug": "anis"
+        },
+        {
+          "color": "F5A700",
+          "name": "Jaune",
+          "slug": "jaune"
+        },
+        {
+          "color": "#004f6e",
+          "name": "Bleu Canard",
+          "slug": "custom-bleu-canard"
+        },
+        {
+          "color": "#f5a700",
+          "name": "Jaune",
+          "slug": "custom-jaune"
         }
       ]
     },
@@ -204,7 +219,69 @@
       "customFontSize": true,
       "defaultFontSizes": false,
       "dropCap": false,
-      "fontFamilies": [],
+      "fontFamilies": [
+        {
+          "fontFace": [],
+          "fontFamily": "\"Bellota Text\", system-ui",
+          "name": "Bellota Text",
+          "slug": "bellota-text"
+        },
+        {
+          "fontFace": [
+            {
+              "fontFamily": "Cabin",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkV2EL7Svxm7rE_s.woff2"
+            },
+            {
+              "fontFamily": "Cabin",
+              "fontStyle": "normal",
+              "fontWeight": "500",
+              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkW-EL7Svxm7rE_s.woff2"
+            },
+            {
+              "fontFamily": "Cabin",
+              "fontStyle": "normal",
+              "fontWeight": "600",
+              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkYODL7Svxm7rE_s.woff2"
+            },
+            {
+              "fontFamily": "Cabin",
+              "fontStyle": "normal",
+              "fontWeight": "700",
+              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkbqDL7Svxm7rE_s.woff2"
+            },
+            {
+              "fontFamily": "Cabin",
+              "fontStyle": "italic",
+              "fontWeight": "400",
+              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHx_Klx0zuA_u1Bg.woff2"
+            },
+            {
+              "fontFamily": "Cabin",
+              "fontStyle": "italic",
+              "fontWeight": "500",
+              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXH9fKlx0zuA_u1Bg.woff2"
+            },
+            {
+              "fontFamily": "Cabin",
+              "fontStyle": "italic",
+              "fontWeight": "600",
+              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHGfWlx0zuA_u1Bg.woff2"
+            },
+            {
+              "fontFamily": "Cabin",
+              "fontStyle": "italic",
+              "fontWeight": "700",
+              "src": "https://chateaudetaulignan.com/wp-content/uploads/fonts/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHIPWlx0zuA_u1Bg.woff2"
+            }
+          ],
+          "fontFamily": "Cabin, sans-serif",
+          "name": "Cabin",
+          "slug": "cabin"
+        }
+      ],
       "fontSizes": [
         {
           "name": "Petit",
@@ -213,7 +290,7 @@
         },
         {
           "fluid": {
-            "max": "20px",
+            "max": "18px",
             "min": "16px"
           },
           "name": "Normal",
@@ -274,20 +351,6 @@
   "styles": {
     "blocks": {
       "core/button": {
-        "border": {
-          "radius": "30px"
-        },
-        "color": {
-          "background": "var(--wp--preset--color--lavande)",
-          "text": "#ffffff"
-        },
-        "elements": {
-          "link": {
-            "color": {
-              "text": "#ffffff"
-            }
-          }
-        },
         "spacing": {
           "padding": {
             "bottom": "var(--wp--preset--spacing--30)",
@@ -298,7 +361,7 @@
         },
         "typography": {
           "fontFamily": "var(--wp--preset--font-family--bellota-text)",
-          "fontSize": "var(--wp--preset--font-size--medium)",
+          "fontSize": "var(--wp--preset--font-size--normal)",
           "fontStyle": "normal",
           "fontWeight": "400",
           "lineHeight": "1"
@@ -306,33 +369,24 @@
         "variations": {
           "outline": {
             "border": {
-              "bottom": {
-                "color": "currentColor",
-                "style": "solid",
-                "width": "1px"
-              },
-              "color": null,
-              "left": {
-                "color": "currentColor",
-                "style": "solid",
-                "width": "1px"
-              },
+              "color": "currentColor",
               "radius": "30px",
-              "right": {
-                "color": "currentColor",
-                "style": "solid",
-                "width": "1px"
-              },
-              "style": null,
-              "top": {
-                "color": "currentColor",
-                "style": "solid",
-                "width": "1px"
-              },
-              "width": null
+              "style": "solid",
+              "width": "1px"
             },
             "color": {
-              "text": "#b8a3d1"
+              "background": "transparent",
+              "text": "var(--wp--preset--color--vert-olive)"
+            },
+            "elements": {
+              "link": {
+                ":hover": {
+                  "color": {
+                    "background": "currentColor",
+                    "text": "#ffffff"
+                  }
+                }
+              }
             },
             "spacing": {
               "padding": {
@@ -344,7 +398,7 @@
             },
             "typography": {
               "fontFamily": "var(--wp--preset--font-family--bellota-text)",
-              "fontSize": "var(--wp--preset--font-size--medium)",
+              "fontSize": "var(--wp--preset--font-size--normal)",
               "fontStyle": "normal",
               "fontWeight": "400",
               "lineHeight": "1"
@@ -392,7 +446,7 @@
           }
         },
         "typography": {
-          "fontSize": "var(--wp--preset--font-size--medium)",
+          "fontSize": "var(--wp--preset--font-size--normal)",
           "lineHeight": "1"
         }
       },
@@ -414,18 +468,18 @@
       },
       "core/paragraph": {
         "typography": {
-          "fontSize": "var(--wp--preset--font-size--medium)",
+          "fontSize": "var(--wp--preset--font-size--normal)",
           "lineHeight": "1.6"
         }
       },
       "core/post-content": {
         "typography": {
-          "fontSize": "var(--wp--preset--font-size--medium)"
+          "fontSize": "var(--wp--preset--font-size--normal)"
         }
       },
       "core/post-title": {
         "typography": {
-          "fontSize": "var(--wp--preset--font-size--xx-large)"
+          "fontSize": "var(--wp--preset--font-size--large)"
         }
       },
       "core/separator": {
@@ -476,6 +530,26 @@
           "fontFamily": "var(--wp--preset--font-family--maghfirea)",
           "fontSize": "var(--wp--preset--font-size--large)"
         }
+      },
+      "woocommerce/product-price": {
+        "color": {
+          "text": "var(--wp--preset--color--custom-bleu-canard)"
+        },
+        "spacing": {
+          "margin": {
+            "bottom": "var(--wp--preset--spacing--small)",
+            "top": "0"
+          },
+          "padding": {
+            "top": "var(--wp--preset--spacing--small)"
+          }
+        },
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--large)",
+          "fontStyle": "normal",
+          "fontWeight": "500",
+          "lineHeight": "1.2"
+        }
       }
     },
     "color": {
@@ -490,6 +564,7 @@
           }
         },
         "border": {
+          "color": "currentColor",
           "radius": "5px"
         },
         "color": {
@@ -506,7 +581,7 @@
         },
         "typography": {
           "fontFamily": "var(--wp--preset--font-family--bellota-text)",
-          "fontSize": "var(--wp--preset--font-size--medium)",
+          "fontSize": "var(--wp--preset--font-size--normal)",
           "fontStyle": "normal",
           "fontWeight": "400"
         }
@@ -517,7 +592,7 @@
           "fontSize": "var(--wp--preset--font-size--large)",
           "fontStyle": "normal",
           "fontWeight": "400",
-          "lineHeight": "1"
+          "lineHeight": "1.2"
         }
       },
       "h2": {
@@ -547,10 +622,10 @@
       },
       "heading": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--maghfirea)",
+          "fontFamily": "var(--wp--preset--font-family--cabin)",
           "fontStyle": "normal",
           "fontWeight": "400",
-          "lineHeight": "0.7"
+          "lineHeight": "1.2"
         }
       },
       "link": {
@@ -575,10 +650,10 @@
     },
     "typography": {
       "fontFamily": "var(--wp--preset--font-family--bellota-text)",
-      "fontSize": "16px",
+      "fontSize": "var(--wp--preset--font-size--medium)",
       "fontStyle": "normal",
       "fontWeight": "400",
-      "lineHeight": "1.3"
+      "lineHeight": "1"
     }
   },
   "templateParts": [

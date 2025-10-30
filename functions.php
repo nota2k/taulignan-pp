@@ -57,6 +57,7 @@ function app_init()
     require_once APP_THEME_DIR . '/inc/template-tags.php';
     require_once APP_THEME_DIR . '/inc/sections.php';
     require_once APP_THEME_DIR . '/inc/shortcodes.php';
+    require_once APP_THEME_DIR . '/inc/woocommerce.php';
     
     // Interface d'administration pour la génération automatique de dates
     if (is_admin()) {
@@ -253,14 +254,14 @@ add_action('enqueue_block_editor_assets', 'taulignan_block_editor_assets');
 function taulignan_register_block_styles()
 {
     // Style de bouton personnalisé
-    register_block_style(
-        'core/button',
-        array(
-            'name'  => 'chateau-button',
-            'label' => 'Bouton Château',
-            'style_handle' => 'taulignan-block-styles'
-        )
-    );
+    // register_block_style(
+    //     'core/button',
+    //     array(
+    //         'name'  => 'chateau-button',
+    //         'label' => 'Bouton Château',
+    //         'style_handle' => 'taulignan-block-styles'
+    //     )
+    // );
 
     // Style pour le positionnement à gauche
     register_block_style(
@@ -884,10 +885,10 @@ function group_price_to_formule()
     if (is_product()) {
         echo '<div class="sejour-field sejour-price">';
         // Afficher le prix du produit WooCommerce
-        global $product;
-        if ($product) {
-            echo '<p class="price">' . $product->get_price_html() . '</p>';
-        }
+        // global $product;
+        // if ($product) {
+        //     echo '<p class="price">' . $product->get_price_html() . '</p>';
+        // }
 
         echo '<ul class="formule-list">';
         $formule = get_field('formule');

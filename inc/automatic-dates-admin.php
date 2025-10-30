@@ -37,8 +37,9 @@ function taulignan_automatic_dates_page() {
         
         switch ($_POST['taulignan_action']) {
             case 'generate':
-                $end_month = isset($_POST['end_month']) ? intval($_POST['end_month']) : 12;
-                $result = taulignan_execute_automatic_dates($end_month);
+                $month = isset($_POST['month']) ? intval($_POST['month']) : date('n');
+                $year = isset($_POST['year']) ? intval($_POST['year']) : date('Y');
+                $result = taulignan_execute_automatic_dates($month, $year);
                 break;
                 
             case 'reset':
@@ -88,8 +89,11 @@ function taulignan_automatic_dates_page() {
                     <p><strong>✅ Script déjà exécuté</strong></p>
                     <p>Dernière exécution : <?php echo date('d/m/Y à H:i:s', $execution_flag); ?></p>
                     <?php if ($last_execution): ?>
-                        <p>Paramètres : jusqu'au mois <strong><?php echo $last_execution['end_month']; ?></strong> de l'année <strong><?php echo $last_execution['year']; ?></strong></p>
-                        <p>Résultat : <?php echo $last_execution['attributes_created']; ?> attribut(s) créé(s), <?php echo $last_execution['terms_created']; ?> date(s) générée(s)</p>
+                        <p>Dernier mois généré : <strong><?php 
+                            $mois = array(1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai', 6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre', 11 => 'Novembre', 12 => 'Décembre');
+                            echo isset($last_execution['month']) ? $mois[$last_execution['month']] : 'N/A';
+                        ?></strong> <strong><?php echo $last_execution['year'] ?? 'N/A'; ?></strong></p>
+                        <p>Résultat : <?php echo $last_execution['terms_created'] ?? 0; ?> date(s) générée(s)</p>
                     <?php endif; ?>
                 </div>
             <?php else: ?>
@@ -110,10 +114,10 @@ function taulignan_automatic_dates_page() {
                 <table class="form-table">
                     <tr>
                         <th scope="row">
-                            <label for="end_month">Générer jusqu'au mois</label>
+                            <label for="month">Mois à générer</label>
                         </th>
                         <td>
-                            <select name="end_month" id="end_month" class="regular-text">
+                            <select name="month" id="month" class="regular-text">
                                 <?php
                                 $mois = array(
                                     1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril',
@@ -122,14 +126,30 @@ function taulignan_automatic_dates_page() {
                                 );
                                 
                                 for ($m = 1; $m <= 12; $m++) {
-                                    $selected = ($m == 12) ? 'selected' : '';
-                                    echo '<option value="' . $m . '" ' . $selected . '>' . $mois[$m] . ' ' . $current_year . '</option>';
+                                    $selected = ($m == $current_month) ? 'selected' : '';
+                                    echo '<option value="' . $m . '" ' . $selected . '>' . $mois[$m] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <label for="year">Année</label>
+                        </th>
+                        <td>
+                            <select name="year" id="year" class="regular-text">
+                                <?php
+                                // Afficher l'année actuelle et les 2 années suivantes
+                                for ($y = $current_year; $y <= $current_year + 2; $y++) {
+                                    $selected = ($y == $current_year) ? 'selected' : '';
+                                    echo '<option value="' . $y . '" ' . $selected . '>' . $y . '</option>';
                                 }
                                 ?>
                             </select>
                             <p class="description">
-                                Génère tous les weekends du mois actuel jusqu'au mois sélectionné.<br>
-                                <strong>Note :</strong> Cela créera un attribut par mois avec tous les samedis correspondants.
+                                Génère toutes les dates de vendredi du mois sélectionné.<br>
+                                <strong>Note :</strong> Les dates correspondent au vendredi qui précède le weekend. Toutes les dates seront ajoutées à l'attribut unique "Date".
                             </p>
                         </td>
                     </tr>
@@ -142,11 +162,9 @@ function taulignan_automatic_dates_page() {
                     </button>
                 </p>
                 
-                <?php if ($execution_flag): ?>
-                    <div class="notice notice-warning inline" style="margin-top: 10px;">
-                        <p><strong>⚠️ Attention :</strong> Le script a déjà été exécuté. Il ne créera que les nouveaux attributs/dates qui n'existent pas encore.</p>
-                    </div>
-                <?php endif; ?>
+                <div class="notice notice-info inline" style="margin-top: 10px;">
+                    <p><strong>💡 Info :</strong> Le système vérifie automatiquement si les dates existent déjà. Les dates déjà présentes seront ignorées, seules les nouvelles seront ajoutées à l'attribut "Date".</p>
+                </div>
             </form>
 
             <hr style="margin: 30px 0;">
@@ -179,21 +197,21 @@ function taulignan_automatic_dates_page() {
             
             <h3>Comment ça fonctionne ?</h3>
             <ol style="line-height: 1.8;">
-                <li>Le script génère automatiquement tous les <strong>weekends</strong> (vendredi-samedi-dimanche)</li>
-                <li>Les weekends sont groupés par <strong>mois</strong> (ex: "Octobre 2025", "Novembre 2025"...)</li>
-                <li>Chaque mois devient un <strong>attribut WooCommerce</strong></li>
-                <li>Chaque samedi devient une <strong>variation</strong> au format <code>dd/MM/YYYY</code> (ex: 14/10/2025)</li>
-                <li>Vous pouvez ensuite utiliser ces attributs dans vos produits séjours</li>
+                <li>Sélectionnez un <strong>mois</strong> et une <strong>année</strong></li>
+                <li>Le script génère automatiquement tous les <strong>vendredis</strong> de ce mois (vendredi qui précède le weekend)</li>
+                <li>Toutes les dates sont ajoutées à un seul attribut WooCommerce nommé <strong>"Date"</strong></li>
+                <li>Chaque vendredi devient une <strong>variation</strong> au format <code>dd/MM/YYYY</code> (ex: 13/10/2025)</li>
+                <li>Vous pouvez ensuite utiliser cet attribut dans vos produits séjours</li>
             </ol>
 
-            <h3>Où trouver les attributs créés ?</h3>
-            <p>Allez dans <strong>Produits > Attributs</strong> pour voir tous les attributs générés (octobre-2025, novembre-2025, etc.)</p>
+            <h3>Où trouver l'attribut créé ?</h3>
+            <p>Allez dans <strong>Produits > Attributs</strong> pour voir l'attribut "Date" avec toutes les dates générées.</p>
 
             <h3>Comment les utiliser dans un produit ?</h3>
             <ol style="line-height: 1.8;">
                 <li>Éditez un produit</li>
                 <li>Allez dans l'onglet <strong>Attributs</strong></li>
-                <li>Ajoutez l'attribut du mois souhaité (ex: "Octobre 2025")</li>
+                <li>Ajoutez l'attribut <strong>"Date"</strong></li>
                 <li>Cochez "Utilisé pour les variations"</li>
                 <li>Enregistrez</li>
                 <li>Allez dans l'onglet <strong>Variations</strong></li>
@@ -232,7 +250,7 @@ function taulignan_automatic_dates_page() {
 }
 
 // Fonction pour exécuter la génération de dates
-function taulignan_execute_automatic_dates($end_month) {
+function taulignan_execute_automatic_dates($month, $year) {
     global $wpdb;
     
     if (!function_exists('wc_create_attribute')) {
@@ -241,21 +259,19 @@ function taulignan_execute_automatic_dates($end_month) {
             'message' => 'WooCommerce n\'est pas actif.'
         );
     }
-
-    $current_year = date('Y');
     
     // Inclure les fonctions nécessaires
     require_once get_template_directory() . '/inc/automatic-dates.php';
     
     // Exécuter la génération
-    $result = create_monthly_weekend_attributes($end_month, $current_year);
+    $result = create_date_attributes_for_month($month, $year);
     
     if ($result['success']) {
         // Enregistrer les informations de cette exécution
         update_option('weekend_attributes_script_executed_once', time(), false);
         update_option('taulignan_automatic_dates_last_execution', array(
-            'end_month' => $end_month,
-            'year' => $current_year,
+            'month' => $month,
+            'year' => $year,
             'attributes_created' => $result['attributes_created'],
             'terms_created' => $result['terms_created'],
             'timestamp' => time()
@@ -272,11 +288,12 @@ function taulignan_delete_all_date_attributes() {
     $deleted_attributes = 0;
     $deleted_terms = 0;
     
-    // Récupérer tous les attributs qui correspondent au pattern mois-année
+    // Récupérer l'attribut "Date" et les anciens attributs par mois (pour compatibilité)
     $attributes = $wpdb->get_results("
         SELECT attribute_id, attribute_name, attribute_label 
         FROM {$wpdb->prefix}woocommerce_attribute_taxonomies 
-        WHERE attribute_name REGEXP '^[a-z]+-[0-9]{4}$'
+        WHERE attribute_name = 'date' 
+           OR attribute_name REGEXP '^[a-z]+-[0-9]{4}$'
     ");
     
     if (empty($attributes)) {

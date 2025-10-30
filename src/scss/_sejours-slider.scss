@@ -183,6 +183,7 @@
   max-width: 20vw;
   margin: 0;
   height: 100%;
+  border: 1px solid var(--wp--preset--color--custom-bleu-canard);
 
   img {
     width: 100%;
@@ -375,5 +376,44 @@
       font-size: 3.7rem;
         margin-top: 20px;
     }
+  }
+}
+
+.addon-header{
+  .wapo-addon-title{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--wp--preset--color--custom-bleu-canard);
+    margin-bottom: 1.2rem;
+  }
+}
+
+.checkbox-button-container{
+  position:relative;
+  padding: 5px 10px;
+  background-color:transparent;
+  border:1px solid var(--wp--preset--color--custom-bleu-canard);
+  transition: all 0.3s ease;
+  border-radius: 50px;
+
+  .checkboxbutton{
+    position:absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+
+    &.checked {
+      background-color: var(--wp--preset--color--custom-bleu-canard);
+      color: #fff;
+    }
+  }
+
+  &:has(.checkboxbutton.checked) {
+    background-color: var(--wp--preset--color--custom-bleu-canard);
+    color: #fff;
   }
 }
