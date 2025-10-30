@@ -6,7 +6,7 @@
     "isEntry": true
   },
   "src/js/main.js": {
-    "file": "main-BSrMsULG.js",
+    "file": "main-BoFJQ0I0.js",
     "name": "main",
     "src": "src/js/main.js",
     "isEntry": true,
@@ -15,12 +15,12 @@
     ]
   },
   "src/scss/_block-editor.scss": {
-    "file": "_block-editor-CY58nAC4.css",
+    "file": "_block-editor-CSbHHGzo.css",
     "src": "src/scss/_block-editor.scss",
     "isEntry": true
   },
   "src/scss/_theme.scss": {
-    "file": "_theme-DCDE5JWd.css",
+    "file": "_theme-CEqVRlSy.css",
     "src": "src/scss/_theme.scss",
     "isEntry": true
   }

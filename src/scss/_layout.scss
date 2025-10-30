@@ -31,9 +31,9 @@
         grid-auto-rows: auto;
         row-gap: 2em;
 
-        // > div {
-        //     grid-column: span 1;
-        // }
+        > div {
+            grid-column: 1 /span 1;
+        }
 
         .wp-block-spacer {
             display: none;
@@ -77,9 +77,19 @@
     z-index: 20;
 }
 
-.is-layout-constrained:has(img):not(section, .multi-img-col) {
-    bottom: 0;
-    height: fit-content;
+.is-layout-constrained{
+    &:has(img):not(section, .multi-img-col) {
+        bottom: 0;
+        height: fit-content;
+    }
+
+    @include max-width('md') {
+        max-width: 100%!important;
+        &[style*="max-width: 80%;"] {
+            max-width: 95%;
+        }
+    }
+   
 }
 
 .wp-block-group:is(.absolute) {

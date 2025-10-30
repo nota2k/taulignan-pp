@@ -9,7 +9,7 @@ import 'aos/dist/aos.css';
 // Fonction pour ajouter les attributs AOS aux éléments
 function setupAOSAttributes() {
   // Sélectionner toutes les sections
-  const sections = document.querySelectorAll("section,.entry-content > .wp-block-group");
+  const sections = document.querySelectorAll("section,.entry-content > .wp-block-group,.entry-content .wp-block-column > .wp-block-group");
 
   // Si aucune section n'est trouvée, arrêter
   if (sections.length === 0) {
