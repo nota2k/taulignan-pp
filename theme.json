@@ -157,8 +157,12 @@
           "slug": "medium"
         },
         {
+          "fluid": {
+            "max": "8em",
+            "min": "5em"
+          },
           "name": "Grand",
-          "size": "5em",
+          "size": "7em",
           "slug": "large"
         },
         {
