@@ -1,175 +1,161 @@
 <?php
-
 /**
- * Order details table shown in emails - Version personnalisée Taulignan
+ * Order details table shown in emails.
  *
- * @package Taulignan
- * @version 1.0.0
+ * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-order-details.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see https://woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates\Emails
+ * @version 10.1.0
  */
 
-if (! defined('ABSPATH')) {
-	exit;
+use Automattic\WooCommerce\Utilities\FeaturesUtil;
+
+defined( 'ABSPATH' ) || exit;
+
+$text_align = is_rtl() ? 'right' : 'left';
+
+$email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improvements' );
+$heading_class              = $email_improvements_enabled ? 'email-order-detail-heading' : '';
+$order_table_class          = $email_improvements_enabled ? 'email-order-details' : '';
+$order_total_text_align     = $email_improvements_enabled ? 'right' : 'left';
+
+if ( $email_improvements_enabled ) {
+	add_filter( 'woocommerce_order_shipping_to_display_shipped_via', '__return_false' );
 }
 
-$text_align  = is_rtl() ? 'right' : 'left';
-$margin_side = is_rtl() ? 'left' : 'right';
+/**
+ * Action hook to add custom content before order details in email.
+ *
+ * @param WC_Order $order Order object.
+ * @param bool     $sent_to_admin Whether it's sent to admin or customer.
+ * @param bool     $plain_text Whether it's a plain text email.
+ * @param WC_Email $email Email object.
+ * @since 2.5.0
+ */
+do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text, $email ); ?>
 
-// Styles inline pour une meilleure compatibilité email
-$table_style = 'width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #004f6e; border-radius: 8px; overflow: hidden;';
-$th_style = 'background-color: #004f6e; color: white; font-weight: 600; text-align: ' . $text_align . '; padding: 16px 12px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; font-family: "Bellota Text", "Helvetica Neue", Helvetica, Arial, sans-serif;';
-$td_style = 'padding: 16px 12px; vertical-align: top; color: #000000; font-family: "Bellota Text", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 15px;';
-$product_name_style = 'font-weight: 600; color: #6b764c; font-size: 16px;';
-$total_row_style = 'padding: 12px; border-bottom: 1px solid #E6D7C3; font-size: 15px; color: #000000;';
-$total_label_style = 'text-align: ' . $text_align . '; padding: 12px; font-weight: 500;';
-$total_amount_style = 'text-align: ' . (is_rtl() ? 'left' : 'right') . '; padding: 12px;';
-$row_style = 'text-transform: inherit;';
-
-?>
-
-<div class="email-order-details" style="margin: 20px 0;">
-
+<h2 class="<?php echo esc_attr( $heading_class ); ?>">
 	<?php
-	do_action('woocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text, $email);
+	if ( $email_improvements_enabled ) {
+		echo wp_kses_post( __( 'Order summary', 'woocommerce' ) );
+	}
+	if ( $sent_to_admin ) {
+		$before = '<a class="link" href="' . esc_url( $order->get_edit_order_url() ) . '">';
+		$after  = '</a>';
+	} else {
+		$before = '';
+		$after  = '';
+	}
+	if ( $email_improvements_enabled ) {
+		echo '<br><span>';
+	}
+	/* translators: %s: Order ID. */
+	$order_number_string = __( '[Order #%s]', 'woocommerce' );
+	if ( $email_improvements_enabled ) {
+		/* translators: %s: Order ID. */
+		$order_number_string = __( 'Order #%s', 'woocommerce' );
+	}
+	echo wp_kses_post( $before . sprintf( $order_number_string . $after . ' (<time datetime="%s">%s</time>)', $order->get_order_number(), $order->get_date_created()->format( 'c' ), wc_format_datetime( $order->get_date_created() ) ) );
+	if ( $email_improvements_enabled ) {
+		echo '</span>';
+	}
 	?>
+</h2>
 
-	<table cellspacing="0" cellpadding="0" style="<?php echo esc_attr($table_style); ?>" border="0" class="email-order-details">
+<div style="margin-bottom: <?php echo $email_improvements_enabled ? '24px' : '40px'; ?>;">
+	<table class="td font-family <?php echo esc_attr( $order_table_class ); ?>" cellspacing="0" cellpadding="6" style="width: 100%;" border="1">
+		<?php if ( ! $email_improvements_enabled ) { ?>
 		<thead>
 			<tr>
-				<th scope="col" style="<?php echo esc_attr($th_style); ?>">
-					<?php esc_html_e('Séjour', 'woocommerce'); ?>
-				</th>
-				<th scope="col" style="<?php echo esc_attr($th_style . 'text-align: center;'); ?>">
-					<?php esc_html_e('Quantité', 'woocommerce'); ?>
-				</th>
-				<th scope="col" style="<?php echo esc_attr($th_style . 'text-align: ' . (is_rtl() ? 'left' : 'right') . ';'); ?>">
-					<?php esc_html_e('Prix', 'woocommerce'); ?>
-				</th>
+				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;">&nbsp;<?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
+				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;">&nbsp;<?php esc_html_e( 'Quantity', 'woocommerce' ); ?></th>
+				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;">&nbsp;<?php esc_html_e( 'Price', 'woocommerce' ); ?></th>
 			</tr>
 		</thead>
+		<?php } ?>
 		<tbody>
 			<?php
-			echo wp_kses_post(wc_get_email_order_items( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			$image_size = $email_improvements_enabled ? 48 : 32;
+			echo wc_get_email_order_items( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				$order,
 				array(
 					'show_sku'      => $sent_to_admin,
-					'show_image'    => false,
-					'image_size'    => array(32, 32),
+					'show_image'    => $email_improvements_enabled,
+					'image_size'    => array( $image_size, $image_size ),
 					'plain_text'    => $plain_text,
 					'sent_to_admin' => $sent_to_admin,
-					'row_style'    => $row_style,
 				)
-			));
+			);
 			?>
 		</tbody>
 		<tfoot>
 			<?php
-			$item_totals = $order->get_order_item_totals();
-			$item_totals_count = is_array($item_totals) ? count($item_totals) : 0;
-			if ($item_totals_count) {
+			$item_totals       = $order->get_order_item_totals();
+			$item_totals_count = count( $item_totals );
+
+			if ( $item_totals ) {
 				$i = 0;
-				foreach ($item_totals as $total) {
-					// Ignorer la ligne du moyen de paiement dans les totaux
-					if (isset($total['type']) && $total['type'] === 'payment_method') {
-						continue;
-					}
+				foreach ( $item_totals as $total ) {
 					$i++;
-					$label_cell_style = $total_label_style;
-					$value_cell_style = $total_amount_style;
-					// Déterminer si la ligne correspond au total général
-					$is_total = isset($total['type']) && in_array($total['type'], array('order_total', 'total'), true);
-					$row_classes = 'order-totals';
-					if ($is_total) {
-						$row_classes .= ' order-totals-total';
-					}
-					if (1 === $i) {
-						$row_classes .= ' first';
-					}
-			?>
-					<tr class="<?php echo esc_attr($row_classes); ?>" style="<?php echo esc_attr($row_style); ?>">
-						<th scope="row" style="<?php echo esc_attr($label_cell_style); ?>"><?php echo wp_kses_post($total['label']); ?></th>
-						<td style="padding: 0; mso-line-height-rule: exactly;">&nbsp;</td>
-						<td style="<?php echo esc_attr($value_cell_style); ?>"><?php echo wp_kses_post($total['value']); ?></td>
+					$last_class = ( $i === $item_totals_count ) ? ' order-totals-last' : '';
+					?>
+					<tr class="order-totals order-totals-<?php echo esc_attr( $total['type'] ?? 'unknown' ); ?><?php echo esc_attr( $last_class ); ?>">
+						<th class="td text-align-left" scope="row" colspan="2" style="<?php echo ( 1 === $i ) ? 'border-top-width: 4px;' : ''; ?>">
+							<?php
+							echo wp_kses_post( $total['label'] ) . ' ';
+							if ( $email_improvements_enabled ) {
+								echo isset( $total['meta'] ) ? wp_kses_post( $total['meta'] ) : '';
+							}
+							?>
+						</th>
+						<td class="td text-align-<?php echo esc_attr( $order_total_text_align ); ?>" style="<?php echo ( 1 === $i ) ? 'border-top-width: 4px;' : ''; ?>"><?php echo wp_kses_post( $total['value'] ); ?></td>
 					</tr>
-			<?php
+					<?php
 				}
 			}
-			?>
-			<?php
-
-			if ($order->get_customer_note()) {
-			?>
+			if ( $order->get_customer_note() && ! $email_improvements_enabled ) {
+				?>
+				<tr>
+					<th class="td text-align-left" scope="row" colspan="2"><?php esc_html_e( 'Note:', 'woocommerce' ); ?></th>
+					<td class="td text-align-left"><?php echo wp_kses( nl2br( wc_wptexturize_order_note( $order->get_customer_note() ) ), array() ); ?></td>
+				</tr>
+				<?php
+			}
+			if ( $order->get_customer_note() && $email_improvements_enabled ) {
+				?>
 				<tr class="order-customer-note">
-					<td colspan="3" style="padding: 24px 12px; border-top: 2px solid #E6D7C3; background-color: #FFF9E6;">
-						<p style="margin: 0 0 8px; font-weight: 600; color: #8B7355; font-size: 14px;">
-							<?php esc_html_e('Note :', 'woocommerce'); ?>
-						</p>
-						<p style="margin: 0; color: #6B5B47; font-size: 14px; line-height: 1.6;">
-							<?php echo wp_kses_post(nl2br(wptexturize($order->get_customer_note()))); ?>
-						</p>
+					<td class="td text-align-left" colspan="3">
+						<b><?php esc_html_e( 'Customer note', 'woocommerce' ); ?></b><br>
+						<?php echo wp_kses( nl2br( wc_wptexturize_order_note( $order->get_customer_note() ) ), array( 'br' => array() ) ); ?>
 					</td>
 				</tr>
-			<?php
+				<?php
 			}
 			?>
 		</tfoot>
 	</table>
 </div>
 
-<style type="text/css">
-	/* Styles additionnels pour une meilleure compatibilité */
+<?php
+if ( $email_improvements_enabled ) {
+	remove_filter( 'woocommerce_order_shipping_to_display_shipped_via', '__return_false' );
+}
 
-	.td.text-align-right {
-		text-align: right !important;
-	}
-
-	.order-totals-total th,
-	.order-totals-total td {
-		color: #fff !important;
-		background-color: #004f6e !important;
-	}
-
-	.order-totals-total td {
-		font-weight: 600 !important;
-		font-size: 18px !important;
-
-	}
-
-	.order-totals-total th {
-		font-weight: 600 !important;
-		font-size: 20px;
-
-	}
-
-	.order-item-data  td:last-of-type{
-		padding: 0!important;
-	}
-	
-	.email-order-details {
-		font-family: "Bellota Text", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-	}
-
-	.email-order-details td.product-name {
-		font-weight: 600 !important;
-		color: #6b764c !important;
-		font-size: 16px !important;
-	}
-
-	.email-order-details .wc-item-meta {
-		font-size: 13px !important;
-		color: #6B5B47 !important;
-		margin-top: 8px !important;
-	}
-
-	.email-order-details .wc-item-meta li {
-		margin: 4px 0 !important;
-	}
-
-	.email-order-details .wc-item-meta-label {
-		font-weight: 600 !important;
-		color: #8B7355 !important;
-	}
-
-	th {
-		background-color: #004f6e;
-	}
-</style>
+/**
+ * Action hook to add custom content after order details in email.
+ *
+ * @param WC_Order $order Order object.
+ * @param bool     $sent_to_admin Whether it's sent to admin or customer.
+ * @param bool     $plain_text Whether it's a plain text email.
+ * @param WC_Email $email Email object.
+ * @since 2.5.0
+ */
+do_action( 'woocommerce_email_after_order_table', $order, $sent_to_admin, $plain_text, $email );
+?>

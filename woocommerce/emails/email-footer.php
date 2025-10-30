@@ -1,72 +1,88 @@
 <?php
-
 /**
- * Email Footer - Taulignan Personnalisé
+ * Email Footer
  *
- * @package Taulignan
- * @version 1.0.0
+ * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-footer.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see https://woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates\Emails
+ * @version 10.0.0
  */
 
-if (! defined('ABSPATH')) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
+
+$email = $email ?? null;
 
 ?>
-</div>
-</td>
-</tr>
-</table>
-<!-- End Content -->
-</td>
-</tr>
-</table>
-<!-- End Body -->
-</td>
-</tr>
-</table>
-</td>
-</tr>
-<tr>
-	<td align="center" valign="top">
-		<!-- Footer -->
-		<table border="0" cellpadding="0" cellspacing="0" width="100%" id="template_footer">
-			<tr>
-				<td valign="top">
-					<table border="0" cellpadding="0" cellspacing="0" width="100%">
-						<tr>
-							<td id="credit" valign="middle" style="background-color: #D4C5B0; color: #6B5B47; font-family: 'Bellota Text', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; text-align: center;">
-								<?php 
-								$site_name = get_bloginfo('name');
-								$site_url = home_url();
-								?>
-								<p style="margin: 0 0 12px; font-weight: 600; color: #6B5B47; font-size: 16px; font-family: 'Cabin', sans-serif;">
-									<?php echo esc_html($site_name); ?>
-								</p>
-								<p style="margin: 0 0 8px; color: #6B5B47;">
-									<?php 
-									// Récupérer les informations de contact
-									$contact_email = get_option('admin_email');
-									$contact_phone = get_option('taulignan_contact_phone', '+33 (0)4 75 00 00 00');
-									
-									echo esc_html($contact_email) . '<br>';
-									echo esc_html($contact_phone);
-									?>
-								</p>
-							</td>
-						</tr>
-					</table>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+															<!-- End Content -->
+														</td>
+													</tr>
+												</table>
+												<!-- End Body -->
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td align="center" valign="top">
+									<!-- Footer -->
+									<table border="0" cellpadding="10" cellspacing="0" width="100%" id="template_footer">
+										<tr>
+											<td valign="top">
+												<table border="0" cellpadding="10" cellspacing="0" width="100%">
+													<tr>
+														<td colspan="2" valign="middle" id="credit">
+															<?php
+															$email_footer_text = get_option( 'woocommerce_email_footer_text' );
+															/**
+															 * This filter is documented in templates/emails/email-styles.php
+															 *
+															 * @since 9.6.0
+															 */
+															if ( apply_filters( 'woocommerce_is_email_preview', false ) ) {
+																$text_transient    = get_transient( 'woocommerce_email_footer_text' );
+																$email_footer_text = false !== $text_transient ? $text_transient : $email_footer_text;
+															}
+															echo wp_kses_post(
+																wpautop(
+																	wptexturize(
+																		/**
+																	 * Provides control over the email footer text used for most order emails.
+																	 *
+																	 * @since 4.0.0
+																	 *
+																	 * @param string $email_footer_text
+																	 */
+																	apply_filters( 'woocommerce_email_footer_text', $email_footer_text, $email )
+																)
+																)
+															);
+															?>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+									<!-- End Footer -->
+								</td>
+							</tr>
+						</table>
+					</div>
 				</td>
+				<td><!-- Deliberately empty to support consistent sizing and layout across multiple email clients. --></td>
 			</tr>
 		</table>
-		<!-- End Footer -->
-	</td>
-</tr>
-</table>
-</div>
-</td>
-<td></td>
-</tr>
-</table>
-</body>
-
+	</body>
 </html>

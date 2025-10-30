@@ -1,75 +1,93 @@
 <?php
-
 /**
- * Email Addresses - Version personnalisée Taulignan
+ * Email Addresses
  *
- * @package Taulignan
- * @version 1.0.0
+ * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-addresses.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see https://woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates\Emails
+ * @version 9.8.0
  */
 
-if (! defined('ABSPATH')) {
+use Automattic\WooCommerce\Utilities\FeaturesUtil;
+
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$text_align = is_rtl() ? 'right' : 'left';
-$address    = $order->get_formatted_billing_address();
-$shipping   = $order->get_formatted_shipping_address();
+$address  = $order->get_formatted_billing_address();
+$shipping = $order->get_formatted_shipping_address();
+
+$email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improvements' );
 
 ?>
+<table id="addresses" cellspacing="0" cellpadding="0" style="width: 100%; vertical-align: top; margin-bottom: <?php echo $email_improvements_enabled ? '0' : '40px'; ?>; padding:0;" border="0">
+	<tr>
+		<td class="font-family text-align-left" style="border:0; padding:0;" valign="top" width="50%">
+			<?php if ( $email_improvements_enabled ) { ?>
+				<b class="address-title"><?php esc_html_e( 'Billing address', 'woocommerce' ); ?></b>
+			<?php } else { ?>
+				<h2><?php esc_html_e( 'Billing address', 'woocommerce' ); ?></h2>
+			<?php } ?>
 
-<!-- Adresse de facturation -->
-<div style="margin: 24px 0;" class="address-block">
-	<h3 style="color: #004f6e; font-family: 'Cabin', sans-serif; font-size: 24px; margin: 0 0 12px; font-weight: 600;">
-		Adresse de facturation
-	</h3>
+			<address class="address">
+				<?php echo wp_kses_post( $address ? $address : esc_html__( 'N/A', 'woocommerce' ) ); ?>
+				<?php if ( $order->get_billing_phone() ) : ?>
+					<br/><?php echo wc_make_phone_clickable( $order->get_billing_phone() ); ?>
+				<?php endif; ?>
+				<?php if ( $order->get_billing_email() ) : ?>
+					<br/><?php echo esc_html( $order->get_billing_email() ); ?>
+				<?php endif; ?>
+				<?php
+				/**
+				 * Fires after the core address fields in emails.
+				 *
+				 * @since 8.6.0
+				 *
+				 * @param string $type Address type. Either 'billing' or 'shipping'.
+				 * @param WC_Order $order Order instance.
+				 * @param bool $sent_to_admin If this email is being sent to the admin or not.
+				 * @param bool $plain_text If this email is plain text or not.
+				 */
+				do_action( 'woocommerce_email_customer_address_section', 'billing', $order, $sent_to_admin, false );
+				?>
+			</address>
+		</td>
+		<?php if ( ! wc_ship_to_billing_address_only() && $order->needs_shipping_address() && $shipping ) : ?>
+			<td class="font-family text-align-left" style="padding:0;" valign="top" width="50%">
+				<?php if ( $email_improvements_enabled ) { ?>
+					<b class="address-title"><?php esc_html_e( 'Shipping address', 'woocommerce' ); ?></b>
+				<?php } else { ?>
+					<h2><?php esc_html_e( 'Shipping address', 'woocommerce' ); ?></h2>
+				<?php } ?>
 
-	<div style="padding: 16px; border: 1px solid #E6D7C3; margin: 0;">
-		<?php 
-		// Nom et prénom
-		$billing_first_name = $order->get_billing_first_name();
-		$billing_last_name = $order->get_billing_last_name();
-		
-		if ($billing_first_name || $billing_last_name) {
-			echo '<p style="margin: 0 0 8px; font-weight: 600; color: #000000; font-size: 15px;">';
-			echo esc_html($billing_first_name . ' ' . $billing_last_name);
-			echo '</p>';
-		}
-		
-		// Compagnie
-		if ($order->get_billing_company()) {
-			echo '<p style="margin: 0 0 8px; color: #000000; font-size: 14px;">';
-			echo esc_html($order->get_billing_company());
-			echo '</p>';
-		}
-		
-		// Adresse complète
-		echo '<p style="margin: 0 0 8px; color: #000000; font-size: 14px; line-height: 1.6;">';
-		echo wp_kses_post($address ? $address : esc_html__('N/A', 'woocommerce'));
-		echo '</p>';
-		
-		// Email
-		if ($order->get_billing_email()) {
-			echo '<p style="margin: 0; color: #000000; font-size: 14px;">';
-			echo '<strong>Email :</strong><br>';
-			echo esc_html($order->get_billing_email());
-			echo '</p>';
-		}
-		
-		// Téléphone
-		if ($order->get_billing_phone()) {
-			echo '<p style="margin: 8px 0 0; color: #000000; font-size: 14px;">';
-			echo '<strong>Tél :</strong> ' . esc_html($order->get_billing_phone());
-			echo '</p>';
-		}
-		?>
-	</div>
-</div>
-
-<style type="text/css">
-	@media screen and (max-width: 600px) {
-		.address-block {
-			display: block !important;
-			width: 100% !important;
-		}
-	}
-</style>
+				<address class="address">
+					<?php echo wp_kses_post( $shipping ); ?>
+					<?php if ( $order->get_shipping_phone() ) : ?>
+						<br /><?php echo wc_make_phone_clickable( $order->get_shipping_phone() ); ?>
+					<?php endif; ?>
+					<?php
+					/**
+					 * Fires after the core address fields in emails.
+					 *
+					 * @since 8.6.0
+					 *
+					 * @param string $type Address type. Either 'billing' or 'shipping'.
+					 * @param WC_Order $order Order instance.
+					 * @param bool $sent_to_admin If this email is being sent to the admin or not.
+					 * @param bool $plain_text If this email is plain text or not.
+					 */
+					do_action( 'woocommerce_email_customer_address_section', 'shipping', $order, $sent_to_admin, false );
+					?>
+				</address>
+			</td>
+		<?php endif; ?>
+	</tr>
+</table>
+<?php echo $email_improvements_enabled ? '<br>' : ''; ?>
