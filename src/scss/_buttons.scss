@@ -13,170 +13,184 @@ sbutton,
     margin-top: 1.5em;
 }
 
-// // Boutons WordPress
-// .wp-block-button__link {
-//     transition: all 0.2s ease-in-out;
-//     border-width: 1px;
-//     border-style: solid;
+// Boutons WordPress
+.wp-block-button__link {    
+    transition: all 0.2s ease-in-out;
+    border-width: 1px;
+    border-style: solid;
+
     
-//     // Comportement générique : Inverser les couleurs au hover
-//     // Les couleurs sont définies dynamiquement par JavaScript
-    
-//     // Pour les boutons avec background (boutons pleins)
-//     &.has-background {
-//         border-color: transparent;
+    // Pour les boutons avec background (boutons pleins)
+    &.has-background {
+        --original-bg-color: var(--wp--preset--color--vert-olive);
+        --original-text-color: var(--wp--preset--color--blanc);
+        --original-border-color: var(--original-bg-color);
         
-//         &:hover {
-//             // Utilise les variables CSS définies par JavaScript
-//             background-color: var(--hover-bg-color, transparent) !important;
-//             color: var(--hover-text-color, var(--original-bg-color)) !important;
-//             border-color: var(--hover-border-color, var(--original-bg-color)) !important;
-//         }
-//     }
-    
-//     // Pour les boutons outline/contour (has-text-color uniquement)
-//     &.has-text-color:not(.has-background) {
-//         background-color: transparent;
-//         border-color: currentcolor;
+
+        border-color: transparent;
         
-//         &:hover {
-//             // Utilise les variables CSS définies par JavaScript
-//             background-color: var(--hover-bg-color, currentColor) !important;
-//             color: var(--hover-text-color, #fff) !important;
-//             border-color: var(--hover-border-color, currentColor) !important;
-//         }
-//     }
+        &:hover {
+            --hover-bg-color: transparent;
+            --hover-text-color: var(--original-bg-color);
+            --hover-border-color: var(--original-bg-color);
 
-//     // Couleurs de fond au hover
-//     &.has-bleu-nuit-background-color:hover {
-//         background-color: var(--wp--preset-color-violet-gris);
-//     }
+            background-color: transparent!important;
+            color: var(--original-bg-color)!important;
+            border-color: var(--original-bg-color) !important;
+        }
+    }
+    
+    // Pour les boutons outline/contour (has-text-color uniquement)
+    &.has-text-color:not(.has-background) {
+        --original-bg-color: transparent;
+        --original-text-color: currentcolor;
+        --original-border-color: currentcolor;
+        
+        border-color: var(--original-border-color);
+        
+        &:hover {
+            --hover-bg-color: currentcolor;
+            --hover-text-color: var(--original-text-color);
+            --hover-border-color: var(--original-text-color);
 
-//     &.has-lavande-color:hover {
-//         background-color: var(--wp--preset--color--violet-fonce) !important;
-//         color: #F5F2E8 !important;
-//     }
+            background-color: var(--hover-bg-color)!important;
+            color: var(--hover-text-color)!important;
+            border-color: var(--hover-border-color) !important;
 
-//     &.has-olive-background-color:hover {
-//         background-color: #d0d397 !important;
-//         color: var(--wp-preset-color-bg-olive);
-//     }
+            // mix-blend-mode: screen;
+        }
+    }
 
-//     &.has-violet-fonce-background-color:hover {
-//         background-color: #392b46 !important;
-//         color: #fff !important;
-//     }
+    // // Couleurs de fond au hover
+    // &.has-bleu-nuit-background-color:hover {
+    //     background-color: var(--wp--preset-color-violet-gris);
+    // }
 
-//     &.has-beige-color:hover {
-//         background-color: var(--wp--preset--color--beige) !important;
-//         border-color: var(--wp--preset--color--beige) !important;
-//         color: var(--wp--preset--color--olive) !important;
-//     }
+    &.has-lavande-color:hover {
+        background-color: var(--wp--preset--color--violet-fonce) !important;
+        color: #F5F2E8 !important;
+    }
 
-//     &.has-vert-olive-color:hover {
-//         background-color: var(--wp--preset--color--vert-olive) !important;
-//         border-color: var(--wp--preset--color--vert-olive) !important;
-//         color: var(--wp--preset--color--beige) !important;
-//     }
+    &.has-olive-background-color:hover {
+        background-color: #d0d397 !important;
+        color: var(--wp-preset-color-bg-olive);
+    }
 
-//     &.has-violet-fonce-color:hover {
-//         background-color: var(--wp--preset--color--violet-fonce) !important;
-//         color: var(--wp--preset--color--lavande-light) !important;
-//         border-color: var(--wp--preset--color--violet-fonce) !important;
-//     }
+    &.has-violet-fonce-background-color:hover {
+        background-color: #392b46 !important;
+        color: #fff !important;
+    }
 
-//     // Styles spécifiques par couleur
-//     &.has-text-color[style*="color:#b8a3d1;"]:hover {
-//         background-color: var(--wp--preset--color--lavande) !important;
-//         color: #fff !important;
-//     }
+    &.has-beige-color:hover {
+        background-color: var(--wp--preset--color--beige) !important;
+        border-color: var(--wp--preset--color--beige) !important;
+        color: var(--wp--preset--color--olive) !important;
+    }
 
-//     &.has-background[style*="background-color:#b8a3d1;"]:hover {
-//         background-color: var(--wp--preset--color--violet-fonce) !important;
-//         color: #fff !important;
-//     }
-// }
+    &.has-vert-olive-color:hover {
+        background-color: var(--wp--preset--color--vert-olive) !important;
+        border-color: var(--wp--preset--color--vert-olive) !important;
+        color: var(--wp--preset--color--beige) !important;
+    }
 
-// a.wp-block-button__link.has-text-color[style*="color:#ffffff;"]:hover {
-//     background-color: #fff !important;
-//     color: var(--wp--preset--color--bleu-nuit) !important;
-//     border-color: #fff !important;
-// }
+    &.has-violet-fonce-color:hover {
+        background-color: var(--wp--preset--color--violet-fonce) !important;
+        color: var(--wp--preset--color--lavande-light) !important;
+        border-color: var(--wp--preset--color--violet-fonce) !important;
+    }
 
-// // Wrapper des boutons
-// .button-wrapper {
-//     display: flex;
-//     justify-content: center;
-//     margin: 1em auto;
-// }
+    // Styles spécifiques par couleur
+    &.has-text-color[style*="color:#b8a3d1;"]:hover {
+        background-color: var(--wp--preset--color--lavande) !important;
+        color: #fff !important;
+    }
 
-// // Boutons solides
-// .btn-solid {
-//     background-color: var(--primary-color);
-//     color: #fff;
-//     border: none;
-//     border-radius: 5px;
-//     cursor: pointer;
+    &.has-background[style*="background-color:#b8a3d1;"]:hover {
+        background-color: var(--wp--preset--color--violet-fonce) !important;
+        color: #fff !important;
+    }
+}
 
-//     a {
-//         color: #fff;
-//     }
+a.wp-block-button__link.has-text-color[style*="color:#ffffff;"]:hover {
+    background-color: #fff !important;
+    color: var(--wp--preset--color--bleu-nuit) !important;
+    border-color: #fff !important;
+}
 
-//     &:hover {
-//         background-color: var(--primary);
-//     }
+// Wrapper des boutons
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 1em auto;
+}
 
-//     // Variantes de couleur
-//     &.lavande {
-//         background-color: var(--Lavande-fonce);
+// Boutons solides
+.btn-solid {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 
-//         &:hover {
-//             background-color: var(--Lavande-fonce);
-//         }
-//     }
+    a {
+        color: #fff;
+    }
 
-//     &.secondary {
-//         background-color: var(--secondary);
+    &:hover {
+        background-color: var(--primary);
+    }
 
-//         &:hover {
-//             background-color: var(--bordeau);
-//         }
-//     }
-// }
+    // Variantes de couleur
+    &.lavande {
+        background-color: var(--Lavande-fonce);
 
-// // Boutons outline
-// .btn-outline {
-//     // Variantes de couleur
-//     &.lavande {
-//         color: var(--Lavande-fonce);
-//         border: 1px solid var(--Lavande-fonce);
+        &:hover {
+            background-color: var(--Lavande-fonce);
+        }
+    }
 
-//         &:hover {
-//             background-color: var(--Lavande-fonce);
-//             color: #fff;
-//         }
-//     }
+    &.secondary {
+        background-color: var(--secondary);
 
-//     &.beige {
-//         color: var(--beige);
-//         border: 1px solid var(--beige);
+        &:hover {
+            background-color: var(--bordeau);
+        }
+    }
+}
 
-//         &:hover {
-//             background-color: var(--beige);
-//             color: var(--Lavande-fonce);
-//         }
-//     }
+// Boutons outline
+.btn-outline {
+    // Variantes de couleur
+    &.lavande {
+        color: var(--Lavande-fonce);
+        border: 1px solid var(--Lavande-fonce);
 
-//     &.white {
-//         color: #fff;
-//         border: 1px solid #fff;
+        &:hover {
+            background-color: var(--Lavande-fonce);
+            color: #fff;
+        }
+    }
 
-//         &:hover {
-//             background-color: #fff;
-//             color: #000;
-//         }
-//     }
-// }
+    &.beige {
+        color: var(--beige);
+        border: 1px solid var(--beige);
+
+        &:hover {
+            background-color: var(--beige);
+            color: var(--Lavande-fonce);
+        }
+    }
+
+    &.white {
+        color: #fff;
+        border: 1px solid #fff;
+
+        &:hover {
+            background-color: #fff;
+            color: #000;
+        }
+    }
+}
 
 // Tailles de boutons
 .btn-sm {
