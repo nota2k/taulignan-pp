@@ -167,7 +167,7 @@
         },
         {
           "name": "Très grand",
-          "size": "clamp(1.25rem, 5vw, 25%)",
+          "size": "clamp(1.25rem, 20vw, 25%)",
           "slug": "x-large"
         }
       ],

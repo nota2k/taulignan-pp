@@ -5,21 +5,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-// // Désactiver les avertissements PHP pour éviter l'envoi prématuré des headers
-// // Cela empêche les erreurs de plugins tiers d'affecter l'affichage
-// // Note: À supprimer une fois que WooCommerce Payments est mis à jour
-// if (! defined('WP_DEBUG') || ! WP_DEBUG) {
-//     error_reporting(E_ERROR | E_PARSE);
-// }
-
-// // Filtrer les erreurs spécifiques de WordPress 6.7.0 liées aux traductions
-// add_filter('doing_it_wrong_trigger_error', function ($trigger, $function_name) {
-//     // Supprimer l'erreur pour _load_textdomain_just_in_time provenant de plugins
-//     if ($function_name === '_load_textdomain_just_in_time' && strpos(wp_debug_backtrace_summary(), 'woocommerce-payments') !== false) {
-//         return false;
-//     }
-//     return $trigger;
-// }, 10, 2);
+ 
 
 // Charger l'autoloader Composer
 require_once __DIR__ . '/vendor/autoload.php';
@@ -81,7 +67,6 @@ function taulignan_theme_setup()
 
     // Support des éditeurs de blocs
     add_theme_support('responsive-embeds');
-    add_theme_support('editor-styles');
 
     // Support des couleurs et typographies personnalisées
     add_theme_support('custom-background');
@@ -518,64 +503,6 @@ function change_stock_text($translated_text, $text, $domain)
 }
 add_filter('gettext', 'change_stock_text', 20, 3);
 add_filter('ngettext', 'change_stock_text', 20, 3);
-
-// ============================================================================
-// FILTRAGE DES SÉJOURS PASSÉS
-// ============================================================================
-
-/**
- * Filtre pour les séjours passés dans les Query Loop
- */
-// function filter_sejours_passes_query($block_query, $block, $page)
-// {
-//     // Vérifier si c'est un bloc Query Loop avec l'attribut 'sejours-passes'
-//     $is_sejours_passes = false;
-
-//     if (is_object($block) && isset($block->parsed_block['attrs']['className'])) {
-//         $is_sejours_passes = strpos($block->parsed_block['attrs']['className'], 'sejours-passes') !== false;
-//     } elseif (is_array($block) && isset($block['attrs']['className'])) {
-//         $is_sejours_passes = strpos($block['attrs']['className'], 'sejours-passes') !== false;
-//     }
-
-//     // Si c'est un bloc pour les séjours passés
-//     if ($is_sejours_passes) {
-//         // S'assurer que c'est bien des produits
-//         $block_query['post_type'] = 'product';
-
-//         // Date d'aujourd'hui au format ACF (YYYYMMDD)
-//         $today = date('Ymd');
-
-//         // Ajouter la meta query pour filtrer par date
-//         if (!isset($block_query['meta_query'])) {
-//             $block_query['meta_query'] = array();
-//         }
-
-//         // Filtrer les séjours dont la date est antérieure à aujourd'hui
-//         $block_query['meta_query'][] = array(
-//             'key' => 'date_sejour',
-//             'value' => $today,
-//             'compare' => '<',
-//             'type' => 'DATE'
-//         );
-
-//         // Ajouter une relation AND pour la meta_query si nécessaire
-//         if (count($block_query['meta_query']) > 1) {
-//             $block_query['meta_query']['relation'] = 'AND';
-//         }
-
-//         // Configurer le tri par date ACF (plus récents en premier)
-//         $block_query['meta_key'] = 'date_sejour';
-//         $block_query['orderby'] = 'meta_value';
-//         $block_query['order'] = 'DESC';
-
-//         // S'assurer qu'on a des résultats
-//         $block_query['posts_per_page'] = $block_query['posts_per_page'] ?? 6;
-//     }
-
-//     return $block_query;
-// }
-// add_filter('query_loop_block_query_vars', 'filter_sejours_passes_query', 10, 3);
-
 /**
  * Corriger les warnings liés aux walkers WordPress
  */
@@ -598,11 +525,7 @@ function group_price_to_formule()
 {
     if (is_product()) {
         echo '<div class="sejour-field sejour-price">';
-        // Afficher le prix du produit WooCommerce
-        // global $product;
-        // if ($product) {
-        //     echo '<p class="price">' . $product->get_price_html() . '</p>';
-        // }
+        
 
         echo '<ul class="formule-list">';
         $formule = get_field('formule');

@@ -1,0 +1,11 @@
+@use '../breakpoints' as *;
+
+
+.section-nuptiale{
+    .is-layout-grid {
+        @include max-width('md') {
+            grid-template-columns: 1fr;
+            max-width: 100%!important;
+        }
+    }
+}
